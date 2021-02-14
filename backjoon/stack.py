@@ -1,40 +1,39 @@
-a,b = input().split()
-print(a)
-print(b)
-
 
 num = input()
 num = int(num)
-stack = []
+stack = [0 for i in range(num)]
 count = 0
-top = 0
+top = -1
 while count != num:
     call = input()
 
     if call == "top":
-        if not stack:
+        if top == -1:
             print("-1")
         else:
-            print(stack[0])
+            print(stack[top])
     elif call == "pop":
-        if not stack:
+        if top == -1 :
             print("-1")
         else:
-            print(stack[0])
-            temp = []
-            for i in range(len(stack) + 1):
-                temp[i] = stack[i+1]
+            print(stack[top])
+            temp = [0 for i in range(num)]
+            for i in range(top):
+                temp[i] = stack[i]
             stack = temp
+            top += -1
     elif call == "size":
-        print(len(stack))
+        print(top + 1)
     elif call == "empty":
-        if stack is not None:
-            print("0")
-        else:
+        if top == -1:
             print("1")
-    else :
-        call,param = input().split()
+        else:
+            print("0")
+    elif call[0:4] == "push":
+        call, param = call.split()
         param = int(param)
-        stack[top] = param
         top += 1
+        stack[top] = param
+    else :
+        print("No Effect Order...")
     count += 1
