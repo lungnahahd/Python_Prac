@@ -2,9 +2,10 @@ import sys
 input = sys.stdin.readline
 
 first_str = input().strip()
+first_arr = list(first_str)
 num = input()
 num = int(num)
-cursor = len(first_str)
+cursor = len(first_arr)
 
 for i in range(num):
     call = input().strip()
@@ -22,22 +23,12 @@ for i in range(num):
         if cursor == 0:
             continue
         else:
-            if cursor == len(first_str):
-                first_str = first_str[:len(first_str)-1]
-                cursor += -1
-            else:
-                first_str = first_str[: cursor-1] + first_str[cursor:]
-                cursor += -1
+            # print(cursor)
+            del first_arr[cursor -1 ]
+            cursor += -1
     else:
         call, param = call.split()
-        if cursor == 0:
-            first_str = param + first_str
-            cursor += 1
-        elif cursor == len(first_str):
-            first_str = first_str + param
-            cursor += 1
-        else:
-            first_str = first_str[:cursor] + param + first_str[cursor:]
-            cursor += 1
-
-print(first_str)
+        first_arr.insert(cursor , param)
+        cursor += 1
+        
+print(''.join(first_arr))
