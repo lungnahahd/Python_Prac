@@ -1,6 +1,8 @@
 import sys
 input = sys.stdin.readline
 
+
+
 num = input()
 num = int(num)
 stack = [0 for i in range(num)]
