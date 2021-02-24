@@ -7,7 +7,6 @@ count = len(senlist)
 finallist = [0 for i in range(count)]
 temp = [0 for i in range(count)]
 wait = False
-give = False
 head = 0
 last = 0
 if count == 1:
