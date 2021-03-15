@@ -3,17 +3,27 @@ input = sys.stdin.readline
 
 size = input().strip()
 size = int(size)
-count = 0
+count = size - 1
 num = [0 for i in range(size)]
-getnum = input().strip()
-length = len(getnum)
 check = 0
 final = ""
+stack = []
 result = [0 for i in range(size)]
 
-for i in range(size - 1):
-    num[i], getnum = getnum.split(' ',maxsplit=1)
-num[size -1 ] = getnum
+num = list(map(int, input().strip().split()))
+
+for i in range(size):
+    while j in range(count):
+        check = num.pop()
+        if check > num[i]:
+            stack.append(check)
+        num.insert(0, check)
+        num.pop()
+        
+print()
+        
+
+
 
 for i in range(size-1):
     result[i] = num[i]
