@@ -39,7 +39,7 @@ print(count)
 #         break
 #     # 나누기 연산이 가능하다면 한 번 나누어주고 다시 while문 돌기
 #     count += 1
-#     getnum //= target
+#     getnum //= divisionnum
 # # 나눌 수 없고 빼기 연산만 가능한 경우 -1씩 빼주는 연산을 한 번에 수행하기 
 # count += (getnum - 1)
 # print(count)
