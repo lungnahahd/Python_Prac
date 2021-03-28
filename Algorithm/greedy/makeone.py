@@ -35,7 +35,7 @@ print(count)
 #     count += (getnum - target)
 #     getnum = target
 #     # getnum < target이 되면 더 이상 나누기 연산을 할 수 없으므로 반복문 나오기
-#     if getnum < target:
+#     if getnum < divisionnum:
 #         break
 #     # 나누기 연산이 가능하다면 한 번 나누어주고 다시 while문 돌기
 #     count += 1
