@@ -6,12 +6,17 @@ input = sys.stdin.readline
 
 get = input().strip()
 size = len(get)
-num = [0 for i in range(size)]
 resultnum = 0
+#아래처럼 resultnum을 시작부터 get의 첫번째로 받는 것이 좋다
+# resultnum = int(get[0])
+
 
 for i in range(len(get)):
+    #조금 간단한게 조건문 수정 가능
+    #if int(get[i]) <= 1 or resultnum <= 1:
     if int(get[i]) == 1 or int(get[i]) == 0 or resultnum == 0:
         resultnum = resultnum + int(get[i])
     else:
         resultnum = resultnum * int(get[i])
 print(resultnum)
+
