@@ -11,16 +11,19 @@ people = input().strip()
 people = int(people)
 bravelist = input().strip()
 brave = [0 for i in range(people)]
+#group = []
+group = 0
 count = 0
+result = 0
 for i in range(people):
         brave[i] = int(bravelist[count])
         count += 2
+brave.sort()
 
-while True:
-    bignum = 0
-    point = -1
-    for i in range(people):
-        if brave[i] > bignum:
-            bignum = brave[i]
-            point = i
-        
+for i in range(people):
+    check = brave[i]
+    group += 1
+    if group == check:
+        group = 0
+        result += 1
+print(result)
