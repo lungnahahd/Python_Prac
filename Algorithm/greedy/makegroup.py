@@ -27,3 +27,19 @@ for i in range(people):
         group = 0
         result += 1
 print(result)
+
+
+# 모범 코드
+# n = int(input())
+# data = list(map(int,input().split)) # 이 부분 정말 주의 깊게 보기
+# data.sort()
+
+# result = 0 # 총 그룹의 수(최종 결과)
+# count = 0 # 현재 그룹에 포함된 모험가의 수
+
+# for i in data:
+#     count += 1
+#     if count >= i:
+#         result += 1
+#         count = 0
+# print(result)
