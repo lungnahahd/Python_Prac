@@ -34,3 +34,25 @@ for i in range(len(moveplan)):
         start_l = start_l + 1
 
 print(str(start_l) + " " + str(start_r))
+
+
+# # 참고 답안
+# n = int(input()) # 입력 받기
+# x, y = 1, 1 # 초기 위치 설정
+# plans = input().split() # 입력 받기
+# # 방향 벡터를 활용하기(위아래를 한 쌍으로 보기)
+# dx = [0,0,-1,1]
+# dy = [-1,1,0,1]
+# move_types = ['L', 'R', 'U', 'D']
+# #이동 계획을 하나씩 확인하기
+# for plan in plans:
+#     for i in range(len(move_types)):
+#         if plan == move_types[i]:
+#             nx = x + dx[i]
+#             ny = y + dy[i]
+#     # 공간을 벗어나는 경우 무시
+#     if nx < 1 or ny < 1 or nx > n or ny > n:
+#         continue
+#     # 이동 수행
+#     x, y = nx, ny
+# print(x,y)
