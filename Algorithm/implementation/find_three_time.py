@@ -19,4 +19,17 @@ for i in range(hour + 1):
     else:
         count = count + case2
 print(count)
+
+# 파이썬은 1초에 어림잡아 2000만번 연산을 수행 가능
+# 여기서 전체 경우의 수는 24*60*60=86400번 이므로 충분히 하나씩 연산해도 시간 문제 X
+# 참고 답안
+# h = int(input())
+# count = 0
+# for i in range(h+1):
+#     for j in range(60):
+#         for k in range(60):
+#             #시분초를 나열해서 문자열로 만들고 거기서 3이 포함되어 있으면 카운트 증가
+#             if '3' in str(i) + str(j) + str(k):
+#                 count += 1
+# print(count)
     
