@@ -28,3 +28,22 @@ for i in range(4):
                 count += 1
                 
 print(count)
+
+# 참고 답안
+# 여기서는 방향 벡터를 x와 y로 나누지 않고 한 번에 접근
+# 여기서 갈 수 있는 8가지 방향을 모두 방향 벡터를 활용해서 처리
+
+# input_data = input()
+# row = int(input_data[1])
+# col = int(ord(input_data[0])) - int(ord('a')) + 1
+# # 8가지 방향을 모두 방향 벡터로 표시
+# steps = [(-2, -1), (-1, -2), (1, -2), (2, -1), (2, 1), (1, 2), (-1, 2), (-2, 1)]
+
+# result = 0
+# for step in steps:
+#     next_row = row + step[0]
+#     next_col = col + step[1]
+
+#     if next_row >= 1 and next_row <= 8 and next_col >= 1 and next_col <= 8:
+#         result +=1 
+# print(result)
