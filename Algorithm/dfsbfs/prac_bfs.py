@@ -1,4 +1,18 @@
 # bfs 생성 및 그래프 표현 연습 코드
+from collections import deque
+
+#BFS 함수 구현
+def bfs(graph, start, visitied):
+    queue = deque([start])
+    visitied[start] = True
+    while queue:
+        v = queue.popleft()
+        print(v, end= ' ')
+        for i in graph[v]:
+            if not visited[i]:
+                queue.append(i)
+                visited[i] = True
+
 
 
 
