@@ -1,7 +1,8 @@
 # bfs 생성 및 그래프 표현 연습 코드
 from collections import deque
 
-#BFS 함수 구현
+# BFS 함수 구현
+# 참고로 DFS와는 달리 재귀함수를 사용하지 않고 queue만을 활용
 def bfs(graph, start, visitied):
     queue = deque([start])
     visitied[start] = True
@@ -33,3 +34,5 @@ graph = [
 # 노드의 방문 여부를 리스트로 표현
 # 여기서도 노드를 1부터 시작하기 위해 리스트를 실제 노드보다 하나 더 크게 구현
 visited = [False] * 9
+
+bfs(graph, 1, visited)
