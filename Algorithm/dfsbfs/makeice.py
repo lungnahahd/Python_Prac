@@ -11,25 +11,33 @@ size = input().split()
 row = int(size[0])
 col = int(size[1])
 ice = []
-check = []
 # 행렬 구현
 for i in range(row):
     list = input().strip()
     icelist = []
-    clist = []
     for j in range(col):
         icelist.append(int(list[j]))
-        if int(list[j]) == 0:
-            clist.append(True)
-        else:
-            clist.append(False)
     ice.append(icelist)
-    check.append(clist)
-# 아이스크림 갯수 확인
+# 아이스크림 갯수 확인 
+def coldice(x,y):
+    ice[x,y] = 0
+    if x-1 >= 0:
+        if ice[x-1,y] == 1:
+            coldice(x-1,y)
+    elif x+1 < col:
+        if ice[x+1,y] == 1:
+            coldice(x+1,y)
+    elif y-1 >= 0:
+        if ice[x,y-1] == 1:
+            coldice(x,y-1)
+    elif y+1 < row:
+        if ice[x,y+1] == 1:
+            coldice(x,y+1)
+
 count = 0
 for i in range(row):
     for j in range(col):
-        if check[row,col]:
-               
-        count = count + 1
-
+        if ice[i,j] == 1:
+            count = count+1
+            coldice(i,j)
+print(count)
