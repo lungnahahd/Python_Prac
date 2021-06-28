@@ -20,24 +20,24 @@ for i in range(row):
     ice.append(icelist)
 # 아이스크림 갯수 확인 
 def coldice(x,y):
-    ice[x,y] = 0
+    ice[x][y] = 1
     if x-1 >= 0:
-        if ice[x-1,y] == 1:
+        if ice[x-1][y] == 0:
             coldice(x-1,y)
     elif x+1 < col:
-        if ice[x+1,y] == 1:
+        if ice[x+1][y] == 0:
             coldice(x+1,y)
     elif y-1 >= 0:
-        if ice[x,y-1] == 1:
+        if ice[x][y-1] == 0:
             coldice(x,y-1)
     elif y+1 < row:
-        if ice[x,y+1] == 1:
+        if ice[x][y+1] == 0:
             coldice(x,y+1)
 
 count = 0
 for i in range(row):
     for j in range(col):
-        if ice[i,j] == 1:
-            count = count+1
+        if ice[i][j] == 0:
             coldice(i,j)
+            count = count+1
 print(count)
