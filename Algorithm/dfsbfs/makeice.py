@@ -18,6 +18,12 @@ for i in range(row):
     for j in range(col):
         icelist.append(int(list[j]))
     ice.append(icelist)
+
+# 행렬 간단 구현
+# graph = []
+# for i in range(row):
+#   graph.append(list(map(int,input()))
+
 # 아이스크림 갯수 확인 
 def coldice(x,y):
     if x < 0 or x >= row or y < 0 or y >= col:
@@ -32,18 +38,6 @@ def coldice(x,y):
             coldice(x,y-1)
             coldice(x,y+1)
             return True
-    # if x-1 >= 0:
-    #     if ice[x-1][y] == 0:
-    #         coldice(x-1,y)
-    # elif x+1 < col:
-    #     if ice[x+1][y] == 0:
-    #         coldice(x+1,y)
-    # elif y-1 >= 0:
-    #     if ice[x][y-1] == 0:
-    #         coldice(x,y-1)
-    # elif y+1 < row:
-    #     if ice[x][y+1] == 0:
-    #         coldice(x,y+1)
 
 count = 0
 for i in range(row):
