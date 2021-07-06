@@ -3,13 +3,17 @@
 # 최소 이동 칸의 갯수를 출력(미로는 반드시 탈출 가능한 형태)
 # 최단 거리를 구하는 것이므로 BFS를 이용함을 인지하고 구현 시작
 
+from collections import deque
 import sys
 input = sys.stdin.readline
+
+def bfs(graph,start, visited):
+    queue = deque([start])
 
 size = input().split()
 row = int(size[0])
 col = int(size[1])
-count = 0
+count = 1
 x = 0
 y = 0
 saverow = []
@@ -19,6 +23,18 @@ savecol = []
 maze = []
 for i in range(row):
     maze.append(list(map(int,input())))
+
+while x != col-1 and y != row -1:
+    count = count + 1
+    if x-1 >= 0 :
+        if maze[x-1][y] == 1:
+            maze[x-1][y] = count
+    if x + 1 < col:
+        if maze[x+1][y] == 1:
+            maze[x+1][y] = count
+
+
+
 
 while x != col-1 and y != row-1:
     if maze[x][y+1] == 1:
