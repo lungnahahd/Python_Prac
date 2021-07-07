@@ -7,39 +7,35 @@ from collections import deque
 import sys
 input = sys.stdin.readline
 
-def bfs(graph,start, visited):
-    queue = deque([start])
 
 size = input().split()
 row = int(size[0])
 col = int(size[1])
-count = 1
-x = 0
-y = 0
-saverow = []
-savecol = []
 
+rowy = [-1,1,0,0]
+colx = [0,0-1,1]
 # 행렬 간단 구현
 maze = []
 for i in range(row):
-    maze.append(list(map(int,input())))
-
-while x != col-1 and y != row -1:
-    count = count + 1
-    if x-1 >= 0 :
-        if maze[x-1][y] == 1:
-            maze[x-1][y] = count
-    if x + 1 < col:
-        if maze[x+1][y] == 1:
-            maze[x+1][y] = count
+    list = input().strip()
+    icelist = []
+    for j in range(col):
+        icelist.append(int(list[j]))
+    maze.append(icelist)
 
 
 
+def bfs(x,y):
+    queue = deque()
+    while queue:
+        y,x = deque.popleft()
+        
+        for i in range(4):
+            if y + rowy[i] < 0 or y + rowy[i] >= row or x + colx[i] < 0 or x + colx[i] >= col:
+                continue
+            if maze[y+rowy[i]][x+colx[i]] == 1:
+               queue.append((y+row[i],x+colx))
+               maze[y+row[i]][x+colx[i]] = maze[y][x] + 1
+               print("yes")
 
-while x != col-1 and y != row-1:
-    if maze[x][y+1] == 1:
-        y = y + 1
-        count = count + 1
-        saverow.append(x)
-        savecol.append(y)
-    elif maze[]
+bfs(0,0)
