@@ -13,7 +13,7 @@ row = int(size[0])
 col = int(size[1])
 
 rowy = [-1,1,0,0]
-colx = [0,0-1,1]
+colx = [0,0,-1,1]
 # 행렬 간단 구현
 maze = []
 for i in range(row):
@@ -27,15 +27,16 @@ for i in range(row):
 
 def bfs(x,y):
     queue = deque()
+    queue.append((y,x))
     while queue:
-        y,x = deque.popleft()
-        
+        y,x = queue.popleft()
         for i in range(4):
             if y + rowy[i] < 0 or y + rowy[i] >= row or x + colx[i] < 0 or x + colx[i] >= col:
                 continue
             if maze[y+rowy[i]][x+colx[i]] == 1:
-               queue.append((y+row[i],x+colx))
-               maze[y+row[i]][x+colx[i]] = maze[y][x] + 1
-               print("yes")
+               queue.append((y+rowy[i],x+colx[i]))
+               maze[y+rowy[i]][x+colx[i]] = maze[y][x] + 1
+    
+    print(maze[row-1][col-1])
 
 bfs(0,0)
