@@ -10,8 +10,8 @@ locate = 0
 while size > 0:
     minnum = locate
     for i in range(size):
-        if minnum != i and array[minnum] > array[i]:
-            minnum = i
+        if i != 0 and array[minnum] > array[locate + i]:
+            minnum = locate + i
     if minnum != locate:
         array[minnum],array[locate] = array[locate],array[minnum]
     size = size -1
