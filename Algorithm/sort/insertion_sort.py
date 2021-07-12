@@ -13,3 +13,12 @@ for i in range(len(array)):
             array[i-1],array[i] = array[i],array[i-1]
             i = i -1
 print(array)
+
+# 참고 답안
+# for i in range(1, len(array)): # 1부터 시작하기 위한 범위 설정
+#     for j in range(i, 0, -1): # 인덱스 i부터 1까지 -1씩 감소하면서 반복
+#         if array[j] < array[j -1]:
+#             array[j],array[j-1] = array[j-1], array[j]
+#         else:
+#             break
+# print(array)
