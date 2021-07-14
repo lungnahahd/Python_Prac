@@ -6,30 +6,27 @@ array = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8]
 
 def quicksort(array, start, end):
     if start >= end:
-        return array
+        return 
     right = end
     left = start + 1
-    done_left = False
-    done_right = False
-    done = False
+    first = True
     while left < right:
-        if array[left] < array[start] and not done_left:
+        if not first:
+            array[right],array[left] = array[left], array[right]
+        first = False
+        while left <= end:
+            if array[start] < array[left]:
+                break
             left = left + 1
-            done
-        else:
-            done_left = True
-        if array[right] > array[start] and not done_right:
+        while right > start:
+            if array[start] > array[right]:
+                break
             right = right - 1
-        else:
-            done_right = True
-        if done_right and done_left:
-            done_left = False
-            done_right = False
-            array[left],array[right] = array[right],array[left]
-            break
-    if not done_right or not done_left:
-        array[left],array[start] = array[start],array[left]
-        quicksort(array, start, left - 1)
-        quicksort(array,left + 1, end)
-result = quicksort(array,0,len(array))
-print(result)
+    array[left],array[start] = array[start], array[left]
+    print(array)
+    quicksort(array,start+1,left -1)
+    if left + 1 <= end:
+        quicksort(array,left+1,end)
+
+print(quicksort(array,0,len(array)-1))
+
