@@ -9,11 +9,7 @@ def quicksort(array, start, end):
         return 
     right = end
     left = start + 1
-    first = True
-    while left < right:
-        if not first:
-            array[right],array[left] = array[left], array[right]
-        first = False
+    while left <= right:
         while left <= end:
             if array[start] < array[left]:
                 break
@@ -22,11 +18,14 @@ def quicksort(array, start, end):
             if array[start] > array[right]:
                 break
             right = right - 1
-    array[left],array[start] = array[start], array[left]
+        if left > right:
+            array[right],array[start] = array[start], array[right]
+            break
+        else:
+            array[right],array[left] = array[left], array[right]
     print(array)
-    quicksort(array,start+1,left -1)
-    if left + 1 <= end:
-        quicksort(array,left+1,end)
+    quicksort(array,start,right -1)
+    quicksort(array,right+1,end)
 
-print(quicksort(array,0,len(array)-1))
-
+quicksort(array,0,len(array)-1)
+print(array)
