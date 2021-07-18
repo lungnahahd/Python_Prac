@@ -16,3 +16,13 @@ for i in range(max(array) + 1):
         array[point] = i
         point += 1
 print(array)
+
+# # 참고 코드
+# count = [0] * (max(array) + 1)
+# # 각 데이터에 해당하는 인덱스 값 증가
+# for i in range(len(array)):
+#     count[array[i]] += 1
+# # 리스트에 기록된 정렬 정보 확인
+# for i in range(len(count)):
+#     for j in range(count[i]):
+#         print(i, end = ' ') # 띄어씌기로 정렬 결과를 표현
