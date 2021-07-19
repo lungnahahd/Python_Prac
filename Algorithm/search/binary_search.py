@@ -9,6 +9,7 @@ result = -1
 
 def binarysearch(want, array, center):
     if want > array[center]:
+        # center = center + ((len(array) - center) // 2)
         center = center + (center//2)
         binarysearch(want, array, center)
     elif want <array[center]:
