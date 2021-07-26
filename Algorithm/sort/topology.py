@@ -29,18 +29,17 @@ for i in range(line):
     incost[end] += 1
 
 def checkcostzero(a):
-    point = 0
+    point = []
     global node
     for i in range(1,node + 1):
         if a[i] == 0 and not check[i]:
-            point = i
+            point.append(i)
             check[i] = True
-            break
     return point
 
 sort_result = []
 result = []
-result.append(checkcostzero(incost))
+result = checkcostzero(incost)
 sort_result.append(result[0])
 
 while len(result) != 0:
@@ -50,9 +49,7 @@ while len(result) != 0:
         incost[point_list] -= 1
 
     go = checkcostzero(incost)
-    if go == 0:
-        break
-    result.append(go)
-    sort_result.append(go)
-
+    result += go
+    sort_result += go
+    
 print(sort_result)
