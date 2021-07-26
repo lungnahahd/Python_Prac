@@ -22,7 +22,6 @@ paranet.append(0)
 for i in range(1, node+1):
     paranet.append(i)
 
-
 distance = []
 for i in range(line):
     a, b, c = map(int, input().split())
@@ -43,14 +42,9 @@ def Union(start, end):
 while len(distance) != 0:
     get = heapq.heappop(distance)
     if FindParanet(get[1][0]) == FindParanet(get[1][1]):
-    #if FindParanet(heapq.heappop(distance)[1][0]) == FindParanet(heapq.heappop(distance)[1][1]) :
         continue
     else :
-        Union(get[1][0], get[1][1])
+        Union(FindParanet(get[1][0]),FindParanet(get[1][1]))
         result += get[0]
-        # Union(heapq.heappop(distance)[1][0], heapq.heappop(distance)[1][1])
-        # result += heapq.heappop(distance)[0]
-
+ 
 print(result)
-
-# print(heapq.heappop(distance)[1][0]) # 출발점을 나타내는 코드
