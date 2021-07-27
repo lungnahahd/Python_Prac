@@ -10,7 +10,7 @@ half = int(math.sqrt((int(num_check)))) + 1
 
 check = True
 for i in range(2,half+1):
-    if int(num_check) % i == 0 :
+    if int(num_check) % i == 0 and int(num_check) != i:
         check = False
         break
 if check:
