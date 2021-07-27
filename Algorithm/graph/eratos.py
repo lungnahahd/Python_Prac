@@ -19,11 +19,11 @@ for i in range(2,num_range + 1):
         result_count += 1
         result_list.append(i)
         count = 2
-        num = num * count
+        num = i * count
         while num <= num_range:
             check[num] = False
             count += 1
-            num = num * count
+            num = i * count
             
     else:
         continue
