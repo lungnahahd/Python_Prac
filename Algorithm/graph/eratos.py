@@ -8,8 +8,9 @@ num_range = int(num_range)
 
 result_count = 0
 result_list = []
-
-check = [True for i in range(2, num_range + 1)]
+check1 = [False for i in range(0,2)]
+check2 = [True for i in range(2, num_range + 1)]
+check = check1 + check2
 
 for i in range(2,num_range + 1):
     if check[i]:
@@ -23,6 +24,7 @@ for i in range(2,num_range + 1):
             check[num] = False
             count += 1
             num = num * count
+            
     else:
         continue
 
