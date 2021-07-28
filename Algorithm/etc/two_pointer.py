@@ -11,21 +11,31 @@ wantsum = int(want)
 
 array = [1,2,3,2,5]
 
+big = False
 startPointer = 0
 endPointer = 0
+checksum = 0
 count = 0
 
-for i in range(wantsum):
+while startPointer <= endPointer and endPointer < len(array):
     if startPointer == endPointer:
-        check = array[startPointer]
-    else:
-        check = array[startPointer] + array[endPointer]
-        if wantsum > check:
-            endPointer += 1
-        elif wantsum < check:
-            startPointer += 1
-        else:
-            count += 1
-    if startPointer > endPointer or endPointer > wantsum:
-        break
+        checksum = array[startPointer]
+        if endPointer == len(array):
+            break
+    elif big:
+        checksum += array[endPointer]
+        big = False
+    if checksum == wantsum:
+        count += 1
+        checksum -= array[startPointer]
+        startPointer +=1
+    elif wantsum > checksum:
+        endPointer += 1
+        big = True
+        if endPointer > len(array):
+            break
+    elif wantsum < checksum:
+        checksum -= array[startPointer]
+        startPointer += 1
+
 print(count)
