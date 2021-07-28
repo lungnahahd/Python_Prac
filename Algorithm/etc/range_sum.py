@@ -9,6 +9,7 @@ wantcount = int(wantcount)
 end = 0
 array = [1,2,3,2,5]
 sumarray = []
+sumarray.append(0)
 sum = 0
 while end < len(array):
     sum += array[end]
