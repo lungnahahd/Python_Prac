@@ -53,3 +53,45 @@ while len(result) != 0:
     sort_result += go
     
 print(sort_result)
+
+## 참고 코드
+# from collections import deque
+
+# # 노드와 간선을 입력 받기
+# node, line = map(int, input().split())
+# # 모든 노든에 진입 차수를 0으로 지정
+# indegree = [0] * (node + 1)
+# # 간선의 정보를 담기 위한 배열 생성
+# graph = [[] for i in range(node + 1)]
+
+# # 간선의 정보를 입력 받아서 관련 내용을 업데이트 시키는 부분
+# for _ in range(line):
+#     a, b = map(int, input().split())
+#     graph[a].append(b) # (a,b) 간선 내용을 배열에 저장
+#     indegree[b] += 1 # 간선을 보고 진입 차수를 1 증가
+
+
+# def topology(node, cost_list, line_value):
+#     result = [] # 위상 정렬의 결과를 담을 배열
+#     q = deque() # Queue의 기능을 수행
+
+#     # 처음에 진입차수가 0인 노드를 Queue에 넣기
+#     for i in range(1, node + 1):
+#         if cost_list[i] == 0:
+#             q.append(i)
+            
+    
+#     while q:
+#         # Queue에서 하나씩 꺼내고 꺼낸 것은 바로 결과 배열로 넣어주기
+#         now = q.popleft()
+#         result.append(now)
+
+#         # 방금 Queue에서 꺼낸 노드의 진출 간선을 하나씩 제거하고 그때 진입 차수가 0이 되는 것은 Queue에 넣어주기
+#         for i in line_value[now]:
+#             cost_list[i] -= 1
+#             if cost_list[i] == 0:
+#                 q.append(i)
+    
+#     return result
+
+# print(topology(node,indegree,graph))
