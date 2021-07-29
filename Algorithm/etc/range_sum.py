@@ -22,3 +22,21 @@ for i in range(wantcount):
     startPointer, endPointer = map(int, input().split())
     result = sumarray[endPointer] - sumarray[startPointer - 1]
     print(result)
+    #-----------------------------------
+## 참고 코드
+# datacount = 5
+# array = [1,2,3,2,5]
+
+# sum = 0
+# prefix_sum = [0] # 구간 합을 미리 구하는 배열 
+
+# # 구간 합을 미리 구하는 부분
+# for i in array:
+#     sum += i
+#     prefix_sum.append(sum)
+
+# left = 3
+# right = 5
+# # 실제 구간 합을 도출하는 부분
+# result = prefix_sum[right] - prefix_sum[left - 1]
+# print(result)
