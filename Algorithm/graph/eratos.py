@@ -30,3 +30,34 @@ for i in range(2,num_range + 1):
 
 print(result_count)
 print(result_list)
+
+
+
+
+
+### 참고 코드
+# import math
+
+
+# numrange = 281
+# # 해당 점을 확인 했는지 판별해주는 배열 생성
+# check_array = [True for i in range(numrange + 1)]
+# check_array[0] = False
+# check_array[1] = False
+
+# result = []
+
+# # 소수 판별 알고리즘과 동일하게 제곱근보다 큰 경우는 생각해주지 않아도 된다. -> 시간 절약
+# for i in range(2, int(math.sqrt(numrange)) + 1):
+#     if check_array[i] :
+#         j = 2
+#         #result.append(i)
+#         # check_array[i] = False
+#         while i * j <= numrange:
+#             check_array[i*j] = False
+#             j += 1
+
+# # 전체 소수를 출력하는 부분
+# for i in range(2, numrange + 1):
+#     if check_array[i]:
+#         print(i, end=' ')
