@@ -10,7 +10,7 @@ want = input("원하는 구간 합을 입력하시오 : ")
 wantsum = int(want)
 
 array = [1,2,3,2,5]
-
+#array = [3,1,1,1,1]
 big = False
 startPointer = 0
 endPointer = 0
@@ -27,8 +27,12 @@ while startPointer <= endPointer and endPointer < len(array):
         big = False
     if checksum == wantsum:
         count += 1
-        checksum -= array[startPointer]
-        startPointer +=1
+        if startPointer == endPointer:
+            startPointer += 1
+            endPointer += 1
+        else:
+            checksum -= array[startPointer]
+            startPointer +=1
     elif wantsum > checksum:
         endPointer += 1
         big = True
