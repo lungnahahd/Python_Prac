@@ -17,3 +17,15 @@ if check:
     print("해당 수는 소수가 맞습니다.")
 else:
     print("해당 수는 소수가 아닙니다.")
+
+    ## 참고 코드
+# import math
+
+# def is_prime_number(x):
+#     for i in range(2,int(math.sqrt(x)) + 1):
+#         if x % i == 0 :
+#             return "Not Prime"
+#         else:
+#             return "Prime"
+
+# print(is_prime_number(17))
