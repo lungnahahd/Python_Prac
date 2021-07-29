@@ -43,3 +43,21 @@ while startPointer <= endPointer and endPointer < len(array):
         startPointer += 1
 
 print(count)
+# -----------------------------------------------------
+## 참고 코드
+# datanum, datasum = 5, 5
+# data = [1,2,3,2,5]
+
+# count = 0
+# partial_sum = 0
+# end = 0
+
+# for start in range(datanum):
+#     while partial_sum < datasum and end < datanum :
+#         partial_sum += data[end]
+#         end += 1
+#     if partial_sum == datasum:
+#         count += 1
+#     partial_sum -= data[start]
+
+# print(count)
