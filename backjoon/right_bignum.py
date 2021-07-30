@@ -1,41 +1,35 @@
+# 백준 오큰수 문제
+## 첫째 줄에 수열의 크기 N이 주어지고, 둘째 줄부터는 수열 자체가 입력
+### 수열이 하나씩 모두 대상이 되면서 대상보다 오른쪽에서 큰 수를 확인
+### 그 중 가장 대상이랑 가까운, 즉 가장 왼쪽에 있는 수를 선택
+
 import sys
+
 input = sys.stdin.readline
+size = int(input())
 
-size = input().strip()
-size = int(size)
-count = size - 1
-num = [0 for i in range(size)]
-check = 0
-final = ""
-stack = []
-result = [0 for i in range(size)]
+num_array = []
+result = []
+num_list = input()
+num_array = num_list.split()
 
-num = list(map(int, input().strip().split()))
+# 한 칸씩 이동시킬 변수
+count = 1
 
-for i in range(size):
-    while j in range(count):
-        check = num.pop()
-        if check > num[i]:
-            stack.append(check)
-        num.insert(0, check)
-        num.pop()
-        
-print()
-        
+if size != 1:
+    for i in num_array:
+        check = count
+        while check < len(num_array):
+            if int(i) < int(num_array[check]):
+                result.append(int(num_array[check]))
+                break
+            else:
+                if check == (len(num_array) - 1):
+                    result.append(-1)
+                    break
+                check += 1
+        count += 1
+result.append(-1)
 
-
-
-for i in range(size-1):
-    result[i] = num[i]
-    for j in range(size - i):
-        if num[i] < num[j + i]:
-            result[i] = num[j+ i]
-            final = final + str(result[i]) + ' '
-            break
-    if result[i] == num[i]:
-        result[i] = -1
-        final = final + str(result[i]) + ' '
-
-final = final + "-1"
-
-print(final)
+for i in result:
+    print(i, end=' ')
