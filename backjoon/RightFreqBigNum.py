@@ -24,8 +24,8 @@ tempSave = []
 tempSave.append(0)
 for i in range(1, size):
     for j in range(len(tempSave)):
-        if freq[tempSave[-1]] < freq[i]:
-            result[tempSave.pop()] = freq[numArray[i]]
+        if freq[numArray[tempSave[-1]]] < freq[numArray[i]]:
+            result[tempSave.pop()] = numArray[i]
         else:
             break
     tempSave.append(i)
