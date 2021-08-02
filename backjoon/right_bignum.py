@@ -22,10 +22,12 @@ tempSave = []
 tempSave.append(0)
 
 for i in range(1, size):
-    for i in range(len(tempSave)):
+    for j in range(len(tempSave)):
         if num_array[tempSave[-1]] < num_array[i]:
             result[tempSave.pop()] = num_array[i]
         else:
             break
     tempSave.append(i)
-print(tempSave)
+
+for i in range(size):
+    print(result[i], end=' ')
