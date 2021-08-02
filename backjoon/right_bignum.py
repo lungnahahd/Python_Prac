@@ -4,36 +4,28 @@
 ### 그 중 가장 대상이랑 가까운, 즉 가장 왼쪽에 있는 수를 선택
 
 import sys
-from collections import deque
 
 input = sys.stdin.readline
 size = int(input())
 
-
-result = []
+# 결과를 담는 배열
+result = [-1 for i in range(size)]
+# 숫자열을 나열 받는 부분
 num_list = input()
 num_array = num_list.split()
-# num_array = deque(num_array)
 
-# 한 칸씩 이동시킬 변수
-count = 1
-if size != 1:
-    for i in range(size):
-        #check = count
-        count = 1
-        while count < len(num_array):
-            if int(num_array[0]) < int(num_array[count]):
-                result.append(int(num_array[count]))
-                del num_array[0]
-                break
-            else:
-                if count == (len(num_array) - 1):
-                    result.append(-1)
-                    del num_array[0]
-                    break
-                count += 1
-       # count += 1
-result.append(-1)
+# 배열을 숫자로 형변환하는 부분
+for i in range(size):
+    num_array[i] = int(num_array[i])
 
-for i in result:
-    print(i, end=' ')
+tempSave = []
+tempSave.append(0)
+
+for i in range(1, size):
+    for i in range(len(tempSave)):
+        if num_array[tempSave[-1]] < num_array[i]:
+            result[tempSave.pop()] = num_array[i]
+        else:
+            break
+    tempSave.append(i)
+print(tempSave)
