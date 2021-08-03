@@ -45,4 +45,4 @@ for i in range(1,len(expression) -1 ):
     else:
         result = c
 
-print(result)
+print("%.2f"%result)
