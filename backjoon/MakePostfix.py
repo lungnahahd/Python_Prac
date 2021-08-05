@@ -4,41 +4,33 @@
 #### 
 
 import sys
-from typing import Protocol
 input = sys.stdin.readline
 
 expression = input()
 expression = list(expression)
 expression = expression[:-1]
-# 중위 표현식에서 우선순위를 나타내는 딕셔너리
-priArray = {'(' : 0, ')' : -1, '*' : 1, '/' : 1, '+' : 2, '-' : 2}
-# 결과를 담는 변수
+stack = []
 result = ""
-# 연산자를 임시적으로 담는 변수
-tempSave = []
-# 현재 진행 상황을 나타내는 변수
-progress = 0
 
-while progress < len(expression):
-    if expression[progress].isupper():
-        result += expression[progress]
+for x in expression:
+    if x.isalpha():
+        result += x
     else:
-        if expression[progress+1].isupper():
-            if tempSave:
-                if priArray[tempSave[-1]] >= priArray[expression[progress]]:
-                    result += expression[progress + 1]
-                    result += expression[progress]
-                    progress += 1
-                else:
-                    result += expression[progress + 1]
-                    result += tempSave.pop()
-                    tempSave.append(expression[progress])
-            else:
-                tempSave.append(expression[progress])        
-    progress += 1
+        if x == "(":
+            stack.append(x)
+        elif x == "*" or x == "/":
+            while stack and (stack[-1] == "*" or stack[-1] == "/"):
+                result += stack.pop()
+            stack.append(x)
+        elif x == "+" or x == "-":
+            while stack and stack[-1] != '(' :
+                result += stack.pop()
+            stack.append(x)
+        elif x == ')':
+            while stack and stack[-1] != '(':
+                result += stack.pop()
+            stack.pop()
 
-if tempSave:
-    while len(tempSave) != 0:
-        result += tempSave.pop()
-
+while stack:
+    result += stack.pop()
 print(result)
