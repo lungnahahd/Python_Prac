@@ -25,9 +25,9 @@ while True:
     while count != len(getString):
         if ord(getString[count]) >= 65 and ord(getString[count]) <= 90:
             result[1] += 1
-        elif ord(getString[count]) and ord(getString[count]) <= 122:
+        elif ord(getString[count])>= 97 and ord(getString[count]) <= 122:
             result[0] += 1
-        elif ord(getString[count]) and ord(getString[count]) <= 57:
+        elif ord(getString[count])>= 48 and ord(getString[count]) <= 57:
             result[2] += 1
         else : 
             result[3] += 1
