@@ -7,22 +7,23 @@
 
 import sys
 input = sys.stdin.readline
-
-# while True:
-#     getString = input()
-#     getString = getString.rstrip('\n')
-#     print(getString[1])
-
+# 결과를 입력 받는 배열
 result = [0 for i in range(4)]
 resultString = []
 count = 0
+
 while True:
     getString = input()
+    # 오른쪽에 엔터 입력을 지워주고 문자열에 담기
     getString = getString.rstrip('\n')
+    # 엔터 입력만, 즉 더 이상 입력을 안 주었을 경우 실행
     if not getString:
+        # 배열을 문자열로 하는 부분
+        # 엔터랑 공백은 문자열에 들어가지 않으므로 str로 문자열로 받아들일 수 있도록 처리하는 과정이 필요
         print("".join(map(str,resultString)))
         break
     while count != len(getString):
+        # 아스키코드를 활용해서 구분하는 부분 -> 이 외에도 .isUpper 등으로 처리할 수 있는 것도 고려하기
         if ord(getString[count]) >= 65 and ord(getString[count]) <= 90:
             result[1] += 1
         elif ord(getString[count])>= 97 and ord(getString[count]) <= 122:
@@ -32,9 +33,12 @@ while True:
         else : 
             result[3] += 1
         count += 1
+    # 소문자, 대문자, 숫자, 공백을 순서대로 배열에 담는 부분
     for i in result:
         resultString.append(i)
         resultString.append(' ')
+    # 공백을 기준으로 문자열 결과를 나누어서 담기
     resultString.append('\n')
+    # 다시 문자열을 시작하므로 count랑 문자열 count 배열을 초기화 하는 부분
     count = 0
     result = [0 for i in range(4)]
