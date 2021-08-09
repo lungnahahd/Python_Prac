@@ -10,15 +10,17 @@ input = sys.stdin.readline
 
 getString = input()
 getString = getString[:-1]
+# 입력 받은 문장을 deque에 저장 -> popleft를 쓰기 위함
 temp = deque(getString)
-#temp.popleft()
-#string = ''.join(temp)
-
+# 접미사 배열 생성
 suffixArray = []
 while len(temp) != 0:
+    # deque의 내용을 문자열로 만들어서 접미사 배열에 저장
     stringSuffix = ''.join(temp)
     suffixArray.append(stringSuffix)
+    # 새로운 접미사를 만들기 위해 popleft 활용
     temp.popleft()
+# 접미사 배열을 알파벳 순으로 정렬하고 하나씩 출력하는 과정
 suffixArray.sort()
 for i in suffixArray:
     print(i)
