@@ -10,25 +10,41 @@ caseNum = int(input())
 result = []
 
 for i in range(caseNum):
-    bigNum, smallNum = 0, 0
+    bigNum, smallNUm = 0, 0
     a, b = map(int,input().split())
     if a > b:
         bigNum = a
-        smallNum = b
+        smallNUm = b
     elif a < b:
         bigNum = b
-        smallNum = a
-    elif a == b:
-        result.append(a)
+        smallNUm = a
+    else:
+        result.append(a)    
+        #print(a)
         continue
-    count = 1
+    if smallNUm == 1:
+        result.append(bigNum)
+        #print(bigNum)
+        continue
+    if bigNum % smallNUm == 0 :
+        result.append(bigNum)
+        continue
+    check = smallNUm - 1
     while True:
-        checkNum = count * bigNum
-        if checkNum % smallNum == 0:
-            result.append(checkNum)
-            break
+        if smallNUm % check == 0:
+            if check * bigNum % smallNUm == 0:
+                result.append(check* bigNum)
+                #print(check * bigNum)
+                break
+            else:
+                result.append(bigNum*smallNUm)
+                #print(bigNum * smallNUm)
+                break
         else:
-            count += 1
-
+            check = check - 1
+        if check < smallNUm / 2:
+            result.append(bigNum* smallNUm)
+            break
+    
 for i in result:
     print(i)
