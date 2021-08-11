@@ -6,8 +6,8 @@
 import sys
 input = sys.stdin.readline
 
-caseNum = input()
-result = [0 for i in range(caseNum)]
+caseNum = int(input())
+result = []
 
 for i in range(caseNum):
     bigNum, smallNum = 0, 0
