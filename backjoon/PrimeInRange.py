@@ -5,6 +5,8 @@
 #### 에라토스의 체 알고리즘을 활용해서 문제 해결 가능
 
 import sys
+import math
+
 input = sys.stdin.readline
 
 
@@ -29,15 +31,16 @@ def FindPrime(num):
 
 
 result = []
-for i in range(min,max+1):
+# 제곱근으로 처리해서 시간 줄이기!!!! 중요
+for i in range(2, int(math.sqrt(max))+1):
     if checkBool[i]:
         resultCheck = FindPrime(i)
         if resultCheck:
-            result.append(i)
-            count = 1
+            count = 2
             while i * count <= max:
                 checkBool[i * count] = False
                 count += 1
 
-for i in result:
-    print(i)
+for i in range(2,max+1):
+    if checkBool[i] and i >= min:
+        print(i)
