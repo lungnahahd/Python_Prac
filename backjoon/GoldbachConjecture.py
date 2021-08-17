@@ -7,6 +7,7 @@
 
 import sys
 import math
+from collections import deque
 
 
 input = sys.stdin.readline
@@ -31,14 +32,29 @@ def CheckPrime(checkNum):
     return result
 # 판별할 숫자를 처음 받는 부분
 num = int(input())
+
+goldbach = deque()
+
 # 예제를 반복하는 부분
 while num != 0:
+    conjectureFalse = True
+    goldbach.append(num)
     point = num - 2
     while point > num/2:
         if CheckPrime(point) and CheckPrime(num - point):
-            print(point)
-            print(num - point)
+            goldbach.append(num-point)
+            goldbach.append(point)
+            conjectureFalse = False
             break
         else:
             point -= 1
+    if conjectureFalse:
+        goldbach.append("No")
     num = int(input())
+# 결과를 출력하는 부분
+while goldbach:
+    if goldbach[0] == "No":
+        goldbach.popleft()
+        print("Goldbach's conjecture is wrong.")
+    else:
+        print(str(goldbach.popleft()) + " = " + str(goldbach.popleft())+ " + " + str(goldbach.popleft()))
