@@ -10,24 +10,22 @@ N, M = input().split()
 N = int(N)
 M = int(M)
 
-def Factorial(num):
-    if num == 1 or 0:
-        return 1
-    else:
-        return Factorial(num-1) * num
+# 2로 몇 번 나눌 수 있는가?
+def findTwo(num):
+    count = 0
+    while num != 0:
+        num = num // 2
+        count += num
+    return count
 
-facN = Factorial(N)
-facM = Factorial(M)
-facNM = Factorial(N - M)
+# 5로 몇 번 나눌 수 있는가?
+def findFive(num):
+    count = 0
+    while num != 0:
+        num = num // 5
+        count += num
+    return count
 
-resultNum = int(facN / (facNM * facM)) # 조합을 구하는 수식
-stringResult = list(map(int,str(resultNum)))
-stringResult.reverse()
-count = 0
-check = True
-for i in stringResult:
-    if i == 0 and check:
-        count += 1
-    elif i != 0 and count != 0:
-        check = False
-print(count)
+# 조합의 0을 계산하는 부분
+result = min(findFive(N),findTwo(N)) - min(findTwo(M)+findTwo(N-M),findFive(M)+findFive(N-M))
+print(result)
