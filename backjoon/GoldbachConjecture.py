@@ -9,39 +9,31 @@ import sys
 import math
 from collections import deque
 
-
 input = sys.stdin.readline
-# 소수 판별 함수
-def CheckPrime(checkNum):
-    count = 2
-    result = True
-    num = int(math.sqrt(checkNum)) + 1
-    list = [True for i in range(num)]
-    while count < num :
-        if list[count]:
-            if checkNum % count == 0:
-                result = False
-                break
-        point = count
-        multi = 1
-        while point < num :
-            list[point] = False
-            multi += 1
-            point = point * multi
-        count += 1
-    return result
-# 판별할 숫자를 처음 받는 부분
-num = int(input())
+
+# 에라토스의 체
+mostBigNum = 1000000 # 문제에서 주어진 최대 입력 숫자의 범위
+standard = int(math.sqrt(mostBigNum))
+checkRange = 2
+setNumRange = [True for i in range(mostBigNum)]
+
+while checkRange < standard + 1:
+    multiple = 2
+    while multiple * checkRange < mostBigNum:
+        if setNumRange[multiple * checkRange]:
+            setNumRange[multiple * checkRange] = False
+        multiple += 1
+    checkRange += 1
 
 goldbach = deque()
-
+num = int(input())
 # 예제를 반복하는 부분
 while num != 0:
     conjectureFalse = True
-    goldbach.append(num)
     point = num - 2
-    while point > num/2:
-        if CheckPrime(point) and CheckPrime(num - point):
+    while point >= num/2: # 같은 것 포함 범위 잊지 말기!!!
+        if setNumRange[point] and setNumRange[num-point]:
+            goldbach.append(num)
             goldbach.append(num-point)
             goldbach.append(point)
             conjectureFalse = False
@@ -51,6 +43,7 @@ while num != 0:
     if conjectureFalse:
         goldbach.append("No")
     num = int(input())
+
 # 결과를 출력하는 부분
 while goldbach:
     if goldbach[0] == "No":
