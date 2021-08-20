@@ -10,6 +10,7 @@ a,b = input().split()
 playerNum = int(a)
 catcherWhere = int(b)
 playerWhereList = input().split()
+
 result = 0
 smallest = 0
 
@@ -44,7 +45,10 @@ for i in range(playerNum):
     playerWhere = int(playerWhereList[i])
     if playerWhere > catcherWhere:
         distanceList.append(playerWhere - catcherWhere)
+        if smallest < playerWhere - catcherWhere:
+            smallest = playerWhere - catcherWhere
     else:
-        distanceList.append(catcherWhere-playerWhere)
-    smallest = FindSmall(distanceList)
+        distanceList.append(catcherWhere - playerWhere)
+        if smallest < catcherWhere - playerWhere:
+            smallest = catcherWhere - playerWhere
 print(FindMoveSize(distanceList))
