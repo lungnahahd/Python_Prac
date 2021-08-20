@@ -14,30 +14,12 @@ playerWhereList = input().split()
 result = 0
 smallest = 0
 
-def FindMoveSize(num):
-    global result
-    global smallest
-    count = 2
-    for i in num:
-        check = True
-        while check:
-            if i % smallest == 0:
-                check = False
-            else:
-                while smallest % count != 0:
-                    count += 1
-                smallest = smallest / count
-    return smallest
-
-def FindSmall(list):
-    small = 0 
-    for i in list:
-        if i < small or small == 0:
-            small = i
-        else:
-            continue
-    return small
-
+def gcd(a,b): # 최대 공약수 구하는 공식 -> 제발 암기하기 !!!!!!!!
+    while b:
+        mod = b
+        b = a % b
+        a = mod
+    return a
 
 distanceList = []
 
@@ -51,4 +33,7 @@ for i in range(playerNum):
         distanceList.append(catcherWhere - playerWhere)
         if smallest < catcherWhere - playerWhere:
             smallest = catcherWhere - playerWhere
-print(FindMoveSize(distanceList))
+for i in distanceList:
+    smallest = gcd(i,smallest)
+
+print(int(smallest))
