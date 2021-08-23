@@ -1,3 +1,8 @@
+# 8진수 2진수
+## 8진수가 주어졌을 경우, 이를 2진수로 변환하는 프로그램
+### 출력 : 첫 줄에 8진수가 입력
+### 입력 : 첫 줄에 입력된 8진수를 2진수로 변환한 결과를 출력(입력이 0인 경우를 제외하고는 반드시 1로 시작)
+
 import sys
 input = sys.stdin.readline
 
@@ -42,9 +47,9 @@ else:
             chageResult.append(0)
             chageResult.append(0)
         else:
-            chageResult(0)
-            chageResult(0)
-            chageResult(0)
+            chageResult.append(0)
+            chageResult.append(0)
+            chageResult.append(0)
 
     chageResult.reverse()
     front = True
