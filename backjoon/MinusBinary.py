@@ -8,57 +8,19 @@ input = sys.stdin.readline
 
 decimalNum = int(input()) # 10진수를 받는 부분
 
-getBinaryNum = [] 
-count = 1 # 횟수를 나타내는 변수
-binary = 1 # 각 이진수 값을 나타내는 변수
+############# 진수를 계산할 때, 우리가 아는 진수 계산법을 활용하면 보다 쉽게 구할 수 있음을 명심!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-# -2진수 해결을 위한 배열을 생성하는 과정
-while True:
-    if decimalNum > 0:
-        if count % 2 != 0:
-            if binary >= decimalNum:
-                getBinaryNum.append(binary)
-                break
-        getBinaryNum.append(binary)
-        binary = binary * -2
-    elif decimalNum < 0:
-        if count % 2 == 0:
-            if binary <= decimalNum:
-                getBinaryNum.append(binary)
-                break
-        getBinaryNum.append(binary)
-        binary = binary * -2
-    else:
-        getBinaryNum.append(0)
-        break
-    count += 1
-
-listSize = len(getBinaryNum) - 1
-result = getBinaryNum[listSize]
-binaryResult = []
-binaryResult.append(1)
-
-
-if result > 0:
-    minus = False
+if decimalNum == 0:
+    print(0)
 else:
-    minus = True
-check = abs(decimalNum - result)
-
-for i in range(1,len(getBinaryNum)):
-    if result > decimalNum:
-        if getBinaryNum[listSize - i] < 0:
-            result += getBinaryNum[listSize - i]
-            binaryResult.append(1)
+    result = []
+    while decimalNum != 0:
+        if decimalNum % (-2) == 0:
+            decimalNum = int(decimalNum // (-2))
+            result.append(0)
         else:
-            binaryResult.append(0)
-    elif result < decimalNum:
-        if getBinaryNum[listSize - i] > 0:
-            result += getBinaryNum[listSize -i]
-            binaryResult.append(1)
-        else:
-            binaryResult.append(0)
-    else:
-        binaryResult.append(0)
-for i in binaryResult:
-    print(i, end='')
+            decimalNum = int(decimalNum // (-2)) + 1
+            result.append(1)
+    result.reverse()
+    for i in result:
+        print(i, end='')
