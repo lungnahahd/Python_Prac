@@ -7,7 +7,7 @@
 
 import math
 import sys
-input = sys.stdin.readline
+input = sys.stdin.readlinea
 
 caseNum = int(input()) # 케이스의 갯수를 받는 변수
 bigNum = 1000000 # 문제에서 주어진 최대 범위
