@@ -12,12 +12,12 @@ purchaseNum = int(input()) # 구매하려는 카드의 개수 입력
 getList = list(input().split())
 
 costList = [0 for i in range(purchaseNum + 1)]
-for i in range(purchaseNum ):
+for i in range(purchaseNum ): # 각 카드팩의 가격을 배열을 담기
     costList[i + 1] = int(getList[i])
 
 for i in range(1,purchaseNum + 1):
     check = 1
-    while check <= (i // 2):
+    while check <= (i // 2): # 절반까지만 비교해서 이를 배열에 담으면서 끝까지 진행
         if costList[i] < costList[check] + costList[i - check]:
             costList[i] = costList[check] + costList[i-check]
         check += 1
