@@ -8,7 +8,6 @@ import sys
 input = sys.stdin.readline
 
 caseCount = int(input())
-#countList = [0 for i in range(100001)]
 countList = [[0 for col in range(4)] for row in range(100001)]
 countList[1][1] = 1
 countList[2][2] = 1
@@ -17,14 +16,17 @@ countList[3][2] = 1
 countList[3][3] = 1
 
 for i in range(4,100001):
-    countList[i][1] = countList[i-1][3] + countList[i-1][2]
-    countList[i][2] = countList[i-2][1] + countList[i-2][3]
-    countList[i][3] = countList[i-3][1] + countList[i-3][2]
+    # 파이썬은 정수의 크기에 제한이 없음 
+    # 만약 나누어 주는 경우라면, 한번에 나누어 주는 것이 아니라 중간 중간 나누어 주는 연산을 하는 것이 시간 초과 해결 가능
+    countList[i][1] = (countList[i-1][3] + countList[i-1][2]) %1000000009
+    countList[i][2] = (countList[i-2][1] + countList[i-2][3]) %1000000009
+    countList[i][3] = (countList[i-3][1] + countList[i-3][2]) %1000000009
 
 result = []
 for i in range(caseCount):
     num = int(input())
-    result.append((countList[num][1] + countList[num][2] + countList[num][3])%1000000009)
+    # 결과적으로 다시 한 번 나누어 주어야 원하는 값 도출 가능
+    result.append((countList[num][1] + countList[num][2] + countList[num][3]) % 1000000009)
 
 for i in result:
     print(i)
