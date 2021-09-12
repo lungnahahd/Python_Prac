@@ -30,6 +30,7 @@ def FindPrime(num):
     return result
 
 
+
 result = []
 # 제곱근으로 처리해서 시간 줄이기!!!! 중요
 for i in range(2, int(math.sqrt(max))+1):
