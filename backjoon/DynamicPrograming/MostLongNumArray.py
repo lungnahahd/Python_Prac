@@ -7,8 +7,13 @@ import sys
 input = sys.stdin.readline
 
 size = int(input()) # 수열의 크기
-numList = input().split() # 수열을 입력
+getList = input().split() # 수열을 입력
+numList = []
+for i in getList: # 그냥 split()만 해주면 문자열이 담긴 수열이 생기므로 이를 숫자로 변환하는 과정 필요 !! -> 이것을 안해서 오류 발생
+    numList.append(int(i))
+
 count = [1 for i in range(size)] # 각 수열의 크기를 카운트 해줄 리스트
+
 
 result = 1 # 최종 크기를 나타낼 변수
 for i in range(1,size):
@@ -26,7 +31,6 @@ for i in range(1,size):
         else:
             move -= 1
 print(result)
-print(count)
 
 
-# 1 5 10 3 13 18 15 16 이 왜 6이 안되는가?
+# 1 5 10 3 13 18 15 16 이 왜
