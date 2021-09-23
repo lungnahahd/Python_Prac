@@ -4,6 +4,7 @@
 ### 출력 : 첫 줄에 연속 수열 합의 최대가 출력
 
 import sys
+from typing import Counter, final
 input = sys.stdin.readline
 
 size = int(input())
@@ -12,20 +13,42 @@ numList = []
 for i in get:
     numList.append(int(i))
 
-sumList = []
-sumList.append(numList[0])
-for i in range(1,size):
-    before = sumList[i-1]
-    after = before + numList[i]
-    sumList.append(after)
+tempResult = []
+temp = 0
+for i in numList:
+    if i < 0:
+        if temp == 0:
+            tempResult.append(i)
+        else:
+            tempResult.append(temp)
+            temp = 0
+            tempResult.append(i)
+    elif i >= 0:
+        temp += i
+#print(tempResult)
+tempLarge = max(tempResult)
 
+temp = 0
+finalResult = []
+count = 0
+for i in range(len(tempResult)):   
+    if tempResult[i] < 0 :
+        if i == 0:
+            finalResult.append(tempResult[i])
+        elif i == len(tempResult) - 1:
+            finalResult.append(tempResult[i-1])
+            finalResult.append(tempResult[i])
+        else:
+            if -tempResult[i] < tempResult[i-1] and -tempResult[i] < tempResult[i+1] and tempResult[i-1] > 0 and tempResult[i + 1] > 0:
+                finalResult.append(tempResult[i]+tempResult[i-1] + tempResult[i+1])
+            else:
+                finalResult.append(tempResult[i-1])
+    elif tempResult[i] > 0 and i == len(tempResult) -1 :
+        finalResult.append(tempResult[i])
+finalLarge = max(finalResult)
 
-standard = sumList.index(max(sumList))
-result = sumList[standard]
-for i in range(standard):
-    if sumList[standard] < 0:
-        check = result - sumList[standard]
-        if result < check:
-            result = check
-
-print(result)  
+if finalLarge > tempLarge:
+    print(finalLarge)
+else:
+    print(tempLarge)
+    
