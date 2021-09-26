@@ -9,16 +9,12 @@ input = sys.stdin.readline
 
 num = int(input())
 
-count = 1
-
-def checkSqure(N):
-    global count
-    if int(math.sqrt(N)) == math.sqrt(N):
-        #count += 1
-        return count
-    else:
-        count += 1
-        temp = N - int(math.sqrt(N)) * int(math.sqrt(N))
-        return checkSqure(temp)
-
-print(checkSqure(num))
+result = [i for i in range(num+1)]
+for i in range(1,num+1):
+    for j in range(1,i):
+        if j*j > i:
+            break
+        else:
+            if result[i] > result[i - j*j] + 1: # DP를 활용해서 작은 수부터 처리해서 점점 큰 수로 나아가는 것
+                result[i] = result[i - j*j] + 1
+print(result[num])
