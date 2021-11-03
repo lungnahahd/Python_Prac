@@ -25,4 +25,4 @@ n, k = input().split()
 n = int(n)
 k = int(k)
 
-print(resultArray[k][n])
+print(resultArray[k][n] % largeResult)
