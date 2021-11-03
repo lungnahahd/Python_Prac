@@ -8,3 +8,21 @@ import sys
 input = sys.stdin.readline
 
 largeResult = 1000000000
+
+resultArray = [[0] * 201 for i in range(201)]
+
+for j in range(1,201):
+    resultArray[1][j] = 1
+for i in range(1,201):
+    resultArray[i][1] = i
+
+for i in range(2,201):
+    for j in range(2, 201):
+        resultArray[i][j] = resultArray[i][j-1] + resultArray[i-1][j]
+
+
+n, k = input().split()
+n = int(n)
+k = int(k)
+
+print(resultArray[k][n])
