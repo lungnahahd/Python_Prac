@@ -8,3 +8,22 @@ import sys
 input = sys.stdin.readline
 
 divide = 1000000009
+
+caseSize = int(input())
+
+sum = [0 for i in range(1000001)]
+
+sum[1] = 1
+sum[2] = 2
+sum[3] = 4
+
+for i in range(4,1000001):
+    sum[i] = sum[i-1] + sum[i-2] + sum[i-3]
+
+result = []
+
+for i in range(caseSize):
+    n = int(input())
+    result.append(sum[n])
+
+print(result)
