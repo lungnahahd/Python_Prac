@@ -19,7 +19,8 @@ sum.append(2)
 sum.append(4)
 
 for i in range(4,1000001):
-    sum.append(sum[i-1] + sum[i-2] + sum[i-3])
+    insert = sum[i-1]%divide + sum[i-2]%divide + sum[i-3]%divide
+    sum.append(insert %divide)
 
 result = []
 
@@ -27,4 +28,5 @@ for i in range(caseSize):
     n = int(input())
     result.append((sum[n])%divide)
 
-print(result)
+for i in result:
+    print(i)
