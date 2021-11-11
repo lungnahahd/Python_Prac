@@ -10,3 +10,29 @@
 import sys 
 input = sys.stdin.readline
 
+houseSize = int(input())
+
+red = [0 for i in range(houseSize)]
+green = [0 for i in range(houseSize)]
+blue = [0 for i in range(houseSize)]
+result = [0 for i in range(3)]
+
+for i in range(houseSize):
+    r,g,b = input().split()
+    red[i] = int(r)
+    green[i] = int(g)
+    blue[i] = int(b)
+
+result[0] = red[0]
+result[1] = green[0]
+result[2] = blue[0]
+
+for i in range(1,houseSize):
+    temp1 = result[0]
+    temp2 = result[1]
+    temp3 = result[2]
+    result[0] = min(temp2,temp3) + red[i]
+    result[1] = min(temp1,temp3) + green[i]
+    result[2] = min(temp1,temp2) + blue[i]
+
+print(min(result[0],result[1],result[2]))
