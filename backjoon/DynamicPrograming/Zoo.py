@@ -11,8 +11,8 @@ division = 9901
 
 zooSize = int(input())
  
-cage = [0 for i in range(100001)]
-cage[1] = 1
+cage = [0 for i in range(0,100001)]
+cage[1] = 3
 cage[2] = 7
 cage[3] = 17
 
