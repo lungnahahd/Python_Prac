@@ -9,4 +9,15 @@ import sys
 input = sys.stdin.readline
 
 divideNum = 10007
+getNum = int(input())
 
+case = [[1 for i in range(10)] for j in range(1001)]
+
+for i in range(2,1001):
+    for j in range(1,10):
+        case[i][j] = (case[i-1][j] % divideNum) + (case[i][j-1] % divideNum)
+result = 0
+for i in range(10):
+    result = result + case[getNum][i]
+
+print(result % divideNum)
