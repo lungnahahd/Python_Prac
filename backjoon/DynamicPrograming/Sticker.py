@@ -5,5 +5,51 @@
 ### 출력 : 스티커 점수의 최댓값을 출력
 
 import sys
+from typing import Final
 input = sys.stdin.readline
 
+Size = int(input())
+
+final = []
+
+for a in range(Size):
+    case = int(input())
+    result=[]
+    # sticker = [[0 for col in range(case)] for row in range(1)]
+    inputSticker = []
+    inputSticker.append(list(map(int,input().split())))
+    inputSticker.append(list(map(int,input().split())))
+    for i in range(2):
+        check = 0
+        up = False
+        while check < case:
+            if check ==0:
+                result[i] = inputSticker[i][0]
+                if i != 0:
+                    up = True
+                check += 1
+            else:
+                if check == case-1:
+                    if up:
+                        result[i] += inputSticker[0][check]
+                    else:
+                        result[i] += inputSticker[i][check]
+                    break
+                if up:
+                    if inputSticker[0][check] >= inputSticker[1][check+1]:
+                        result[i] += inputSticker[0][check]
+                        check += 1
+                        up = False
+                    else:
+                        result[i] += inputSticker[1][check+1]
+                        check +=2
+                else:
+                    if inputSticker[1][check] >= inputSticker[0][check+1]:
+                        result[i] += inputSticker[1][check]
+                        check += 1
+                        up = True
+                    else:
+                        result[i] += inputSticker[0][check+1]
+                        check += 2
+
+    final.append(result[0],result[1])
