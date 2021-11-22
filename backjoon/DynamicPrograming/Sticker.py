@@ -24,7 +24,7 @@ for a in range(Size):
         up = False
         while check < case:
             if check ==0:
-                result[i] = inputSticker[i][0]
+                result.append(inputSticker[i][0])
                 if i != 0:
                     up = True
                 check += 1
@@ -33,23 +33,28 @@ for a in range(Size):
                     if up:
                         result[i] += inputSticker[0][check]
                     else:
-                        result[i] += inputSticker[i][check]
+                        result[i] += inputSticker[1][check]
                     break
                 if up:
-                    if inputSticker[0][check] >= inputSticker[1][check+1]:
+                    if inputSticker[0][check] + inputSticker[1][check+1] >= inputSticker[0][check+1]:
                         result[i] += inputSticker[0][check]
                         check += 1
                         up = False
                     else:
-                        result[i] += inputSticker[1][check+1]
+                        result[i] += inputSticker[0][check+1]
                         check +=2
+                        up = False
                 else:
-                    if inputSticker[1][check] >= inputSticker[0][check+1]:
+                    if inputSticker[1][check] + inputSticker[0][check+1] >= inputSticker[1][check+1]:
                         result[i] += inputSticker[1][check]
                         check += 1
                         up = True
                     else:
-                        result[i] += inputSticker[0][check+1]
+                        result[i] += inputSticker[1][check+1]
                         check += 2
+                        up = True
 
-    final.append(result[0],result[1])
+    final.append(max(result[0],result[1]))
+
+for i in range(Size):
+    print(final[i])
