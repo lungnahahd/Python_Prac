@@ -13,12 +13,13 @@ Size = int(input())
 final = []
 
 
-result = [0,0]
+
 checkBool = [False,False]
 checkA = False
 checkB = False
 
 def sum(a,b):
+    result = [0,0]
     if checkBool[0]:
         checkBool[0] = False
         if a[0] + b[1] > a[0] + b[0]:
@@ -50,10 +51,9 @@ def sum(a,b):
 
 
 
-
+result=[]
 for a in range(Size):
     case = int(input())
-    result=[]
     # sticker = [[0 for col in range(case)] for row in range(1)]
     inputSticker = []
     inputSticker.append(list(map(int,input().split())))
@@ -63,50 +63,13 @@ for a in range(Size):
     tempA =[]
     tempA.append(inputSticker[0][0])
     tempA.append(inputSticker[1][0])
-    while check < case - 2:
+    while check < case - 1:
         tempB = [inputSticker[0][check+1],inputSticker[1][check+1]]
-        print(tempB)
         tempA = sum(tempA,tempB)
         check+= 1
+    
+    result.append(max(tempA))
+    #print(tempA)
 
-    print(tempA)
-
-    # for i in range(2):
-    #     check = 0
-    #     up = False
-    #     while check < case:
-    #         if check ==0:
-    #             result.append(inputSticker[i][0])
-    #             if i != 0:
-    #                 up = True
-    #             check += 1
-    #         else:
-    #             if check == case-1:
-    #                 if up:
-    #                     result[i] += inputSticker[0][check]
-    #                 else:
-    #                     result[i] += inputSticker[1][check]
-    #                 break
-    #             if up:
-    #                 if inputSticker[0][check] + inputSticker[1][check+1] >= inputSticker[0][check+1]:
-    #                     result[i] += inputSticker[0][check]
-    #                     check += 1
-    #                     up = False
-    #                 else:
-    #                     result[i] += inputSticker[0][check+1]
-    #                     check +=2
-    #                     up = False
-    #             else:
-    #                 if inputSticker[1][check] + inputSticker[0][check+1] >= inputSticker[1][check+1]:
-    #                     result[i] += inputSticker[1][check]
-    #                     check += 1
-    #                     up = True
-    #                 else:
-    #                     result[i] += inputSticker[1][check+1]
-    #                     check += 2
-    #                     up = True
-
-    # final.append(max(result[0],result[1]))
-
-# for i in final[:-1]:
-#     print(i)
+for i in result:
+    print(i)
