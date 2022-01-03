@@ -9,3 +9,31 @@
 import sys  
 
 input = sys.stdin.readline
+drinkNum = int(input())
+
+drinkCost = [0 for i in range(drinkNum)]
+nowDrink = [[] for i in range(drinkNum)]
+
+# 포도주 술 양 받기
+for i in range(drinkNum):
+    get= int(input())
+    drinkCost[i] = get
+    nowDrink[i].append([drinkCost[i],1])
+
+# print(nowDrink[0][0][0]) # 포도주 자체의 양을 카운트
+# print(nowDrink[0][0][1]) # 포도주 연속 마신 것 카운트 
+
+# 포도주 마시는 것 카운트
+for i in range(1,drinkNum):
+    for a in range(len(nowDrink[i-1])):
+        if nowDrink[i-1][a][1] == 2:
+            nowDrink[i].append([nowDrink[i-1][a][0],0])
+        else:
+            nowDrink[i].append([drinkCost[i]+nowDrink[i-1][a][0],nowDrink[i-1][a][1]+1])
+            nowDrink[i].append([nowDrink[i-1][a][0],0])
+       
+
+print(nowDrink[drinkNum-2])
+print(nowDrink[drinkNum-1])
+
+################ 결과는 나오고, 출력을 어떻게 할지 고민하기!
