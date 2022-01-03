@@ -31,9 +31,13 @@ for i in range(1,drinkNum):
         else:
             nowDrink[i].append([drinkCost[i]+nowDrink[i-1][a][0],nowDrink[i-1][a][1]+1])
             nowDrink[i].append([nowDrink[i-1][a][0],0])
-       
 
-print(nowDrink[drinkNum-2])
-print(nowDrink[drinkNum-1])
+# 만들어진 포도주 배열에서 최대를 선택해서 출력
+large = 0
+for i in range(len(nowDrink[drinkNum-1])):
+    if large < nowDrink[drinkNum-1][i][0]:
+        large = nowDrink[drinkNum-1][i][0]
+print(large)
 
-################ 결과는 나오고, 출력을 어떻게 할지 고민하기!
+# print(nowDrink[drinkNum-1])
+
