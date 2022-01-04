@@ -13,30 +13,35 @@ drinkNum = int(input())
 
 drinkCost = [0 for i in range(drinkNum)]
 drinkArr = [[0,0,0] for i in range(drinkNum)]
-large = 0
 
 # 포도주 술 양 받기
 for i in range(drinkNum):
     get= int(input())
     drinkCost[i] = get
+
+
+drinkArr[0][0] = drinkCost[0]
+
+if drinkNum > 1:
+    if drinkCost[1] == 0:
+        drinkArr[1][0] = max(drinkArr[0]) + drinkCost[1]
+    else:    
+        drinkArr[1][0] = drinkCost[1]
+        drinkArr[1][1] = drinkCost[0] + drinkCost[1]
+        drinkArr[1][2] = drinkCost[0]
+
 if drinkNum >= 3:
-    drinkArr[0][0] = drinkCost[0]
-    drinkArr[1][0] = drinkCost[1]
-    drinkArr[1][1] = drinkCost[1] + drinkCost[0]
-    drinkArr[2][0] = drinkCost[2] + drinkCost[0]
-    drinkArr[2][1] = drinkCost[2] + drinkCost[1]
-    drinkArr[2][2] = drinkArr[1][1]
-    if drinkNum > 3:
-        for i in range(3,drinkNum):
-            drinkArr[i][0] = drinkArr[i-2][1] + drinkCost[i]
-            drinkArr[i][1] = drinkArr[i-1][0] + drinkCost[i]
-            drinkArr[i][2] = drinkArr[i-1][1]
-else:
-    if drinkNum == 1:
-        drinkArr[0][0] = drinkCost[0]
-    else:
-        drinkArr[1][0] = drinkCost[0] + drinkCost[1]
+    for i in range(2, drinkNum):
+        if drinkCost[i] == 0 :
+            drinkArr[i][0] = max(drinkArr[i-1]) + drinkCost[i]
+        else:
+            if drinkCost[i-1] == 0:
+                drinkArr[i][0] = drinkArr[i-1][0] + drinkCost[i]
+            else:
+                drinkArr[i][0] = drinkArr[i-1][2] + drinkCost[i]
+                drinkArr[i][1] = drinkArr[i-1][0] + drinkCost[i]
+                drinkArr[i][2] = drinkArr[i-1][1]        
 
 
 
-resultDrink = print(max(drinkArr[drinkNum-1]))
+print(max(drinkArr[drinkNum-1]))
