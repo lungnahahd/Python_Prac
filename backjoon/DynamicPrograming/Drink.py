@@ -12,36 +12,34 @@ input = sys.stdin.readline
 drinkNum = int(input())
 
 drinkCost = [0 for i in range(drinkNum)]
-drinkArr = [[0,0,0] for i in range(drinkNum)]
+drinkArr = [[0,0,0] for i in range(drinkNum)] # 각 단계만다 카운트 할 배열
+drinkCheck = [[False,False,False] for i in range(drinkNum)] # 이전까지 포도주를 어떻게 마셨는지를 체크할 배열
 
 # 포도주 술 양 받기
 for i in range(drinkNum):
     get= int(input())
     drinkCost[i] = get
 
+drinkArr[0][1] = drinkCost[0]
+drinkCheck[0][0] = True # 첫 잔을 마시지 않고 넘기기
+drinkCheck[0][1] = True # 첫 잔을 마시고 넘기기
+# 두 잔을 마시는 경우는 처음 경우에는 존재하지 않으므로 넘기기
 
-drinkArr[0][0] = drinkCost[0]
+# 경우를 나누어서 배열을 계산해주기!
+for i in range(1, drinkNum):
+    if drinkCheck[i-1][0]:
+        drinkCheck[i][0] = True
+        drinkArr[i][0] = max(drinkArr[i][0], drinkArr[i-1][0])
+        drinkCheck[i][1] = True
+        drinkArr[i][1] = max(drinkArr[i][1],drinkArr[i-1][0] + drinkCost[i])
+    if drinkCheck[i-1][1]:
+        drinkCheck[i][0] = True
+        drinkArr[i][0] = max(drinkArr[i][0],drinkArr[i-1][1])
+        drinkCheck[i][2] = True
+        drinkArr[i][2] = max(drinkArr[i][2],drinkArr[i-1][1] + drinkCost[i])
+    if drinkCheck[i-1][2]:
+        drinkCheck[i][0] = True
+        drinkArr[i][0] = max(drinkArr[i][0], drinkArr[i-1][2])
 
-if drinkNum > 1:
-    if drinkCost[1] == 0:
-        drinkArr[1][0] = max(drinkArr[0]) + drinkCost[1]
-    else:    
-        drinkArr[1][0] = drinkCost[1]
-        drinkArr[1][1] = drinkCost[0] + drinkCost[1]
-        drinkArr[1][2] = drinkCost[0]
-
-if drinkNum >= 3:
-    for i in range(2, drinkNum):
-        if drinkCost[i] == 0 :
-            drinkArr[i][0] = max(drinkArr[i-1]) + drinkCost[i]
-        else:
-            if drinkCost[i-1] == 0:
-                drinkArr[i][0] = drinkArr[i-1][0] + drinkCost[i]
-            else:
-                drinkArr[i][0] = drinkArr[i-1][2] + drinkCost[i]
-                drinkArr[i][1] = drinkArr[i-1][0] + drinkCost[i]
-                drinkArr[i][2] = drinkArr[i-1][1]        
-
-
-
+# 최종 생성 배열에서 최대 값만 출력하도록 하기!
 print(max(drinkArr[drinkNum-1]))
