@@ -1,4 +1,4 @@
-# 가잗 큰 증가 부분 수열
+# 가장 큰 증가 부분 수열
 ## 수열이 주어졌을때, 증가 부분 수열 중 합이 가장 큰 것을 구하기
 ### 입력 : 첫 줄에 수열의 크기가 입력되고, 둘째 줄에 수열이 직접 입력
 ### 출력 : 수열의 합이 가장 큰 증가 부분 수열의 합을 출력
@@ -18,15 +18,31 @@ for i in range(size):
 
 result = [] # 각 시작 경우의 최대를 담을 배열
 for a in range(size):
-    for b in range(a+1,size):
-        for c in range(b,size):
-            if int(list[c]) > count[a][2]:
-                count[a][1] += int(list[c])
-                count[a][2] = int(list[c])
-        count[a][0] = max(count[a][0],count[a][1])
-        count[a][1] = int(list[a])
-        count[a][2] = int(list[a])
+    b = a+1
+    c = b
+    while c < size:
+        if int(list[c]) > count[a][2]:
+            count[a][1] += int(list[c])
+            count[a][2] = int(list[c])
+        c += 1
+        if c == size:
+            b += 1
+            c  = b
+            count[a][0] = max(count[a][0],count[a][1])
+            count[a][1] = int(list[a])
+            count[a][2] = int(list[a])
+        if b == size:
+            break
     result.append(count[a][0])
+    # for b in range(a+1,size):
+    #     for c in range(b,size):
+    #         if int(list[c]) > count[a][2]:
+    #             count[a][1] += int(list[c])
+    #             count[a][2] = int(list[c])
+    #     count[a][0] = max(count[a][0],count[a][1])
+    #     count[a][1] = int(list[a])
+    #     count[a][2] = int(list[a])
+    # result.append(count[a][0])
 
 print(max(result))
 
