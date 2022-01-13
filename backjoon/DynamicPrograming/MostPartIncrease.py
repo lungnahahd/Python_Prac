@@ -17,33 +17,32 @@ for i in range(size):
     count[i].append(int(list[i]))
 
 result = [] # 각 시작 경우의 최대를 담을 배열
+min = 1001
 for a in range(size):
-    b = a+1
-    c = b
-    while c < size:
-        if int(list[c]) > count[a][2]:
-            count[a][1] += int(list[c])
-            count[a][2] = int(list[c])
-        c += 1
-        if c == size:
-            b += 1
-            c  = b
-            count[a][0] = max(count[a][0],count[a][1])
-            count[a][1] = int(list[a])
-            count[a][2] = int(list[a])
-        if b == size:
-            break
-    result.append(count[a][0])
-    # for b in range(a+1,size):
-    #     for c in range(b,size):
-    #         if int(list[c]) > count[a][2]:
-    #             count[a][1] += int(list[c])
-    #             count[a][2] = int(list[c])
-    #     count[a][0] = max(count[a][0],count[a][1])
-    #     count[a][1] = int(list[a])
-    #     count[a][2] = int(list[a])
-    # result.append(count[a][0])
-
+    if min > int(list[a]):
+        min = int(list[a])        
+        b = a+1
+        c = b
+        while c < size:
+            if int(list[c]) > count[a][2]:
+                count[a][1] += int(list[c])
+                count[a][2] = int(list[c])
+            c += 1
+            if c == size:
+                b += 1
+                c  = b
+                count[a][0] = max(count[a][0],count[a][1])
+                count[a][1] = int(list[a])
+                count[a][2] = int(list[a])
+            if b == size:
+                break
+        result.append(count[a][0])
 print(max(result))
+print(result)
+
+# 해당 반례 해결하기(228 - 10)
+# 2 11 3 14 1 200 100 5 101 13
+# 해당 반례 해결하기(363 - 15)
+# 115 5 82 81 63 130 80 93 122 81 58 25 63 66 22
 
      
