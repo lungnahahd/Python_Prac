@@ -8,10 +8,13 @@ import sys
 input = sys.stdin.readline
 
 size = int(input())
-list = input().split()
+list = input().split() # 수열 입력 받기
 
+# 각 수열에서 감소하는 수열을 세는 경우
 result = [1 for i in range(size)]
 temp = 0
+# 각 수열의 수에서 최대 감소 부분 수열을 세기
+# 각 수열에서 최대 부분을 카운트해서 그것보다 작은 경우에서는 수열을 +1을 카운트해서 세주기
 for i in range(1,size):
     temp +=1
     stand = int(list[i])
