@@ -11,34 +11,53 @@ list = input().split() # 수열 입력
 
 count = [[] for i in range(size)]
 
-for i in range(size):
-    count[i].append(int(list[i]))
-    count[i].append(int(list[i]))
-    count[i].append(int(list[i]))
+# count의 0 인덱스는 해당 위치 값을 포함, 1 인덱스는 해당 위치 값을 포함 X
+count[0].append([int(list[0]),int(list[0])])
+count[0].append([0,0])
+print(count)
+for i in range(1,size):
+    
 
-result = [] # 각 시작 경우의 최대를 담을 배열
-min = 1001
-for a in range(size):
-    if min > int(list[a]):
-        min = int(list[a])        
-        b = a+1
-        c = b
-        while c < size:
-            if int(list[c]) > count[a][2]:
-                count[a][1] += int(list[c])
-                count[a][2] = int(list[c])
-            c += 1
-            if c == size:
-                b += 1
-                c  = b
-                count[a][0] = max(count[a][0],count[a][1])
-                count[a][1] = int(list[a])
-                count[a][2] = int(list[a])
-            if b == size:
-                break
-        result.append(count[a][0])
-print(max(result))
-print(result)
+
+
+
+
+
+
+
+
+
+
+
+
+# for i in range(size):
+#     count[i].append(int(list[i]))
+#     count[i].append(int(list[i]))
+#     count[i].append(int(list[i]))
+
+# result = [] # 각 시작 경우의 최대를 담을 배열
+# min = 1001
+# for a in range(size):
+#     if min > int(list[a]):
+#         min = int(list[a])        
+#         b = a+1
+#         c = b
+#         while c < size:
+#             if int(list[c]) > count[a][2]:
+#                 count[a][1] += int(list[c])
+#                 count[a][2] = int(list[c])
+#             c += 1
+#             if c == size:
+#                 b += 1
+#                 c  = b
+#                 count[a][0] = max(count[a][0],count[a][1])
+#                 count[a][1] = int(list[a])
+#                 count[a][2] = int(list[a])
+#             if b == size:
+#                 break
+#         result.append(count[a][0])
+# print(max(result))
+# print(result)
 
 # 해당 반례 해결하기(228 - 10)
 # 2 11 3 14 1 200 100 5 101 13
