@@ -9,59 +9,17 @@ input = sys.stdin.readline
 size = int(input()) # 수열의 크기
 list = input().split() # 수열 입력
 
-count = [[] for i in range(size)]
+result = [0 for i in range(size)] #  각 경우에서 최대를 나타낼 값을 나타내주는 배열
+result[0] = int(list[0])
 
-# count의 0 인덱스는 해당 위치 값을 포함, 1 인덱스는 해당 위치 값을 포함 X
-count[0].append([int(list[0]),int(list[0])])
-count[0].append([0,0])
-print(count)
+# 점점 배열 확인 범위를 늘려나가면서 각 경우일 때, 최대의 값을 result에 저장하기!
+# 한 번 변경된 result의 값은 변하지 않음으로 이를 이용해서 다이나믹 알고리즘 적용
 for i in range(1,size):
-    
+    temp = 0
+    for j in range(i):
+        if int(list[j]) < int(list[i]):
+            if temp < result[j]:
+                temp = result[j]
+    result[i] = temp + int(list[i])
 
-
-
-
-
-
-
-
-
-
-
-
-
-# for i in range(size):
-#     count[i].append(int(list[i]))
-#     count[i].append(int(list[i]))
-#     count[i].append(int(list[i]))
-
-# result = [] # 각 시작 경우의 최대를 담을 배열
-# min = 1001
-# for a in range(size):
-#     if min > int(list[a]):
-#         min = int(list[a])        
-#         b = a+1
-#         c = b
-#         while c < size:
-#             if int(list[c]) > count[a][2]:
-#                 count[a][1] += int(list[c])
-#                 count[a][2] = int(list[c])
-#             c += 1
-#             if c == size:
-#                 b += 1
-#                 c  = b
-#                 count[a][0] = max(count[a][0],count[a][1])
-#                 count[a][1] = int(list[a])
-#                 count[a][2] = int(list[a])
-#             if b == size:
-#                 break
-#         result.append(count[a][0])
-# print(max(result))
-# print(result)
-
-# 해당 반례 해결하기(228 - 10)
-# 2 11 3 14 1 200 100 5 101 13
-# 해당 반례 해결하기(363 - 15)
-# 115 5 82 81 63 130 80 93 122 81 58 25 63 66 22
-
-     
+print(max(result))
