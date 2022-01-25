@@ -13,8 +13,9 @@ sumList = []
 tempSum = 0
 for i in range(size):
     if int(list[i]) < 0 :
-        sumList.append(tempSum)
-        tempSum = 0
+        if tempSum != 0:
+            sumList.append(tempSum)
+            tempSum = 0
         sumList.append(int(list[i]))
     else :
         tempSum += int(list[i])
@@ -26,7 +27,9 @@ case1 = max(sumList)
 for i in range(1,len(sumList)):
     oneResult[i] = oneResult[i-1] + sumList[i]
     twoResult[i] = max(oneResult[i-1], twoResult[i-1] + sumList[i])
+
+
 case2 = max(oneResult)
-case3 = max(twoResult)
+case3 = max(twoResult[1:])
 
 print(max(case1,case2,case3))
