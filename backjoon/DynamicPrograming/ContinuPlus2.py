@@ -19,11 +19,11 @@ else:
     strait[0] = int(list[0])
 
     for i in range(1,size):
-        strait[i] = strait[i-1] + int(list[i])
+        strait[i] = max(strait[i-1] + int(list[i]), int(list[i]))
         jump[i] = max(strait[i-1],jump[i-1] + int(list[i]))
 
     # 각 경우에서 나오는 최대 수열의 합
     max_strait = max(strait)
     max_jump = max(jump[1:])
-    
+
     print(max(max_jump,max_strait)) # 경우를 나눈 수열의 합 중 가장 큰 것을 선택해서 출력
