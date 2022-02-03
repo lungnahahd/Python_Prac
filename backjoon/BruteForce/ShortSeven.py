@@ -12,18 +12,20 @@ for i in range(9):
     a = int(input())
     height.append(a)
 
+# 9 난쟁이의 키의 합
+totalSum = sum(height)
+
+# 제거할 난쟁이들을 선별하는 과정
 for i in range(9):
     for j in range(i+1,9):
-        temp = height[:] # 파이썬 리스트를 똑같이 복사 -> 이렇게 안 하고 대입하면 주소가 복사!
-        print(temp)
-        temp.pop(i)
-        temp.pop(j)
-        print(i)
-        print(j)
-        print(temp)
-        sum = sum(temp)
-        if sum == 100:
+        tempSum = totalSum - (height[i] + height[j])
+        if tempSum == 100:
+            height.pop(j)
+            height.pop(i)
             break
-    if sum == 100:
+    if tempSum == 100:
         break
-print(temp)
+    
+height.sort() # 파이썬에서 제공하는 리스트 정렬(기본이 오름차순)
+for i in range(7):
+    print(height[i])
