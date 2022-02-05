@@ -34,24 +34,22 @@ eatting = 0
 
 colMax = 1
 rowMax = 1
-# 초기 보드에서 먹을 수 있는 사탕의 개수 세기
 
+# 초기 보드에서 먹을 수 있는 사탕의 개수 세기
 for i in range(boardSize):
     colMax = max(colMax,countCandy(col[i]))
     rowMax = max(rowMax,countCandy(row[i]))
 
-
-# for i in range(boardSize):
-#     colMax = max(colMax,col[i].count("P"),col[i].count("Y"),col[i].count("Z"),col[i].count("C"))
-#     rowMax = max(rowMax,row[i].count("P"),row[i].count("Y"),row[i].count("Z"),row[i].count("C"))
 eatting = max(rowMax,colMax)
 
 # 한 칸씩 변경하면서 경우의 수를 따져주기
 if eatting != boardSize:
     colMax = 0
     rowMax = 0
+    # 먼저 행을 한 칸씩 먼저 변경
     for i in range(boardSize):
         for j in range(boardSize-1):
+            # copy() 함수를 사용해서 주소가 아닌 새 객체를 생성하여 복사
             rowtempBefore = row[j].copy()
             rowtempAfter = row[j+1].copy()
             coltemp = col[i].copy()
@@ -61,17 +59,15 @@ if eatting != boardSize:
                 rowtempBefore[i],rowtempAfter[i] = rowtempAfter[i],rowtempBefore[i]
                 colMax = max(colMax, countCandy(coltemp))
                 rowMax = max(rowMax, countCandy(rowtempAfter),countCandy(rowtempBefore))
-
-                # colMax = max(colMax,col[i].count("P"),col[i].count("Y"),col[i].count("Z"),col[i].count("C"))
-                # rowMax = max(rowMax,row[j].count("P"),row[j].count("Y"),row[j].count("Z"),row[j].count("C"),row[j+1].count("P"),row[j+1].count("Y"),row[j+1].count("Z"),row[j+1].count("C"))
-    
     eatting = max(rowMax,colMax,eatting)
 
+    # 마지막으로 열을 한 칸씩 변경
     if eatting != boardSize:
         colMax = 0
         rowMax = 0
         for i in range(boardSize):
             for j in range(boardSize-1):
+                # copy() 함수를 사용해서 주소가 아닌 새 객체를 생성하여 복사
                 rowtemp = row[i].copy()
                 coltempBefore = col[j].copy()
                 coltempAfter = col[j+1].copy()
@@ -80,9 +76,5 @@ if eatting != boardSize:
                     coltempBefore[i],coltempAfter[i] = coltempAfter[i],coltempBefore[i]
                     rowMax = max(rowMax,countCandy(rowtemp))
                     colMax = max(colMax, countCandy(coltempBefore), countCandy(coltempAfter))
-
-                    # rowMax = max(rowMax,row[i].count("P"),row[i].count("Y"),row[i].count("Z"),row[i].count("C"))
-                    # colMax = max(colMax,col[j].count("P"),col[j].count("Y"),col[j].count("Z"),col[j].count("C"),col[j+1].count("P"),col[j+1].count("Y"),col[j+1].count("Z"),col[j+1].count("C"))
         eatting = max(rowMax,colMax,eatting)
 print(eatting)
-
