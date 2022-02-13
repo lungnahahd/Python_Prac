@@ -62,24 +62,11 @@ for i in range(1,gameCount):
         aPBack[gameCount-1-i] = aPBack[gameCount - i]
         aSBack[gameCount-1-i] = aSBack[gameCount - i]
 
-maxH = max(aHFront)
-maxP = max(aPFront)
-maxS = max(aSFront)
-totalMax = max(maxH,maxP,maxS)
-
-# if maxH == totalMax:
-#     where = aHFront.index(maxH)
-#     if where != gameCount - 1:
-#         back = max(aPBack[where+1],aSBack[where+1],aHBack[where+1])
-#         totalMax += back
-# elif maxP == totalMax:
-#     where = aPFront.index(maxP)
-#     if where != gameCount - 1:
-#         back = max(aHBack[where+1],aSBack[where+1],aPBack[where+1])
-#         totalMax += back
-# else:
-#     where = aSFront.index(maxS)
-#     if where != gameCount - 1:
-#         back = max(aPBack[where+1],aHBack[where+1],aSBack[where+1])
-#         totalMax += back
-# print(totalMax)
+result = 0
+for i in range(gameCount):
+    if i == gameCount -1 :
+        temp = max(aHFront[i],aPFront[i],aSFront[i])
+    else:
+        temp = max(aHFront[i],aPFront[i],aSFront[i]) + max(aHBack[i+1],aPBack[i+1],aSBack[i+1])
+    result = max(result,temp)
+print(result)
