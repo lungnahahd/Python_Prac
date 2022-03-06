@@ -17,68 +17,16 @@ if num != 0:
     for i in kindBut:
         notWork.add(i)
 
-firstCheck = abs(channel - 100)
+minVal = abs(channel - 100)
+check = True
 
-idx = len(channelList)
+for i in range(1000001): # 1억 번을 도는 for문이 1초가 걸리므로 이 정도의 시간 복잡도는 충분히 for문으로 감당 가능
+    iList = list(map(int,str(i)))
+    for j in iList:
+        if int(j) in notWork:
+            check = False
+    if check:
+        minVal = min(minVal,abs(channel - i) +len(channelList) )
+    check = True 
 
-secondCheck = INT_MAX
-multi = 1
-for i in range(idx):
-    nowIdx = idx - i - 1
-    check = int(channelList[nowIdx])
-    count = 0
-    while check in notWork:
-        right = min(check + count, 9)
-        left = max(check - count, 0)
-        if right not in notWork or left not in notWork:
-            secondCheck += count * multi
-            break
-        count += 1
-    multi = multi * 10
-    secondCheck += 1
-
-big = 0
-bigF = True
-nobig = False
-nosmall = False
-smallF = True
-small = 0
-while bigF or smallF:
-    right = check + count
-    left = check - count
-    if right not in  notWork and bigF:
-        if right <= 9:
-            big = right
-        else:
-            nobig = True
-        bigF = False
-    if left not in notWork and smallF:
-        if left >= 0:
-            small = left
-        else:
-            nosmall = True
-        smallF = False
-    count += 1
-
-
-
-bigNum = multi * big
-smallNum = multi * small
-multi = multi / 10
-
-third = INT_MAX
-forth = INT_MAX
-
-while multi >= 1:
-    if not nobig:
-        bigNum += multi * small
-    if not nosmall:
-        smallNum += multi * big
-    multi = multi  / 10
-if not nobig:
-    third = bigNum - channel + idx
-if not nosmall:
-    forth = channel - smallNum + idx
-
-print(third, forth)
-print(min(firstCheck, secondCheck, third, forth))
+print(minVal)
