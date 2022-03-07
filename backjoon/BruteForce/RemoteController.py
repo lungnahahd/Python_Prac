@@ -15,7 +15,7 @@ notWork = set() # 고장난 버튼을 set으로 빠르게 찾기 가능
 if num != 0:
     kindBut = list(map(int,input().split())) # 고장난 버튼을 받기
     for i in kindBut:
-        notWork.add(i)
+        notWork.add(int(i))
 
 minVal = abs(channel - 100)
 check = True
@@ -25,8 +25,9 @@ for i in range(1000001): # 1억 번을 도는 for문이 1초가 걸리므로 이
     for j in iList:
         if int(j) in notWork:
             check = False
+            break
     if check:
-        minVal = min(minVal,abs(channel - i) +len(channelList) )
+        minVal = min(minVal,abs(channel - i) +len(iList)) # 매번 최소값을 갱신
     check = True 
 
 print(minVal)
