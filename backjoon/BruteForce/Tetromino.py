@@ -3,7 +3,7 @@
 ### 입력 : 첫 줄에 세로의 크기와 가로의 크기가 입력 둘째 줄부터 정수판을 입력
 ### 출력: 테트로미노가 놓여서 얻을 수 있는 최대값을 출력
 
-from cgitb import reset
+
 import sys
 import heapq
 input = sys.stdin.readline
@@ -28,42 +28,92 @@ result = 0
 
 # checkSet = set()
 
-def checkDFS(nowCol, nowRow, count, val):
+def checkDFS(nowCol, nowRow, count, val,shapeCheck):
     global result
     global numMatirx
     global chekcMatrix
-    if count == 4:
+    if count == 4 and not shapeCheck:
         result = max(result, val)
+    elif count == 5 and shapeCheck:
+        result = max(result,val)
     #if count == 1:
     else:
-        count += 1
-        if chekcMatrix[nowCol][nowRow+1] != -1:
-            # val += numMatirx[nowCol][nowRow+1]
-            chekcMatrix[nowCol][nowRow+1] = -1
-            checkDFS(nowCol,nowRow+1,count,val + numMatirx[nowCol][nowRow+1])
-            chekcMatrix[nowCol][nowRow+1] = 0
-        if chekcMatrix[nowCol][nowRow-1] != -1 :
-            # val += numMatirx[nowCol][nowRow-1]
-            chekcMatrix[nowCol][nowRow-1] = -1
-            checkDFS(nowCol,nowRow-1,count,val +  numMatirx[nowCol][nowRow-1])
-            chekcMatrix[nowCol][nowRow-1] = 0
-        if chekcMatrix[nowCol+1][nowRow] != -1 :
-            #val += numMatirx[nowCol+1][nowRow]
-            chekcMatrix[nowCol+1][nowRow] = -1
+        #count += 1
+        if count == 2 and not shapeCheck:
+            if 0 < nowCol < col+1 and 0 < nowRow + 1 < row+1 and chekcMatrix[nowCol][nowRow+1] == -1  :
+                checkDFS(nowCol,nowRow+1,5,val+numMatirx[nowCol+1][nowRow+1]+numMatirx[nowCol-1][nowRow+1],True)
+                chekcMatrix[nowCol][nowRow-1] = -1
+                checkDFS(nowCol,nowRow-1,count+1,val +  numMatirx[nowCol][nowRow-1],shapeCheck)
+                chekcMatrix[nowCol][nowRow-1] = 0
+                chekcMatrix[nowCol+1][nowRow] = -1
+                checkDFS(nowCol+1,nowRow,count+1,val+numMatirx[nowCol+1][nowRow],shapeCheck)
+                chekcMatrix[nowCol+1][nowRow] = 0
+                chekcMatrix[nowCol-1][nowRow] = -1
+                checkDFS(nowCol-1,nowRow,count+1,val + numMatirx[nowCol-1][nowRow],shapeCheck)
+                chekcMatrix[nowCol-1][nowRow] = 0
 
-            checkDFS(nowCol+1,nowRow,count,val+numMatirx[nowCol+1][nowRow])
-            chekcMatrix[nowCol+1][nowRow] = 0
-        if chekcMatrix[nowCol-1][nowRow] != -1:
-            #val += numMatirx[nowCol-1][nowRow]
-            chekcMatrix[nowCol-1][nowRow] = -1
-            checkDFS(nowCol-1,nowRow,count,val + numMatirx[nowCol-1][nowRow])
-            chekcMatrix[nowCol-1][nowRow] = 0
+            elif 0 < nowCol < col+1 and 0 < nowRow - 1 < row+1 and chekcMatrix[nowCol][nowRow-1] == -1:
+                checkDFS(nowCol,nowRow-1,5,val+numMatirx[nowCol+1][nowRow-1]+numMatirx[nowCol-1][nowRow-1], True)
+                chekcMatrix[nowCol][nowRow+1] = -1
+                checkDFS(nowCol,nowRow+1,count+1,val + numMatirx[nowCol][nowRow+1],shapeCheck)
+                chekcMatrix[nowCol][nowRow+1] = 0
+                chekcMatrix[nowCol+1][nowRow] = -1
+                checkDFS(nowCol+1,nowRow,count+1,val+numMatirx[nowCol+1][nowRow],shapeCheck)
+                chekcMatrix[nowCol+1][nowRow] = 0
+                chekcMatrix[nowCol-1][nowRow] = -1
+                checkDFS(nowCol-1,nowRow,count+1,val + numMatirx[nowCol-1][nowRow],shapeCheck)
+                chekcMatrix[nowCol-1][nowRow] = 0
+                
+            elif 0 < nowCol+1 < col+1 and 0 < nowRow  < row+1 and chekcMatrix[nowCol+1][nowRow] == -1 :
+                checkDFS(nowCol+1,nowRow,5,val + numMatirx[nowCol+1][nowRow+1] + numMatirx[nowCol+1][nowRow-1], True)
+                chekcMatrix[nowCol][nowRow+1] = -1
+                checkDFS(nowCol,nowRow+1,count+1,val + numMatirx[nowCol][nowRow+1],shapeCheck)
+                chekcMatrix[nowCol][nowRow+1] = 0
+                chekcMatrix[nowCol][nowRow-1] = -1
+                checkDFS(nowCol,nowRow-1,count+1,val +  numMatirx[nowCol][nowRow-1],shapeCheck)
+                chekcMatrix[nowCol][nowRow-1] = 0
+                chekcMatrix[nowCol-1][nowRow] = -1
+                checkDFS(nowCol-1,nowRow,count+1,val + numMatirx[nowCol-1][nowRow],shapeCheck)
+                chekcMatrix[nowCol-1][nowRow] = 0
+
+            elif 0 < nowCol-1 < col+1 and 0 < nowRow  < row+1 and chekcMatrix[nowCol-1][nowRow] == -1:
+                checkDFS(nowCol-1,nowRow,5,val + numMatirx[nowCol-1][nowRow+1]+ numMatirx[nowCol-1][nowRow-1], True)
+                chekcMatrix[nowCol][nowRow+1] = -1
+                checkDFS(nowCol,nowRow+1,count+1,val + numMatirx[nowCol][nowRow+1],shapeCheck)
+                chekcMatrix[nowCol][nowRow+1] = 0
+                chekcMatrix[nowCol][nowRow-1] = -1
+                checkDFS(nowCol,nowRow-1,count+1,val +  numMatirx[nowCol][nowRow-1],shapeCheck)
+                chekcMatrix[nowCol][nowRow-1] = 0
+                chekcMatrix[nowCol+1][nowRow] = -1
+                checkDFS(nowCol+1,nowRow,count+1,val+numMatirx[nowCol+1][nowRow],shapeCheck)
+                chekcMatrix[nowCol+1][nowRow] = 0
+
+
+        else:
+            if 0 < nowCol < col+1 and 0 < nowRow + 1 < row+1 and chekcMatrix[nowCol][nowRow+1] != -1:
+                chekcMatrix[nowCol][nowRow+1] = -1
+                checkDFS(nowCol,nowRow+1,count+1,val + numMatirx[nowCol][nowRow+1],shapeCheck)
+                chekcMatrix[nowCol][nowRow+1] = 0
+            if 0 < nowCol < col+1 and 0 < nowRow - 1 < row+1 and chekcMatrix[nowCol][nowRow-1] != -1:
+                chekcMatrix[nowCol][nowRow-1] = -1
+                checkDFS(nowCol,nowRow-1,count+1,val +  numMatirx[nowCol][nowRow-1],shapeCheck)
+                chekcMatrix[nowCol][nowRow-1] = 0
+            if 0 < nowCol+1 < col+1 and 0 < nowRow  < row+1 and chekcMatrix[nowCol+1][nowRow] != -1:
+                chekcMatrix[nowCol+1][nowRow] = -1
+                checkDFS(nowCol+1,nowRow,count+1,val+numMatirx[nowCol+1][nowRow],shapeCheck)
+                chekcMatrix[nowCol+1][nowRow] = 0
+            if 0 < nowCol-1 < col+1 and 0 < nowRow  < row+1 and chekcMatrix[nowCol-1][nowRow] != -1:
+                chekcMatrix[nowCol-1][nowRow] = -1
+                checkDFS(nowCol-1,nowRow,count+1,val + numMatirx[nowCol-1][nowRow],shapeCheck)
+                chekcMatrix[nowCol-1][nowRow] = 0
 
 
 for i in range(1,col+1):
     for j in range(1,row+1):
         count = 1
-        checkDFS(i,j, count,numMatirx[i][j])
+        chekcMatrix[i][j] = -1
+        shapeCheck = False
+        checkDFS(i,j, count,numMatirx[i][j],shapeCheck)
         chekcMatrix[i][j] = 0
 
 print(result)
