@@ -9,36 +9,25 @@ import sys
 input = sys.stdin.readline
 
 numLargest, numCount = tuple(map(int,input().split()))
+checkNumIn = [False for _ in range(numLargest+1)] # 해당 숫자가 리스트 내에 저장되어 있는지를 판별하는 배열
 
+save = [] # 숫자 저장 리스트
 
-countList = []
-for i in range(numCount):
-    countList.append(i+1)
+def MakeNumArr(num):
+    if num == numCount: # 리스트가 가득 차면 바로 출력
+        for k in save:
+            print(k, end=' ')
+        print()
+        return
 
-numList = []
-for i in range(numLargest):
-    numList.append(i+1)
-
-
-now = numCount - 1
-while countList[0] <= numLargest:
-    print(countList)
-    if countList[now] == numLargest:
-        countList[now] = countList[now-1] - 1
-
-
-
-
-
-start = 0
+    for i in range(1,numLargest+1):
+        if not checkNumIn[i]: # 해당 숫자가 이미 리스트에 있는지 판별
+            checkNumIn[i] = True
+            save.append(i) # 없는 숫자는 리스트에 넣기
+            MakeNumArr(num+1) # 리스트에 넣고 BFS 재실행
+            checkNumIn[i] = False # 리스트에서 해당 숫자 바로 빼기 -> 바로 빼도 재귀함수로 인해 처리가 바로 가능
+            save.pop()
 
 
 
-
-while start != len(numLargest):
-
-
-    print(start,end=' ')
-
-    
-    start += 1
+MakeNumArr(0)
