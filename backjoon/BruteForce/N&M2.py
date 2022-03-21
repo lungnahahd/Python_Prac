@@ -15,18 +15,14 @@ save = []
 
 def FindNumArr(count):
     if count == numCount:
-        #save.sort()
         for k in save:
-            #if temp == -1:
-                #finNum[k] = True
-                #temp = 1
             print(k,end=' ')
         print()
         return
     
     for i in range(1, numLarge+1):
         if not check[i]:
-            if len(save) != 0 and save[-1] > i:
+            if len(save) != 0 and save[-1] > i: # 오름 차순 정렬된 경우만 출력하기 위한 조건, 리스트의 맨 마지막 수보다 넣을 수가 작을 경우 넣지 말기
                 continue
             check[i] = True
             save.append(i)
