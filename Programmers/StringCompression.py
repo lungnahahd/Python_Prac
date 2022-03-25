@@ -1,5 +1,4 @@
 # 문자열 압축(Level 2)
-from random import sample
 import sys
 INT_MAX = sys.maxsize
 
@@ -10,6 +9,7 @@ def solution(s):
         tempCount = 0
         beforeSame = False
         end = False
+        howmany = 1
         while now <= len(s)-i:
             sameCheck = True
             for j in range(i):
@@ -22,18 +22,31 @@ def solution(s):
             if end:
                 break
             if sameCheck:
+                howmany += 1
                 if not beforeSame:
                     beforeSame = True
                     tempCount += i
             else:
                 if beforeSame:
-                    tempCount += 1
+                    if howmany > 99:
+                        tempCount += 3
+                    elif howmany > 9:
+                        tempCount += 2
+                    else:
+                        tempCount += 1
                     beforeSame = False
                 else:
                     tempCount += i
+                howmany = 1 
             now += i
         if now != len(s)-i:
             if beforeSame:
+                if howmany > 99:
+                    tempCount += 3
+                elif howmany > 9:
+                    tempCount += 2
+                else:
+                    tempCount += 1
                 tempCount += (len(s) - (now +i))
             else:
                 tempCount += (len(s)-now)
@@ -41,7 +54,13 @@ def solution(s):
             #print("hi")
         #if not end:
             if beforeSame:
-                tempCount += 1
+                if howmany > 99:
+                    tempCount += 3
+                elif howmany > 9:
+                    tempCount += 2
+                else:
+                    tempCount += 1
+                #tempCount += 1
             else:
                 tempCount += i
         #print(tempCount)
@@ -50,8 +69,8 @@ def solution(s):
     return answer
 
 
-#sample = "aabbaccc"
+sample = "aabbaccc"
 #sample = "abcabcdede"
 #sample = "xababcdcdababcdcd"
-sample = "abcd"
+#sample = "acdhdh"
 print(solution(sample))
