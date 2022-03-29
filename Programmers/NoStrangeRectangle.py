@@ -1,4 +1,5 @@
 # 멀쩡한 사각형
+import math 
 
 def solution(w,h):
     answer = 1
@@ -8,8 +9,14 @@ def solution(w,h):
         answer = w*h - w
     else:
         temp = min(w,h)
-        answer = w*h - 2*temp
+        gcd = 1 
+        for i in range(1,temp+1):
+            if w %i == 0 and h % i == 0: # 각 경우의 최대 공약수를 구하는 부분
+                gcd = i
 
+        # 대각선의 성질에 의해 세로는 반드시 한 칸만 차지한다고 생각 가능
+        # 가로는 -1을 해주어야 함
+        answer = int(w * h -((w/gcd) + (h/gcd) - 1)*gcd) 
 
     return answer
 
@@ -28,4 +35,7 @@ def solution(w,h):
 
 w = 8
 h = 12
+#print(solution(5,3))
 print(solution(w,h))
+print(solution(1,1))
+print(solution(2,1))
