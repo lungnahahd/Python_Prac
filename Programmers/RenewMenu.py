@@ -1,48 +1,32 @@
 # 메뉴 리뉴얼
-
+from itertools import combinations
 import heapq
 
+
 def solution(orders, course):
+    save = []
+    count = 0
+    for num in course: # 코스 요리의 개수만큼 전체 반복문 진행
+        temp = []
+        for i in orders: # 각자의 주문을 리스트로 변환하고 거기서 발생할 수 있는 조합을 찾기 
+            temp.append(list(combinations(list(i),num)))
+            many = 0
+        for now in temp: # 각 주문의 조합을 꺼내기
+            for get in now: # 주문의 조합을 하나씩 확인
+                middle = 0
+                if count + 1 == len(temp):
+                    break
+                for check in temp[count+1:]: # 조합이 다른 주문에 있는지 여부를 확인
+                    if get in check:
+                        middle += 1
+                if middle >= many:
+                    heapq.heappush(save,(-many,get))
+
+    print(save)
+
+
+            
     answer = []
-    orders.sort(key=len) # 리스트 요소를 길이 순으로 정렬
-    countResult = {}
-    print(orders)
-    for i in range(len(orders)):
-        for j in range(i+1,len(orders)):
-            temp = ""
-            for k in orders[i]:
-                if k in orders[j]:
-                    temp += k
-            if len(temp) in course:
-                temp = list(temp)
-                temp.sort()
-                temp = ''.join(temp)
-                if temp in countResult:
-                    countResult[temp] += 1
-                else:
-                    countResult[temp] = 1
-    now = list(countResult.items())
-    q = []
-    for i in now:
-        heapq.heappush(q,(-len(i[0]),-i[1],i[0]))
-    nowCount = 0
-    beforeMax = 0
-    print(q)
-    while len(q) != 0:
-        a = q[0]
-        heapq.heappop(q)
-        if -a[0] == nowCount:
-            if beforeMax <= -a[1]:
-                answer.append(a[2])
-        else:
-            nowCount = -a[0]
-            beforeMax = -a[1]
-            answer.append(a[2])
-
-
-
-    answer = list(set(answer))
-    answer.sort()
     return answer
 
 a = ["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"]
