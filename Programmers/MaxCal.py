@@ -10,15 +10,15 @@
 ### 안에 숫자를 넣고, 이를 절대값으로 만들어주는 함수
 
 
-import tempfile
 
 
 def solution(expression):
     answer = 0
-    priority_arr = [['*','+','-'],['*','-','+'],['+','-','*'],['+','-','*'],['-','+','*'],['-','*','+']] # 각 연산자의 우선순위를 지정해주는 변수
+    priority_arr = [['*','+'],['*','-'],['+','-'],['+','-'],['-','+'],['-','*']] # 각 연산자의 우선순위를 지정해주는 변수
     temp_list = list(expression)
     exp_list = []
     temp_num = ''
+    # 수식에서 숫자와 연산자를 구분해서 저장하는 코드
     for i in temp_list:
         if i == "+" or i == "-" or i == "*":
             exp_list.append(temp_num)
@@ -27,57 +27,63 @@ def solution(expression):
         else:
             temp_num += i
     exp_list.append(temp_num)
-    print(exp_list)
-    for strong in priority_arr:
-        temp = exp_list[:] # 기존 수식에 괄호를 추가할 배열
-        count = 0 # 현재 우선순위 연산자를 위한 변수
-        where = 0 # 수식을 돌면서 현재 위치를 저장할 변수
-        realcount = 0
+    for now_cal in priority_arr:
+        count = 0
+        max_len = len(exp_list)
+        temp_one = []
+        temp_second = []
+        idx = 0
+        check_num = True
         while True:
-            #print(temp,strong[count])
-            if realcount == len(exp_list):
-                if count != 2:
+            if idx == max_len-1:
+                if count != 1:
                     count += 1
-                    realcount = 0
-                    where = 0
-                else:  
+                    idx = 0
+                    if check_num:
+                        temp_one.append(exp_list[-1])
+                    check_num = True
+                    max_len = len(temp_one)
+                else:
+                    if check_num:
+                        temp_second.append(temp_one[-1])
                     break
-            if temp[where] == strong[count]:
-                if where+2 >= len(temp) or temp[where+1] != "(":
-                    temp.insert(where+2,")")
-                else:
-                    idx = where+1
-                    while True:
-                        if temp[idx] == ")":
-                            temp.insert(idx+1,")")
-                            break
-                        idx += 1
-                if where-2 < 0 or temp[where-1] != ")":
-                    idx = where-1
-                    if idx < 0:
-                        idx = 0
-                    temp.insert(idx,"(")
-                else:
-                    idx = where-1
-                    while True:
-                        if temp[idx] =="(":
-                            if idx < 0:
-                                idx = 0
-                            temp.insert(idx-1,"(")
-                            break
-                        idx -= 1
-                where += 1
-                realcount += 1
+            if count == 0:
+                if exp_list[idx] == now_cal[count]:
+                    cal = ""
+                    if check_num:        
+                        cal += exp_list[idx-1]
+                    else:
+                        out = temp_one.pop()
+                        cal += out
+                    cal += exp_list[idx]
+                    cal += exp_list[idx+1]
+                    temp_one.append(str(eval(cal)))
+                    check_num = False
+                elif exp_list[idx] == "+" or exp_list[idx] == "-" or exp_list[idx] == "*":
+                    if check_num:
+                        temp_one.append(exp_list[idx-1])
+                    temp_one.append(exp_list[idx])
+                    check_num = True
             else:
-                if temp[where] != "(" and temp[where] != ")":
-                    realcount += 1
-                where += 1
-            
-        result = ''.join(map(str,temp))
-        answer = max(answer,abs(eval(result))) # 수식의 최대화를 구하고 저장
-        if answer == 594:
-            print(result,strong[count])
-
+                if temp_one[idx] == now_cal[count]:
+                    cal = ""
+                    if check_num:
+                        cal += temp_one[idx-1]
+                    else:
+                        out = temp_second.pop()
+                        cal += out
+                    cal += temp_one[idx]
+                    cal += temp_one[idx+1]
+                    temp_second.append(str(eval(cal)))
+                    check_num = False
+                elif temp_one[idx] == "+" or temp_one[idx] == "-" or temp_one[idx] == "*":
+                    if check_num:
+                        temp_second.append(temp_one[idx-1])
+                    temp_second.append(temp_one[idx])
+                    check_num = True
+            idx += 1
+        last = ''.join(map(str,temp_second))
+        answer = max(answer,abs(eval(last)))
 
     return answer
 
@@ -87,7 +93,7 @@ def solution(expression):
 
 
 
-#a = "100-200*300-500+20"
+a = "100-200*300-500+20"
 #a = "10+2-3"
-a = "50*6-3*2"
+#a = "50*6-3*2"
 print(solution(a))
