@@ -1,36 +1,23 @@
 # 가장 큰 수
 ## 순서를 재배치해서 가장 큰 수 만들기
 
-import heapq
-
 def solution(numbers):
     answer = ''
-    saveNum = []
+    sNums = []
     for num in numbers:
-        sNum = str(num)
-        temp = ()
-        for idx in range(4):
-            if idx >= len(sNum):
-                temp += (-0.5,)
-                #temp.add(-0.5)
-            else:
-                n = -int(sNum[idx])
-                temp += (n,)
-        heapq.heappush(saveNum,temp)
-    while saveNum:
-        aTemp, bTemp, cTemp, dTemp = heapq.heappop(saveNum)
-        tempNum = [aTemp, bTemp, cTemp, dTemp]
-        for i in tempNum:
-            if i == -0.5:
-                break
-            else:
-                answer += str(-i)
-
+        sTemp = str(num)
+        sNums.append(sTemp * 3)
+    sNums.sort(reverse=True)
+    #print(sNums)
+    for sNum in sNums:
+        bigSize = len(sNum)
+        size = bigSize // 3
+        #print(size)
+        answer = answer + sNum[:size]
+    if int(answer) == 0:
+        return '0'    
     return answer
 
 
-
-
-
-i = [3, 30, 34, 5, 9]
+i = [101, 10, 232, 23]
 print(solution(i))
