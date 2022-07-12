@@ -9,7 +9,7 @@ def solution(name):
         midName = nameSize // 2 + 1
     else:
         midName = nameSize // 2
-    where = 0
+
     # N을 기준으로 이동하기(따악 중간)
     # ord(A) = 65, ord(Z) = 90 , ord(N) = 78
     for word in name:
@@ -19,35 +19,42 @@ def solution(name):
         else:
             answer += (91 - wordCost)
 
-  
-    frontWhere, backWhere = midName - 1, midName
-    answer += (midName -1)
-    answer += (nameSize - midName )
-   
-    while frontWhere >= 0:
-        if name[frontWhere] == "A":
-            if answer == 0:
-                break
-            answer -= 1
-            frontWhere -= 1
-        else:
-            break
-    while backWhere < len(name):
-        if name[backWhere] == "A":
-            if answer == 0:
-                break
-            answer -= 1
-            backWhere += 1
-        else:
-            break
 
 
+            
+    if "A" not in name:
+        answer += (nameSize-1)
+    else:
+        if name[-1] == "A":
+            temp = nameSize - 2
+        else:
+            temp = nameSize - 1
+        where = 1
+        seqA = [False, 0]
+        checkA = 0
+        while where < nameSize:
+            if name[where] == "A":
+                if seqA[0]:
+                    temp = min(temp, (seqA[1]-1)*2 + (nameSize-1-where))
+
+                else:
+                    seqA[0] = True
+                    seqA[1] = where
+                    temp = min(temp, (where-1)*2 + (nameSize-1-where) )
+            else:
+                seqA[0] = False
+            where += 1
+        answer += temp
+    if answer < 0:
+        answer = 0
     return answer
 
 
 
 
-name = "AAAAA"
+name = "AAAEASAHQAYTAAAJ" # 60
+name = "AAAABABAAAA"
 #name = "JAZ"
 #name = "JAN"
+#name = "AAIAPB"
 print(solution(name))
