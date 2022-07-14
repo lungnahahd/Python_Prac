@@ -1,6 +1,9 @@
 # JoyStick
 ## 조이스틱을 이동해서 원하는 알파벳 만들기
 
+from tkinter.font import names
+
+
 def solution(name):
     answer = 0
     nameSize = len(name)
@@ -19,41 +22,41 @@ def solution(name):
         else:
             answer += (91 - wordCost)
 
-
-
-            
-    if "A" not in name:
+    ##################################### 여기까지가 알파벳 기준 JoyStick 처리        
+    if "A" not in name: # A 가 아예 없는 경우는 그냥 한 번에 쭉 읽는 것이 가장 단기적 루트
         answer += (nameSize-1)
     else:
-        if name[-1] == "A":
+        if name[-1] == "A": # 맨 마지막이 A인 경우는 그 전까지만 읽기
             temp = nameSize - 2
         else:
             temp = nameSize - 1
-        where = 1
-        seqA = [False, 0]
-        checkA = 0
+        where = 0
+        checkA = False
+        startA = 0
         while where < nameSize:
             if name[where] == "A":
-                if seqA[0]:
-                    temp = min(temp, (seqA[1]-1)*2 + (nameSize-1-where))
-
-                else:
-                    seqA[0] = True
-                    seqA[1] = where
-                    temp = min(temp, (where-1)*2 + (nameSize-1-where) )
-            else:
-                seqA[0] = False
-            where += 1
+                if not checkA:
+                    startA = where
+                    checkA = True
+            elif name[where] != "A" or where == nameSize-1:
+                if checkA:
+                    if startA != 0:
+                        startA = startA-1
+                    temp = min(temp, startA*2 + (nameSize-where))
+                    #print(temp,name[where],startA)
+                    checkA = False
+            where += 1       
         answer += temp
+        
     if answer < 0:
         answer = 0
     return answer
 
 
 
-
-name = "AAAEASAHQAYTAAAJ" # 60
-name = "AAAABABAAAA"
+name ="JAN"
+#name = "AAAEASAHQAYTAAAJ" # 60
+#name = "AAAABABAAAA"
 #name = "JAZ"
 #name = "JAN"
 #name = "AAIAPB"
