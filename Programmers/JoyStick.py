@@ -13,30 +13,34 @@ def solution(name):
         if wordCost <= 78:
             answer += (wordCost - 65)
             if wordCost == 65:
-                if beforeA:
-                    whereA.append((temp,idx))
-                    beforeA = False
-                else:
+                if not beforeA:
                     beforeA = True
                     temp = idx
+            else:
+                if beforeA:
+                    whereA.append((temp,idx-1))
+                    beforeA = False
         else:
             answer += (91 - wordCost)
+            if beforeA:
+                whereA.append((temp,idx-1))
+                beforeA = False
+            
     if beforeA:
-        whereA.append((temp,temp))
+        whereA.append((temp,len(name)-1))
     ##################################### 여기까지가 알파벳 기준 JoyStick 처리        
     moveCnt = len(name) - 1
     for idx in range(len(whereA)):
         start, end = whereA[idx]
         tempCnt = 0
-        if start != 0:
-            if end == len(name) - 1:
-                tempCnt += (start - 1)
-            else:
-                tempCnt += (start-1) * 2
-        tempCnt += (len(name) - end - 1)
-        moveCnt = min(moveCnt,tempCnt)
+        startGo = start - 1
+        if startGo <0:
+            startGo = 0
+        endGo = len(name) - end -1
+        if endGo < 0:
+            endGo = 0
+        moveCnt = min(moveCnt,(endGo*2+startGo),(startGo*2+endGo))
     answer += moveCnt
-    print(moveCnt)
     return answer
 
 
