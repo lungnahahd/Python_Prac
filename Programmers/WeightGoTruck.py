@@ -19,19 +19,17 @@ def solution(bridge_length, weight, truck_weights):
             else:
                 if len(onBridge) == 1:
                     bfTime += bridge_length
+                    onBridge.popleft()
                     nowTruck = truck
                 else:
-                    while len(onBridge) != 1:
+                    while nowTruck + truck > weight:
                         nowTruck -= onBridge[0]
                         onBridge.popleft()
-                        if nowTruck + truck <= weight:
-                            break
-                    if len(onBridge) == 1:
+                    if len(onBridge) == 0:
                         bfTime += bridge_length
-                        onBridge.popleft()
                     else:
-                        nowTruck += truck
                         bfTime += 1
+                    nowTruck += truck
                     onBridge.append(truck)
         bfTime += bridge_length
         answer = bfTime
