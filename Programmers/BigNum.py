@@ -1,30 +1,33 @@
 # 큰 수 만들기
 
+import math
+
 def solution(number, k):
     answer = ''
     intNumL = list(map(int,number))
-    fntNum = intNumL[:k]
-    bigFnt = max(fntNum)
-    if bigFnt < intNumL[k]: # 만약, 앞의 최대가 바로 뒤에오는 최대보다 작을 경우 앞을 전부 제거..
-        answer = number[k:]
-    else:
-        outCount = 0
-        for num in fntNum:
-            if num == bigFnt:
-                answer += str(num)
+    saveBox = []
+    before = intNumL[0]
+    idx = 0
+    for num in intNumL:
+        if k == 0 or num == before:
+            saveBox.append(num)
+        elif num > before:
+            k -= 1
+            saveBox.pop()
+            saveBox.append(num)
+            before = num
+        else:
+            ################ 이 부분 처리 필요....
+            ## 즉, 마지막 케이스의 4,7 을 처리하는 경우와 7,5를 처리하는 경우를 다리게 하기
+            if saveBox[-1] >= num:
+                saveBox.append(num)
+                before = num
             else:
-                outCount += 1
-        while outCount != k:
-            # 뒤에 숫자를 어떻게 처리할지 작성 필요...
-        
+                k -= 1
+    if k != 0:
+        saveBox = saveBox[:len(saveBox) - k]
 
-
-
-
-
-
-
-
+    answer = saveBox
 
     return answer
 
@@ -32,6 +35,6 @@ def solution(number, k):
 
 
 
-n = "1924"
-k = 2
+n = "4177252841"
+k = 4
 print(solution(n,k))
