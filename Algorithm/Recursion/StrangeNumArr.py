@@ -1,8 +1,4 @@
 # 이상한 수열(코드 트리)
-
-from pickletools import read_unicodestring1
-
-
 n = int(input())
 
 def makeArr(n):
