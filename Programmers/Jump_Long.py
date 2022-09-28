@@ -1,21 +1,13 @@
 # 멀리 뛰기
 
-dist = []
-answer = 0
-
 def solution(n):
-    global answer
-
-    for i in range(1,3):
-        n = n - i
-        if n == 0:
-            answer += 1
-            break
-        else:
-            solution(n)
-        n = n + i
+    dist = [0,1,2]
+    if n > 2:
+        for i in range(3,n+1):
+            temp = dist[i-2]+dist[i-1]
+            dist.append(temp % 1234567)
+    answer = dist[n]
     return answer
-
 
 print(solution(4)) # 5
 print(solution(3)) # 3
