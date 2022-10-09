@@ -1,48 +1,37 @@
 # 게임 맵 최단거리
 
-# (행, 열)
+from collections import deque
+from copy import deepcopy
 
-row_move = [-1,0,+1,0]
+# (행, 열)
+# BFS 활용!!
+## 처음에는 DFS로 풀다가 꼬여버렸음...
+
+row_move = [+1,0,-1,0]
 col_move = [0,+1,0,-1]
-go_dist = []
-min_way = 101
 
 def solution(maps):
-    global go_dist
-    global min_way
-    go_dist = []
-    max_row, max_col = len(maps)-1,len(maps[0])-1 # 적팀 진영의 위치
-    visited = set() # 방문 여부를 저장할 딕셔너리
-    find_way(maps,0,0,1,visited)
+    save_node = deque()
+    row_max, col_max = len(maps)-1, len(maps[0])-1
+    visited = set() # 방문 여부를 나타내는 set ->  시간 복잡도를 줄일 수 있음
+    save_node.append((0,0)) # 큐를 활용한 BFS
+    result_map = deepcopy(maps) # 정답을 위한 깊은 복사(안하고 그냥 파라미터 배열에 해도 무방할듯..)
+    result_map[row_max][col_max] = -1
+    visited.add((0,0))
+    while save_node:
+        row_now,col_now = save_node.popleft()
+        for idx in range(4):
+            row_next, col_next = row_now+row_move[idx], col_now+col_move[idx]
+            if 0<=row_next<=row_max and 0<=col_next<=col_max and maps[row_next][col_next] == 1:
+                if (row_next,col_next) not in visited:
+                    visited.add((row_next,col_next))
+                    result_map[row_next][col_next] = result_map[row_now][col_now] + 1
+                    save_node.append((row_next,col_next))
+    
 
-    if len(go_dist) == 0:
-        min_way = 101
-        return -1
-    else:
-        min_way = 101
-        return(min(go_dist))
+    return result_map[row_max][col_max]
 
-def find_way(map,row,col,distance,visited):
-    global go_dist
-    global min_way
-    if distance >= min_way:
-        return
-    for cnt in range(4):
-        row_temp = row_move[cnt] + row
-        col_temp = col_move[cnt] + col
-        if 0<=row_temp<len(map) and 0<=col_temp < len(map[0]) and map[row_temp][col_temp] == 1:
-            if (row_temp,col_temp) not in visited:
-                now_visit = visited.copy()
-                now_dist = distance
-                now_dist += 1
-                now_visit.add((row_temp,col_temp))
-                if row_temp == (len(map)-1) and col_temp == (len(map[0])-1):
-                    min_way = now_dist
-                    go_dist.append(now_dist)
-                else:
-                    find_way(map,row_temp,col_temp,now_dist,now_visit)
-
-
+    
 
 # 11
 print(solution([[1,0,1,1,1],[1,0,1,0,1],[1,0,1,1,1],[1,1,1,0,1],[0,0,0,0,1]]))
