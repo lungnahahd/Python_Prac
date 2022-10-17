@@ -30,9 +30,9 @@ def dfs(k,start_row,start_col):
                 result +=1
     return True
 
-result = 0
+result = 1
 mid_sum = 0
-for k in range(max_k):
+for k in range(1,max_k):
     visited = [[False for _ in range(c_size)] for _ in range(r_size)]
     row, col = 0,0
     area_size = 0
