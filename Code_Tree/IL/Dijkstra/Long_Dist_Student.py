@@ -3,7 +3,7 @@ import sys
 
 place, road = map(int,input().split())
 school = place
-time = [[] for _ in range(road+1)]
+time = [[] for _ in range(place+1)]
 for _ in range(road):
     end,start,weight = map(int,input().split())
     time[start].append([end,weight])
