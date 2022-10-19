@@ -27,38 +27,42 @@ dist = [[INT_MAX,INT_MAX] for _ in range(big_node + 1)]
 
 q = []
 visited = [False for _ in range(big_node + 1)]
-heapq.heappush(q,(0,start,-1))
 visited[start] = True
+heapq.heappush(q,(0,start,-1,visited))
 go = 1
 while q:
-    cost, now, before_bus = heapq.heappop(q)
+    cost, now, before_bus, visited = heapq.heappop(q)
     
     for i in bus_line[now]:
+        visit = visited[:]
         if before_bus == -1:
-            if dist[i[0]][0] >= cost + i[2]:
+            if dist[i[0]][0] >= cost + i[2] and not visit[i[0]]:
                 dist[i[0]][0] = cost + i[2]
                 if dist[i[0]][0] == cost + i[2]:
                     dist[i[0]][1] = min(go,dist[i[0]][1])
                 else:
                     dist[i[0]][1] = go
-                heapq.heappush(q,(cost+i[2],i[0],i[1]))
+                visit[i[0]] = True
+                heapq.heappush(q,(cost+i[2],i[0],i[1],visit))
         else:
             if before_bus != i[1]:
-                if dist[i[0]][0] >= cost + i[2]:
+                if dist[i[0]][0] >= cost + i[2] and not visit[i[0]]:
                     dist[i[0]][0] = cost + i[2]
                     if dist[i[0]][0] == cost + i[2]:
                         dist[i[0]][1] = min(go,dist[i[0]][1])
                     else:
                         dist[i[0]][1] = go
-                    heapq.heappush(q,(cost+i[2], i[0],i[1]))
+                    visit[i[0]] = True
+                    heapq.heappush(q,(cost+i[2], i[0],i[1],visit))
             else:
-                if dist[i[0]][0] >= cost:
+                if dist[i[0]][0] >= cost and not visit[i[0]]:
                     dist[i[0]][0] = cost
                     if dist[i[0]][0] == cost + i[2]:
                         dist[i[0]][1] = min(go,dist[i[0]][1])
                     else:
                         dist[i[0]][1] = go
-                    heapq.heappush(q,(cost,i[0],i[1]))
+                    visit[i[0]] = True
+                    heapq.heappush(q,(cost,i[0],i[1],visit))
     go += 1
 
 answer = dist[end]
