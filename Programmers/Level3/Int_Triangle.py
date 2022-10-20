@@ -2,21 +2,18 @@
 ## DP 유형
 
 
+import copy
+
 def solution(triangle):
     answer = 0
     before_layer = [0]
-    for layer in triangle:
-        b_size = len(before_layer)
-        for idx,num in enumerate(layer):
-            temp = 0
-            if 0 <= idx -1 < b_size:
-                temp = num + before_layer[idx-1]
-            if idx + 1 =< b_size:
-                temp = max(temp,num + before_layer[idx+1])
-            layer[idx] = temp
-        before_layer = layer
-    print(triangle)
-    
-    
+    sum_tri = copy.deepcopy(triangle)
+    for idx in range(len(triangle)-1):
+        layer = sum_tri[idx]
+        for i, num in enumerate(layer):
+            sum_tri[idx+1][i] = max(sum_tri[idx+1][i],num + triangle[idx+1][i])
+            sum_tri[idx+1][i+1] = max(sum_tri[idx+1][i+1], num + triangle[idx+1][i+1])  
+            
+    answer = max(sum_tri[-1])
     
     return answer
