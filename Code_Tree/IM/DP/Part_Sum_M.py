@@ -9,13 +9,17 @@ num, plus_sum = map(int,input().split())
 l_num = list(map(int,input().split()))
 
 result = [INT_MAX for _ in range(plus_sum+1)]
+result[0] = 0
 
-for i in l_num:
-    result[i] = 1
+# for i in l_num:
+#     result[i] = 1
 
 for n in l_num:
     for idx in range(plus_sum,0,-1):
-        if idx - n > 0:
+        if idx - n >= 0:
             result[idx] = min(result[idx],result[idx-n] + 1)
 
-print(result[plus_sum])
+if result[plus_sum] == INT_MAX:
+    print(-1)
+else:
+    print(result[plus_sum])
