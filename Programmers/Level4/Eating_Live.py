@@ -1,37 +1,27 @@
+import heapq
+
 def solution(food_times, k):
     answer = 0
-    ate = [0 for _ in range(len(food_times))]
-    food_kind = len(food_times)
-    now_food = 0
-    fin = [False for _ in range(len(food_times))]
+    food = []
+    for idx,time in enumerate(food_times):
+        heapq.heappush(food,(time,idx+1))
     
-    while k != 0 and False in fin:
-        ate[now_food] += 1
-        if ate[now_food] == food_times[now_food]:
-            fin[now_food] = True
-        k -= 1
-        now_food += 1
-        if now_food == food_kind:
-            now_food = 0
-        while fin[now_food]:
-            now_food += 1
-            if now_food == food_kind:
-                now_food = 0
-    print(now_food)
-    print(ate)
-    print(fin)
-    if False in fin:
-        answer = now_food + 1
-        if answer > food_kind:
-            answer = 0
-            while fin[answer]:
-                answer += 1
-            answer += 1
-    else:
+    spend = 0
+    f_num = len(food_times)
+    while (food[0][0] - spend) * f_num <= k:
+        k = k - (food[0][0] - spend) * f_num
+        f_num -= 1
+        spend = food[0][0]
+        heapq.heappop(food)
+        if k <= 0 :
+            break
+    if f_num == 0:
         answer = -1
-        
-        
-        
-        
-    
-    return answer
+    else:
+        remain = []
+        while food:
+            _,name = heapq.heappop(food)
+            remain.append(name)
+        remain.sort()
+        now_food = (k % f_num)
+        answer = remain[now_food]
