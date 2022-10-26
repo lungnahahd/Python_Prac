@@ -28,10 +28,12 @@ else:
         dp[step][2] = dp[step-1][1] + stairs[step]
 
     # print(dp)
-
-    answer = stairs[-1] + max(dp[size-2][0],dp[size-2][1])
+    if two_step:
+        answer = stairs[-1] + dp[size-2][1]
+    else:
+        answer = stairs[-1] + max(dp[size-2][0],dp[size-2][1])
 print(answer)
-
+print(dp)
 ## 반례
 # 10
 # 3
