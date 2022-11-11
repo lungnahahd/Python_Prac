@@ -11,6 +11,8 @@ for _ in range(numMap):
     temp = list(input())
     town.append(temp)
 
+# DFS를 적용해서 방문 여부를 확인하는 함수
+
 
 def dfs(r, c):
     global visited
@@ -29,6 +31,7 @@ def dfs(r, c):
     return town_size
 
 
+# 실제 노드를 하나 하나 따지면서 들어가기
 for row in range(numMap):
     for col in range(numMap):
         if town[row][col] == '1' and not visited[row][col]:
