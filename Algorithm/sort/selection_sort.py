@@ -26,3 +26,23 @@ print(array)
 #             min_index = j
 #     array[i],array[min_index] = array[min_index], array[i]
 # print(array)
+
+########### 230920 버전 선택 정렬 구현
+# Python 활용 선택 정렬 구현
+## 리스트의 정렬되지 않은 부분에서 가장 최소를 찾고, 가장 왼쪽으로 이동하고 해당 부분은 정렬이 완료된 것으로 간주
+## 위의 과정을 전부 정렬될 때까지 반복 수행 
+
+n = int(input())
+nums = list(map(int, input().split()))
+
+for k in range(n-1):
+    smallVal = nums[k] ## 사실 해당 부분은 굳이 값까지 가지고 다닐 필요는 없음 -> 인덱스로 직접 값 이용!
+    smallIdx = k
+    for idx in range(k, n):
+        if (smallVal > nums[idx]):
+            smallVal = nums[idx]
+            smallIdx = idx
+    nums[k], nums[smallIdx] = smallVal, nums[k]
+
+for num in nums:
+    print(num, end = ' ')
