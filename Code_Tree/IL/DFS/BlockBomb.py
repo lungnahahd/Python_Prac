@@ -33,10 +33,11 @@ for y in range(areaSize):
         if (not visited[x][y]):
             visited[x][y] = True
             dfs(x,y,area[x][y])
-            if (blockSize > 4):
-                resultCount +=1 
-                resultBlock = max(resultBlock, blockSize)
+            if (blockSize >= 4):
+                resultCount += 1 
+            resultBlock = max(resultBlock, blockSize)
             blockSize = 1
 
 print(resultCount, resultBlock)
+
   
