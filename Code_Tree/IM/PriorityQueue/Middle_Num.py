@@ -10,9 +10,9 @@ for _ in range(test):
         heapq.heappush(heap,-num_list[idx])
         if (idx % 2 == 0):
             temp = []
-            for _ in range(idx // 2):
+            for _ in range(len(heap)):
                 temp.append(heapq.heappop(heap))
-            print(-heap[0], end=' ')
-            for num in temp:
-                heapq.heappush(heap, num)
+            print(-temp[idx//2], end= ' ')
+            heapq.heapify(temp)
+            heap = temp
     print()
