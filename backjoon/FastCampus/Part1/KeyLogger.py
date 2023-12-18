@@ -22,14 +22,8 @@ for _ in range(case_cnt):
                 now_pwd.pop()
         else:
             now_pwd.append(step)
-    while temp_pwd:
-        now = temp_pwd.pop()
-        now_pwd.append(now)
-    result = ""
-    while now_pwd:
-        pwd = now_pwd.pop()
-        result = pwd + result
-    answer.append(result)
+    now_pwd.extend(reversed(temp_pwd))
+    answer.append(''.join(now_pwd))
 
 for show in answer:
     print(show)
