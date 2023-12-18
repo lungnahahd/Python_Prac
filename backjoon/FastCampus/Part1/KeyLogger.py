@@ -5,26 +5,31 @@ answer = []
 
 for _ in range(case_cnt):
     now_pwd = []
+    temp_pwd = []
     procedure = input()
     cursur = 0
     for step in procedure:
         if (step == '<'):
-            if (cursur != 0):
-                cursur -= 1
+            if (len(now_pwd) != 0):
+                temp = now_pwd.pop()
+                temp_pwd.append(temp)
         elif (step == '>'):
-            if (cursur < len(now_pwd)):
-                cursur += 1
+            if (len(temp_pwd) != 0):
+                temp = temp_pwd.pop()
+                now_pwd.append(temp)
         elif (step == '-'):
-            if (cursur != 0):
-                now_pwd.pop(cursur-1)
-                cursur -= 1
+            if (len(now_pwd) != 0):
+                now_pwd.pop()
         else:
-            if (cursur == len(now_pwd)):
-                now_pwd.append(step)
-            else:
-                now_pwd.insert(cursur, step)
-            cursur += 1
-    answer.append(''.join(now_pwd))
+            now_pwd.append(step)
+    while temp_pwd:
+        now = temp_pwd.pop()
+        now_pwd.append(now)
+    result = ""
+    while now_pwd:
+        pwd = now_pwd.pop()
+        result = pwd + result
+    answer.append(result)
 
 for show in answer:
     print(show)
