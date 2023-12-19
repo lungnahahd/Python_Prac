@@ -9,26 +9,18 @@ for _ in range(case_num):
     for _ in range(cnt):
         temp_answer = 0
         left, right = input().split()
+        
+        
+        temp_left, temp_right = set([left]), set([right])
+
         if left in friend_dict:
-            temp = friend_dict[left]
-            temp.add(right)
-            friend_dict[left] = temp
-        else:
-            friend_dict[left] = set([right])
-        #temp_answer += len(friend_dict[left])
+            temp_left = friend_dict[left]
         if right in friend_dict:
-            temp = friend_dict[right]
-            temp.add(left)
-            friend_dict[right] = temp
-        else:
-            friend_dict[right] = set([left])
-        temp_right,temp_left = friend_dict[right], friend_dict[left]
-        temp_union = temp_right.union(temp_left)
-        friend_dict[left] = temp_union
-        friend_dict[right] = temp_union
-        temp_answer 
-        temp_answer += len(temp_union)
-        answer.append(temp_answer)
+            temp_right = friend_dict[right]        
+        
+        temp_union = temp_left.union(temp_right)
+        answer.append(len(temp_union))
+        friend_dict[left], friend_dict[right] = temp_union, temp_union
 
 for relation in answer:
     print(relation)
