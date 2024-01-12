@@ -28,8 +28,9 @@ def union(x, y):
         chk_mother = y_mother
         before_mohter = x_mother
     for idx in range(1, node_cnt + 1):
-        temp_mother = mothers[idx]:
-        if t
+        temp_mother = mothers[idx]
+        if temp_mother == before_mohter:
+            mothers[idx] = chk_mother
 
 for _ in range(line_cnt):
     x,y = list(map(int, input().split()))
