@@ -2,39 +2,37 @@
 ## 난이도 : 중
 
 import sys
+from collections import deque
 input = sys.stdin.readline
 
 node_cnt, line_cnt = list(map(int, input().split()))
-mothers = [idx for idx in range(node_cnt+1)]
+mothers = [idx for idx in range(node_cnt+1)] # 부모 리스트
+link_state = [[] for _ in range(node_cnt+1)] # 연결 상태를 나타내는 리스트
+visited = [False for _ in range(node_cnt+1)] # 방문 여부 리스트
+will_go = deque([])
 
-def find_mother(node):
-    global mothers
-    if node != mothers[node]:
-        mothers[node] = find_mother(mothers[node])
-    return mothers[node]
-
-def union(x, y):
-    global mothers
-    x_mother = find_mother(x)
-    y_mother = find_mother(y)
-    chk_mother = 0
-    before_mohter = 0
-    if (x_mother <= y_mother):
-        mothers[y] = x_mother
-        chk_mother = x_mother
-        before_mohter = y_mother
-    else:
-        mothers[x] = y_mother
-        chk_mother = y_mother
-        before_mohter = x_mother
-    for idx in range(1, node_cnt + 1):
-        temp_mother = mothers[idx]
-        if temp_mother == before_mohter:
-            mothers[idx] = chk_mother
-
+# 연결 리스트 상태를 갱신하는 과정 (양방향 그래프 기준)
 for _ in range(line_cnt):
-    x,y = list(map(int, input().split()))
-    union(x,y)
+    x, y = list(map(int, input().split()))
+    link_state[x].append(y)
+    link_state[y].append(x)
+
+# 양방향 그래프 기준 부모 리스트 갱신
+for now in range(1, node_cnt):
+    if visited[now]:
+        continue
+    will_go.append(now)
+    
+    while will_go: # 루트 노드(작은 수)를 기준으로 연결된 것들부터 우선 방문
+        now = will_go.popleft()
+        if visited[now]:
+            continue
+        visited[now] = True
+        for go_node in link_state[now]:
+            if visited[go_node]:
+                continue
+            will_go.append(go_node)
+            mothers[go_node] = mothers[now]
 
 set_mother = set()
 
