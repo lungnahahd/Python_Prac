@@ -2,6 +2,9 @@
 ## 난이도 : 하
 
 import heapq
+import sys
+
+input = sys.stdin.readline
 
 cnt = int(input())
 n_num = []
