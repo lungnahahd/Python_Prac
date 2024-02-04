@@ -34,15 +34,14 @@ def go_ahead(now, weight, visited):
     for go, now_weight in can_go:
         if go in visited: # 이미 해당 섬에 방문한 경우
             continue
-        temp_weight = weight
-        go_weight = min(temp_weight, now_weight)
+        go_weight = min(weight, now_weight)
         #visited.add(go)
         if go == end_point:
             result.append(go_weight)
         else:
-            temp = copy.deepcopy(visited)
-            temp.add(go)
-            go_ahead(go, go_weight, temp)
+            visited.add(go)
+            go_ahead(go, go_weight, visited)
+            visited.remove(go)
 
 go_ahead(start_point, 1000000001, set([start_point]))
 print(max(result))
