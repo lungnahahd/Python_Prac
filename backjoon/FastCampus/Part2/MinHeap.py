@@ -2,7 +2,9 @@
 ## 난이도 : 하
 
 import heapq
+import sys
 
+input = sys.stdin.readline
 cnt = int(input())
 
 save = []
@@ -14,7 +16,8 @@ for _ in range(cnt):
         if len(save) == 0:
             result.append(0)
         else:
-            result.append(heapq.heappop(save))
+            temp = heapq.heappop(save)
+            result.append(temp)
     else:
         heapq.heappush(save, num)
 
