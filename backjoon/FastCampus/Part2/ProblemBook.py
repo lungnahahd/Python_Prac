@@ -22,6 +22,7 @@ visitied = set()
 for idx in range(1, cnt_book+1):
     if books[idx] == 0:
         heapq.heappush(sort_queue, idx)
+        visitied.add(idx)
 
 result = []
 
@@ -33,9 +34,10 @@ while sort_queue:
         continue
     for idx in mapping[now]:
         books[idx] -= 1
-
+    
     for idx in range(1, cnt_book+1):
-        if books[idx] == 0 and not idx not in visitied:
+        if not idx in visitied and   books[idx] < 1:
             heapq.heappush(sort_queue, idx)
+
 
 print(result)
