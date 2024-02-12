@@ -26,18 +26,18 @@ for idx in range(1, cnt_book+1):
 
 result = []
 
-while sort_queue:
-    now = heapq.heappop(sort_queue)
-    visitied.add(now)
-    result.append(now)
-    if len(mapping[now]) == 0:
-        continue
-    for idx in mapping[now]:
-        books[idx] -= 1
-    
-    for idx in range(1, cnt_book+1):
-        if not idx in visitied and   books[idx] < 1:
-            heapq.heappush(sort_queue, idx)
+if cnt_book == 1:
+    print('1')
+else:
+    while sort_queue:
+        now = heapq.heappop(sort_queue)
+        visitied.add(now)
+        result.append(str(now))
+        if len(mapping[now]) == 0:
+            continue
+        for idx in mapping[now]:
+            books[idx] -= 1
+            if not idx in visitied and books[idx] == 0:
+                heapq.heappush(sort_queue, idx)
 
-
-print(result)
+    print(' '.join(result))
