@@ -16,17 +16,26 @@ temp = []
 
 for _ in range(case):
     weight, cost = list(map(int, input().split()))
-    heapq.heappush(temp, (cost, weight))
+    heapq.heappush(temp, (-cost, weight))
 
 result = 0
 
 while temp:
     now_cost, now_weight = heapq.heappop(temp)
+    now_cost = now_cost * (-1)
+    if now_weight > max_weight:
+        continue
 
-    for cost, weight in temp:
+    save = []
+    while temp:
+        cost, weight = heapq.heappop(temp)
+        cost = cost * (-1)
         if now_weight + weight <= max_weight:
             now_weight += weight
             now_cost += cost
+        save.append((-cost, weight))
+    temp = save
+    heapq.heapify(temp)
     result = max(now_cost, result)
 
 print(result)
