@@ -12,30 +12,16 @@ import heapq
 
 case, max_weight = list(map(int, input().split()))
 
-temp = []
+save_weight = [[0 for _ in range(max_weight + 1)] for _ in range(case+1)]
 
-for _ in range(case):
-    weight, cost = list(map(int, input().split()))
-    heapq.heappush(temp, (-cost, weight))
+for idx in range(1, case+1):
+    now_weight, now_cost = list(map(int, input().split()))
+    for proceed in range(1, max_weight + 1):
+        if proceed < now_weight:
+            save_weight[idx][proceed] = save_weight[idx-1][proceed]
+        else:
+            dp_proceed = proceed - now_weight
+            save_weight[idx][proceed] = max(save_weight[idx-1][proceed], save_weight[idx][dp_proceed] + now_cost)
 
-result = 0
 
-while temp:
-    now_cost, now_weight = heapq.heappop(temp)
-    now_cost = now_cost * (-1)
-    if now_weight > max_weight:
-        continue
-
-    save = []
-    while temp:
-        cost, weight = heapq.heappop(temp)
-        cost = cost * (-1)
-        if now_weight + weight <= max_weight:
-            now_weight += weight
-            now_cost += cost
-        save.append((-cost, weight))
-    temp = save
-    heapq.heapify(temp)
-    result = max(now_cost, result)
-
-print(result)
+print(save_weight[-1][-1])
