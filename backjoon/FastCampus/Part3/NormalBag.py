@@ -1,12 +1,6 @@
 # 평범한 배낭 (12865)
 ## 난이도 : 하
 
-# 4 7
-# 6 13
-# 4 8
-# 3 6
-# 5 12
-
 import sys
 import heapq
 
@@ -21,9 +15,6 @@ for idx in range(1, case+1):
             save_weight[idx][proceed] = save_weight[idx-1][proceed]
         else:
             dp_proceed = proceed - now_weight
-            if (dp_proceed == proceed):
-                save_weight[idx][proceed] = now_cost
-            else:
-                save_weight[idx][proceed] = max(save_weight[idx-1][proceed], save_weight[idx-1][dp_proceed] + now_cost)
+            save_weight[idx][proceed] = max(save_weight[idx-1][proceed], save_weight[idx-1][dp_proceed] + now_cost)
 
 print(max(save_weight[-1]))
