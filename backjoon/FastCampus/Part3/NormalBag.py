@@ -21,7 +21,9 @@ for idx in range(1, case+1):
             save_weight[idx][proceed] = save_weight[idx-1][proceed]
         else:
             dp_proceed = proceed - now_weight
-            save_weight[idx][proceed] = max(save_weight[idx-1][proceed], save_weight[idx][dp_proceed] + now_cost)
+            if (dp_proceed == proceed):
+                save_weight[idx][proceed] = now_cost
+            else:
+                save_weight[idx][proceed] = max(save_weight[idx-1][proceed], save_weight[idx-1][dp_proceed] + now_cost)
 
-
-print(save_weight[-1][-1])
+print(max(save_weight[-1]))
