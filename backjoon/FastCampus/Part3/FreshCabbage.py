@@ -14,14 +14,15 @@ answer = []
 
 def bfs(start, visited, ground):
     temp = deque([start])
+    visited[start[0]][start[1]] = True
     while temp:
         row, col = temp.popleft()
-        visited[row][col] = True
         for idx in range(4):
             now_row, now_col = row + d_row[idx], col + d_col[idx]
             if ((0<= now_row < len(ground)) and (0<= now_col < len(ground[0])) and ground[now_row][now_col] == 1):
                 if (not visited[now_row][now_col]):
                     temp.append((now_row, now_col))
+                    visited[now_row][now_col] = True # 여기에 TRUE 가 되어야 함을 주의! --> 안 그러면 중복 발생!
     return visited
 
 
@@ -42,7 +43,4 @@ for _ in range(case_cnt):
                 visited = bfs((r,c), visited, ground)
                 result += 1
 
-    answer.append(str(result))
-
-for rst in answer:
-    print(rst)
+    print(result)
