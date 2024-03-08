@@ -10,10 +10,11 @@ def union(a, b):
     a_mom = find(a)
     b_mom = find(b)
 
-    if(a < b):
+    if a_mom != b_mom:
         mother[b] = a_mom
-    else:
-        mother[a] = b_mom
+        connect_num[a] += connect_num[b]
+        connect_num[b] = connect_num[a]
+    print(connect_num[a])
 
 def find(node):
     if mother[node] != node:
@@ -25,12 +26,15 @@ def find(node):
 for _ in range(case):
     cnt_network  = int(input())
     mother = dict()
+    connect_num = dict()
+
     cnt = 0
     for _ in range(cnt_network):
         a, b = input().split()
-        if 1 not in mother:
+        if a not in mother:
             mother[a] = a
+            connect_num[a] = 1
         if b not in mother:
             mother[b] = b
+            connect_num[b] = 1
         union(a,b)
-    print(mother)
