@@ -13,14 +13,12 @@ def union(a, b):
     if a_mom != b_mom:
         mother[b] = a_mom
         connect_num[a] += connect_num[b]
-        connect_num[b] = connect_num[a]
     print(connect_num[a])
 
 def find(node):
     if mother[node] != node:
-        return find(mother[node])
-    else:
-        return mother[node]
+       mother[node] = find(mother[node])
+    return mother[node]
 
 
 for _ in range(case):
