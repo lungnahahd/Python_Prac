@@ -11,9 +11,9 @@ def union(a, b):
     b_mom = find(b)
 
     if a_mom != b_mom:
-        mother[b] = a_mom
-        connect_num[a] += connect_num[b]
-    print(connect_num[a])
+        mother[b_mom] = a_mom
+        connect_num[a_mom] += connect_num[b_mom]
+    print(connect_num[a_mom])
 
 def find(node):
     if mother[node] != node:
@@ -26,7 +26,6 @@ for _ in range(case):
     mother = dict()
     connect_num = dict()
 
-    cnt = 0
     for _ in range(cnt_network):
         a, b = input().split()
         if a not in mother:
