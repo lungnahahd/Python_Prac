@@ -15,14 +15,15 @@ result = [0 for _ in range(cnt_computer+1)]
 def bfs(start, visited):
     go = deque([start])
     make_disease = 0
+    visited[start] = True
     while go:
         now_com = go.popleft()
-        visited[now_com] = True
         make_disease += 1
         for next_com in computer[now_com]:
             if visited[next_com]:
                 continue
             go.append(next_com)
+            visited[next_com] = True
     return make_disease
 
 for _ in range(cnt_believe):
