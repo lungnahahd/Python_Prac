@@ -35,7 +35,7 @@ for start in range(len(god_place_list)-1):
     for end in range(start+1, len(god_place_list)):
         if ((start,end) in before_connect):
             continue
-        now_dist = chkDist(god_place_list[start], god_place_list[end])
+        now_dist = round(chkDist(god_place_list[start], god_place_list[end]),2)
         heapq.heappush(dist_heap, now_dist)
 
 need_connect = god_cnt - 1 - connect_cnt
@@ -45,4 +45,4 @@ answer = 0
 for _ in range(need_connect):
     answer += heapq.heappop(dist_heap)
 
-print(round(answer,1))
+print("{:.2f}".format(answer))
