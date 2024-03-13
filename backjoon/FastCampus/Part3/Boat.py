@@ -25,6 +25,10 @@ while boxs:
             heapq.heappop(boxs)
         else:
             break
+    
+    if boxs and -boxs[0] > crains[0]:
+        rst_time = -1
+        break
 
     rst_time += 1
 print(rst_time)
