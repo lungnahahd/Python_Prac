@@ -19,16 +19,20 @@ rst_time = 0
 
 while boxs:
     for crain in crains:
-        if not boxs:
-            break
-        if crain >= -boxs[0]:
-            heapq.heappop(boxs)
-        else:
-            break
-    
+        temp = []
+        while boxs:
+            now_box = heapq.heappop(boxs)
+            if -now_box <= crain:
+                break
+            temp.append(now_box)
+        boxs = temp + boxs
+        heapq.heapify(boxs)
+        
+
     if boxs and -boxs[0] > crains[0]:
         rst_time = -1
         break
 
     rst_time += 1
+    
 print(rst_time)
