@@ -21,7 +21,5 @@ else:
     one_cnt += 1
     
 rst = min(one_cnt, zero_cnt)
-if rst == 0 and one_cnt != zero_cnt:
-    rst = max(one_cnt, zero_cnt)
 
 print(rst)
