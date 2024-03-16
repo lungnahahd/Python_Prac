@@ -18,41 +18,33 @@ for book in where_book:
         plus.append(book)
 
 rst = 0
-while minus or plus:
-    m_len, p_len = len(minus), len(plus)
-    if m_len <= p_len:
-        if p_len > can_bring:
-            rst += (plus[-1] * 2)
-            for _ in range(can_bring):
-                plus.pop()
-        else:
-            if m_len == 0:
-                rst += (plus[-1])
-                break
-            rst += (plus[-1] * 2)
-            plus = []
-            need_go = min(can_bring - p_len, m_len)
-            if need_go == p_len:
-                rst += ([need_go-1])
-                break
-            for _ in range(need_go):
-                minus.popleft()
-            rst += (minus[need_go-1] * 2)
+
+minus_len, plus_len = len(minus), len(plus)
+minus_idx, plus_idx = 0, plus_len - 1
+
+max_vals = []
+
+while minus_len != 0:
+    max_vals.append(abs(minus[minus_idx]))
+    if minus_len - minus_idx - 1 < can_bring:
+        break
+    minus_idx += can_bring
+
+
+while plus_len != 0:
+    max_vals.append(plus[plus_idx])
+    if plus_idx < can_bring:
+        break
+    plus_idx -= can_bring
+    print(plus_idx)
+
+rst = 0
+very_big_val = max(max_vals)
+
+for val in max_vals:
+    if val == very_big_val:
+        rst += val
     else:
-        if m_len > can_bring:
-            rst += (minus[-1] * 2)
-        else:
-            if p_len == 0:
-                rst += (minus[-1])
-                break
-            rst += (minus[-1] * 2)
-            minus = []
-            need_go = min(can_bring - m_len, p_len)
-            if need_go == p_len:
-                rst += (plus[need_go-1])
-                break
-            for _ in range(need_go):
-                plus.popleft()
-            rst += (plus[need_go-1] * 2)
+        rst += val * 2
 
 print(rst)
