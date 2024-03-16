@@ -36,7 +36,6 @@ while plus_len != 0:
     if plus_idx < can_bring:
         break
     plus_idx -= can_bring
-    print(plus_idx)
 
 rst = 0
 very_big_val = max(max_vals)
