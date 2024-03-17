@@ -4,15 +4,29 @@
 import sys
 
 input = sys.stdin.readline
+from collections import deque
 
 cnt = int(input())
 
-max_int = 0
-for num in range(1, cnt+1):
-    max_int += num
+chk_num = [False for _ in range(cnt + 1)]
+
+remain_num = []
+rst = 0
 
 for _ in range(cnt):
     temp = int(input())
-    max_int -= temp
+    if chk_num[temp]:
+        remain_num.append(temp)
+    else:
+        chk_num[temp] = True
 
-print(max_int)
+remain_num.sort()
+remain_num = deque(remain_num)
+
+for idx in range(1, cnt+1):
+    if chk_num[idx]:
+        continue
+    now_remain = remain_num.popleft()
+    rst += abs(now_remain - idx)
+
+print(rst)
