@@ -18,7 +18,7 @@ now_time = INT_MAX
 result = 0
 buffer = []
 
-while now_time != 1:
+while now_time != 1 and problems:
     temp_deadline, temp_cup_noodle = heapq.heappop(problems)
     if -temp_deadline < now_time :
         now_time = -temp_deadline
