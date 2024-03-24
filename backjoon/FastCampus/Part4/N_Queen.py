@@ -11,13 +11,13 @@ game_world = [[0] for _ in range(n)]
 
 def bfs(start):
     global rst
-    for idx in range(n):
-        game_world[start] = idx
-        if chk(game_world, start):
-            if start+1 >= n:
-                rst += 1
-            else:
-                bfs(start+1)
+    if start >= n:
+        rst += 1
+    else:
+        for idx in range(n):
+            game_world[start] = idx
+            if chk(game_world, start):
+              bfs(start+1)
 
 def chk(world,start):
     for idx in range(start):
