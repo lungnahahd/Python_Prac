@@ -1,7 +1,7 @@
 # 암호만들기 (1759)
 ## 난이도 : 골드 5
 
-mother_word = ['a','e','i','o','u']
+mother_word = ['a','e','i','o','u'] # 모음 배열 (최소 1개 존재가 필요)
 
 cnt_pwd, cnt_word = list(map(int, input().split()))
 word = list(input().split())
@@ -11,11 +11,12 @@ answer = []
 temp = []
 cnt_mother = 0
 
-def bfs(start):
+def dfs(start):
     global answer
     global temp
-    global cnt_mother
+    global cnt_mother # 모음 여부를 체크
 
+    # 재귀 호출을 활용해서 백트래킹 진행
     for idx in range(start, cnt_word):
         if word[idx] in mother_word:
             cnt_mother += 1
@@ -24,11 +25,11 @@ def bfs(start):
             if cnt_mother >= 1 and cnt_pwd - cnt_mother >= 2:
                 answer.append(''.join(temp))
         else:
-            bfs(idx+1)
+            dfs(idx+1)
         if word[idx] in mother_word:
             cnt_mother -= 1
         temp.pop()
     
-bfs(0)
+dfs(0)
 for pwd in answer:
     print(pwd)
