@@ -1,12 +1,14 @@
 # 알파벳 (1987)
 ## 난이도 : 골드4
 
-
 import sys
 from collections import deque
 
+input = sys.stdin.readline
+
 now_visit = deque([])
 row, col = list(map(int, input().split()))
+
 
 alphabets = []
 meet_alphabet = set()
