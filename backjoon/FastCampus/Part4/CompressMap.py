@@ -2,26 +2,19 @@
 ## 난이도 : 실버 2
 
 import sys
+import copy
 
 input = sys.stdin.readline
-
-cnt = int(input())
-num_list = list(input().split())
-
-temp = set()
-
-for num in num_list:
-    temp.add(num)
-
-sort_list = []
-for num in temp:
-    sort_list.append(int(num))
-
-sort_list.sort()
-
 result = []
+cnt = int(input())
+num_list = list(map(int, input().split()))
+
+unique_list = list(set(num_list))
+unique_list.sort()
+
+dict = {}
+for idx in range(len(unique_list)):
+    dict[unique_list[idx]] = idx
+
 for num in num_list:
-    result.append(str(sort_list.index(int(num))))
-
-print(' '.join(result))
-
+    print(dict[num], end= ' ')
