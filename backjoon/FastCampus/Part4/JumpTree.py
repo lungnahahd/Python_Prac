@@ -18,11 +18,8 @@ for _ in range(cnt_case):
     sort_tree.append(tree_list[-1])
     result = 0
     while start != -1:
-        if start < 0:
-            if abs(tree_list[start] - sort_tree[0]) > abs(tree_list[start] - sort_tree[-1]):
-                    sort_tree.append(tree_list[start])
-            else:
-                sort_tree.appendleft(tree_list[start])
+        if start ==  0:
+            sort_tree.append(tree_list[0])
             break
         else:
             sort_tree.append(tree_list[start-1])
