@@ -1,7 +1,6 @@
 # 적록색약 (10026)
 ## 난이도 : 골드 5
 
-import sys
 import copy
 from collections import deque
 
@@ -20,7 +19,7 @@ for _ in range(n):
             sick_color[idx] = 'R'
     sick_grid.append(sick_color)
 
-def dfs(grid, start_x, start_y, visited):
+def bfs(grid, start_x, start_y, visited):
     move_x = [-1,0,+1,0]
     move_y = [0,+1,0,-1]
     stack = deque([(start_x, start_y)])
@@ -39,10 +38,10 @@ for x in range(n):
     for y in range(n):
         if not nomal_visited[x][y]:
             nomal_result += 1
-            dfs(grid, x,y,nomal_visited)
+            bfs(grid, x,y,nomal_visited)
         if not sick_visited[x][y]:
             sick_result += 1
-            dfs(sick_grid, x,y,sick_visited)
+            bfs(sick_grid, x,y,sick_visited)
 
 print(nomal_result, end=' ')
 print(sick_result)
