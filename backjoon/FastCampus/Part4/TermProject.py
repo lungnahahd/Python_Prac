@@ -17,6 +17,7 @@ def dfs(start, graph, cycle_mother):
     if not visited[next_node]:
         visited[next_node] = True
         isCycle = False
+        finished[next_node] = True
         dfs(next_node, graph, cycle_mother)
     else:
         if not isCycle:
@@ -45,7 +46,7 @@ for _ in range(case_cnt):
         isCycle = False
         if not visited[idx]:
             dfs(idx, students, -1)
-        
+    print(cycle_member)
     result.append(student_cnt - len(cycle_member))
     cycle_member.clear()
 
