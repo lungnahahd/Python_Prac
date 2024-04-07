@@ -42,6 +42,7 @@ for _ in range(case_cnt):
     visited = [False for _ in range(student_cnt)]
     finished = [False for _ in range(student_cnt)]
     for idx in range(student_cnt):
+        isCycle = False
         if not visited[idx]:
             dfs(idx, students, -1)
         
