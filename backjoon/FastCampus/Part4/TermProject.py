@@ -5,21 +5,35 @@ import sys
 
 case_cnt = int(input())
 result = []
+cycle_member = set()
 
 
-def dfs(start, graph, visited):
-    next_node = graph[start] - 1
-    while True:
-        if visited[start]:
-            return True
-        if visited[next_node]:
-            if visited[start]:
-                return True
+
+def dfs(start, graph):
+    global cycle_member, visited
+    stack = []
+    stack.append((start,start))
+    isCycle = False
+    cycle_mother = -1
+    while stack:
+        node, mother = stack.pop()
+        next_node = graph[node] - 1
+        if not visited[next_node]:
+            stack.append((next_node, node))
+            visited[next_node] = True
+        else:
+            if not isCycle:
+                if next_node == node:
+                    cycle_member.add(next_node)
+                else:
+                    isCycle = True
+                    cycle_member.add(next_node)
+                    cycle_mother = next_node
             else:
-                return False
-        visited[next_node] = True
-        next_node = graph[next_node] - 1
-            
+                if cycle_mother == next_node:
+                    isCycle = False    
+                cycle_member.add(next_node)
+                
 
 
 for _ in range(case_cnt):
@@ -28,11 +42,7 @@ for _ in range(case_cnt):
     visited = [False for _ in range(student_cnt)]
     rst = 0
     for idx in range(student_cnt):
-        visited = [False for _ in range(student_cnt)]
-        make_team = dfs(idx, students, visited)
-        if not make_team:
-            rst += 1
-    result.append(rst)
-
-for not_team in result:
-    print(not_team)
+        if not visited[idx]:
+            dfs(idx, students)
+            print(cycle_member)
+    cycle_member.clear()
