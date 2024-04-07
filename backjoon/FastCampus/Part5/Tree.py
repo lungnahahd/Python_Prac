@@ -9,7 +9,7 @@ isCycle = False
 result = []
 
 def chk_tree(start, visited, save):
-    global cnt, isCycle
+    global isCycle
     for idx in graph[start]:
         if not visited[idx]:
             visited[idx]  = True
@@ -34,7 +34,6 @@ while True:
         graph[b].append(a)
     stack = []
     save, road = set(),set()
-    cnt = 0
     mid_rst = 0
     visited = [False for _ in range(len(graph))]
     for idx in range(1, node_cnt+1):
@@ -43,7 +42,7 @@ while True:
         if not visited[idx]:
             visited[idx]
             chk_tree(idx, visited, save)
-            if  not isCycle:
+            if not isCycle:
                 mid_rst += 1
     if mid_rst == 0:
         temp = "Case " + str(case_cnt) + ": No trees."
