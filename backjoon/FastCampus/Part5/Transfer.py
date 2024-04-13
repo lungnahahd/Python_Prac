@@ -2,7 +2,9 @@
 ## 난이도 : 골드 2
 
 import sys
+from collections import deque
 input = sys.stdin.readline
+
 INT_MAX = sys.maxsize
 # 9 3 5
 # 1 2 3
@@ -12,31 +14,35 @@ INT_MAX = sys.maxsize
 # 6 8 9
 
 node_cnt, connect_cnt, hypertube_cnt = list(map(int, input().split()))
-nodes = [[] for _ in range(node_cnt+1)] # 하이퍼 튜브를 가지는 노드
-for _ in range(hypertube_cnt):
+nodes = [[] for _ in range(node_cnt+hypertube_cnt+1)] # 하이퍼 튜브와 노드를 함께 가지는 리스트 
+for hyper_idx in range(hypertube_cnt):
     temp = list(map(int, input().split()))
-    for main in temp:
-        for insert in temp:
-            if insert == main:
-                continue
-            nodes[main].append(insert)
+    for node_idx in temp:
+        nodes[node_idx].append(hyper_idx+1+node_cnt) # 각 노드에 하이퍼 튜브 값을 추가
+        nodes[node_cnt+hyper_idx+1].append(node_idx) # 하이퍼 튜브에 대한 정보를 추가 
 
-visited = [False for _ in range(node_cnt + 1)]
+visited = [False for _ in range(node_cnt + hypertube_cnt + 1)]
 result = INT_MAX
-def bfs_hyper(start, visit, cost):
-    global result
 
+def v2_hyper(start):
+    global result, visited
+    dq = deque([(start, 1)])
     if start == node_cnt:
-        result = min(result, cost)
+        result = 1
+        return
 
-    for hyper in nodes[start]:
-
-        if visit[hyper]:
-            continue
-        visit[hyper] = True
-        bfs_hyper(hyper, visit, cost+1)
-        visit[hyper] = False
-bfs_hyper(1, visited, 1)
+    while dq:
+        go, cost = dq.popleft()
+        for next_go in nodes[go]:
+            if next_go == node_cnt:
+                result = (cost // 2+1)
+                return
+            if visited[next_go]:
+                continue
+            dq.append((next_go, cost+1))
+            visited[next_go] = True
+visited[1] = True
+v2_hyper(1)
 if result == INT_MAX:
     print(-1)
 else:
