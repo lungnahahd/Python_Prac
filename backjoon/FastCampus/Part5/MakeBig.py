@@ -2,31 +2,32 @@
 ## 난이도 : 골드 3
 
 import sys
-from collections import deque
 
 num_cnt, out_cnt = list(map(int, input().split()))
-#nums = list(input())
-#dq = deque(nums)
-test = input()
-result = 0
-def backTracking(out_cnt, now_num, remain):
-    global result
-    #print(now_num)
+nums = input()
+result = []
+result.append(nums[0])
+idx = 1
 
-    if out_cnt == 0:
-        now_num  += remain
-        result = max(result, int(now_num))
-    elif len(remain) == out_cnt or len(remain) == 0:
-        result = max(result, int(now_num))
-    elif len(remain) == 1:
-        now_num += remain
-        result = max(result, int(now_num))
+while out_cnt != 0:
+    temp_num = nums[idx]
+    if temp_num <= result[-1]:
+        result.append(temp_num)
     else:
-        backTracking(out_cnt-1, now_num, remain[1:])
-        backTracking(out_cnt, now_num + remain[0], remain[1:])
-        
+        size = len(result)
+        for i in range(size):
+            if out_cnt ==0 :
+                break
+            if temp_num <= result[-1]:
+                break
+            else:
+                result.pop()
+                out_cnt -= 1
+        result.append(temp_num)
+    idx += 1
 
+if idx < num_cnt-1:
+    for i in range(idx, num_cnt):
+        result.append(nums[i])
 
-
-backTracking(out_cnt, '0', test)
-print(result)
+print(''.join(result))
