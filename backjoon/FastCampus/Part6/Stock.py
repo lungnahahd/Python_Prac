@@ -10,22 +10,21 @@ answer = []
 
 for _ in range(case_cnt):
     already = set()
+    result = 0
     chart_cnt = int(input())
     chart = list(map(int, input().split()))
-    chart_hq = []
-    result = 0
-    for idx in range(len(chart)):
-        heapq.heappush(chart_hq,(-chart[idx], idx))
-    while chart_hq:
-        now_data, day = heapq.heappop(chart_hq)
-        if day not in already:
-            now_data = -(now_data)
-            already.add(day)
-            for before in range(day-1,-1,-1):
-                if before not in already:
-                    result += (now_data- chart[before])
-                    already.add(before)
+    big_chart = [0 for _ in range(len(chart))]
+    temp_big = 0
+    for idx in range(chart_cnt-1, -1, -1):
+        temp_num = chart[idx]
+        temp_big = max(temp_big, temp_num)
+        big_chart[idx] = temp_big
+    
+    for idx in range(chart_cnt):
+        result += (big_chart[idx] - chart[idx])
+
     answer.append(result)
+
 
 for aws in answer:
     print(aws)
