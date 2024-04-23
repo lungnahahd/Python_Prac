@@ -11,21 +11,26 @@ jwery, bag = [], []
 
 for _ in range(cnt_jwery):
     weight, cost = list(map(int, input().split()))
-    heapq.heappush(jwery, (-cost, -weight))
+    heapq.heappush(jwery, (weight, cost))
 
 for _ in range(cnt_bag):
     size = int(input())
-    heapq.heappush(bag, -size)
+    bag.append(size)
+    #heapq.heappush(bag, -size)
 
+bag.sort()
 result = 0
-while bag and jwery:
-    now_size = heapq.heappop(bag)
-    now_size = -(now_size)
-    while jwery:
-        now_cost, now_weight = heapq.heappop(jwery)
-        now_weight = -(now_weight)
-        now_cost = -(now_cost)
-        if now_weight <= now_size:
-            result += now_cost
-            break
+temp = []
+
+
+for size in bag:
+    while len(jwery) !=0 and jwery[0][0] <= size:
+        now_weight, now_cost = heapq.heappop(jwery)
+        heapq.heappush(temp, (-now_cost, -now_weight))
+    out_cost, _ = heapq.heappop(temp)
+    result += (-out_cost)
+    while temp:
+        in_cost, in_weight = heapq.heappop(temp)
+        heapq.heappush(jwery, (-in_weight, -in_cost))
+    
 print(result)
