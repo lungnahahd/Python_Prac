@@ -27,10 +27,11 @@ for size in bag:
     while len(jwery) !=0 and jwery[0][0] <= size:
         now_weight, now_cost = heapq.heappop(jwery)
         heapq.heappush(temp, (-now_cost, -now_weight))
-    out_cost, _ = heapq.heappop(temp)
-    result += (-out_cost)
-    while temp:
-        in_cost, in_weight = heapq.heappop(temp)
-        heapq.heappush(jwery, (-in_weight, -in_cost))
+    if len(temp) != 0:
+        out_cost, _ = heapq.heappop(temp)
+        result += (-out_cost)
+        while temp:
+            in_cost, in_weight = heapq.heappop(temp)
+            heapq.heappush(jwery, (-in_weight, -in_cost))
     
 print(result)
