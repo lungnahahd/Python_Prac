@@ -12,26 +12,16 @@ for _ in range(case_cnt):
     finish = False
     phones = []
     for _ in range(phone_cnt):
-        phones.append(int(input()))
-    temp_save = set()
-    len_save = []
+        temp = input()
+        phones.append(temp[:len(temp)-1])
     phones.sort()
-    temp_save.add(phones[0])
-    len_save.append(len(str(phones[0])))
-
-    for phone in phones[1:]:
-        if finish:
+    for idx in range(len(phones)-1):
+        if phones[idx] == phones[idx+1][:len(phones[idx])]:
+            finish = True
+            result.append("NO")
             break
-        for len_val in len_save:
-            temp = str(phone)[:len_val]
-            if int(temp) in temp_save:
-                finish = True
-                result.append("NO")
-                break
-        temp_save.add(phone)
-        len_save.append(len(str(phone)))
     if not finish:
         result.append("YES")
-    
+
 for rst in result:
     print(rst)
