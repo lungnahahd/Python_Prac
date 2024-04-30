@@ -20,16 +20,19 @@ def find_short_path(start_node):
 
     short_q = []
     answer[start_node] = 0
+    visited = set()
+    visited.add(start_node)
     for cost, end in path[start_node]:
         heapq.heappush(short_q, (cost, end))
 
     while short_q:
         cost, node = heapq.heappop(short_q)
         
-        if cost > answer[node]:
+        if cost > answer[node] or node in visited:
             continue
 
         answer[node] = cost
+        visited.add(node)
 
         for c,e in path[node]:
             temp = cost + c
