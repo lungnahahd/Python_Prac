@@ -1,3 +1,6 @@
+# 최딘경로 (1753)
+## 난이도 : 골드 4
+
 import sys
 import heapq
 INT_MAX = sys.maxsize
@@ -20,19 +23,21 @@ def find_short_path(start_node):
 
     short_q = []
     answer[start_node] = 0
-    visited = set()
-    visited.add(start_node)
-    for cost, end in path[start_node]:
-        heapq.heappush(short_q, (cost, end))
+    #visited = set()
+    #visited.add(start_node)
+    # for cost, end in path[start_node]:
+    #     heapq.heappush(short_q, (cost, end))
+
+    heapq.heappush(short_q, (0, start_node))
 
     while short_q:
         cost, node = heapq.heappop(short_q)
         
-        if cost > answer[node] or node in visited:
+        if cost > answer[node]:
             continue
 
         answer[node] = cost
-        visited.add(node)
+        #visited.add(node)
 
         for c,e in path[node]:
             temp = cost + c
