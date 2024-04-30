@@ -36,13 +36,14 @@ def find_short_path(start_node):
         if node in visited:
             continue
         else:
+            if cost > answer[node]:
+                continue
             for idx in range(1, len(answer)):
                 if idx in visited:
                     continue
                 else:
-                    temp = answer[idx]
-                    answer[idx] = min(answer[idx], answer[node] + path[node][idx])
-                    if answer[idx] != temp:
+                    if answer[idx] > cost+ path[node][idx]:
+                        answer[idx] = cost + path[node][idx]
                         heapq.heappush(short_q, (answer[idx], idx))
 
 find_short_path(start_node)
