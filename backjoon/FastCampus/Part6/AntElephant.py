@@ -39,19 +39,22 @@ def test(start, get_rid_of):
             continue
         for next_node, next_cost in road_map[now_node]:
             temp_cost = next_cost + now_cost
-            if temp_cost < answer[next_node] and get_rid_of != (now_node, next_node):
-                answer[next_node] = temp_cost
-                heapq.heappush(hq, (temp_cost, next_node))
+            if get_rid_of != (now_node, next_node):
+
+                if temp_cost < answer[next_node] :
+                    answer[next_node] = temp_cost
+                    heapq.heappush(hq, (temp_cost, next_node))
     return answer
 
-def find_detail_way(start, costs, go_hist, final_sum):
+def find_detail_way(start, costs, go_hist, final_sum, visited):
     if start == 1:
         return go_hist
     for next_node, mid_cost in road_map[start]:
         if mid_cost + costs[next_node] == final_sum:
-            go_hist.append((next_node, start))
-            find_detail_way(next_node, costs, go_hist, final_sum-mid_cost)
-            #go_hist.remove(next_node)
+            if next_node not in visited:
+                go_hist.append((next_node, start))
+                visited.add(next_node)
+                find_detail_way(next_node, costs, go_hist, final_sum-mid_cost, visited)
 
 for _ in range(cnt_road):
     a, b, cost = list(map(int, input().split()))
@@ -61,7 +64,7 @@ for _ in range(cnt_road):
 first_answer = find_short(1)
 #print(first_answer)
 short_visited = []
-find_detail_way(cnt_node, first_answer, short_visited, first_answer[-1])
+find_detail_way(cnt_node, first_answer, short_visited, first_answer[-1], set())
 rst = 0
 for val in short_visited:
     a = test(1, val)
