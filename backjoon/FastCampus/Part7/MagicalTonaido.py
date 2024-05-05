@@ -29,12 +29,14 @@ while cnt > now_row >= 0 and cnt > now_col >= 0:
         direction = 0
     end_row = now_row + move_row[direction] * (move_cnt // 2 + 1)
     end_col = now_col + move_col[direction] * (move_cnt // 2 + 1)
+    #print(end_row, end_col)
     while end_row != now_row or end_col != now_col:
         now_row += move_row[direction]
-        now_col += move_col[direction]    
-        
+        now_col += move_col[direction]
+
         if now_row < 0 or now_col < 0 or now_row >= cnt or now_col >=  cnt:
             break
+
         
         remain = 0
         for range_row, range_col, cost in way[direction]:
@@ -42,18 +44,18 @@ while cnt > now_row >= 0 and cnt > now_col >= 0:
             temp_col = range_col + now_col
             temp_cost = math.floor(land[now_row][now_col] * cost)
             remain += temp_cost
-            if temp_row < 0 or temp_col < 0 or temp_row >= cnt or temp_col >= cnt:
+            if 0 <= temp_row < cnt and 0 <= temp_col < cnt:
+                land[temp_row][temp_col] += temp_cost
+            else:
                 out_result += temp_cost
-                continue
-            land[temp_row][temp_col] += temp_cost
         remain_row = now_row + move_row[direction] 
         remain_col = now_col + move_col[direction] 
-        if remain_row < 0 or remain_col < 0 or remain_col >= cnt or remain_row >= cnt:
-            out_result += (land[now_row][now_col] - remain)
-        else:
+        if 0 <= remain_row < cnt and 0 <= remain_col < cnt :
             land[remain_row][remain_col] += (land[now_row][now_col] - remain)
-    land[now_row][now_col] = 0
-    #print(land)
+        else:
+            out_result += (land[now_row][now_col] - remain)
+        land[now_row][now_col] = 0
+
     move_cnt += 1
     direction += 1
 
