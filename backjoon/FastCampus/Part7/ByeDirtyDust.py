@@ -17,7 +17,7 @@ spin_dict_col = {"right": +1, "up": 0, "down": 0, "left": -1}
 for row in range(row_size):
     temp = input()
     mid = list(map(int, temp.split()))
-    room.append(temp)
+    room.append(mid)
     if not find_machine:
         if temp.find('-1') != -1:
             col = mid.index(-1)
@@ -26,9 +26,9 @@ for row in range(row_size):
             find_machine = True
 
 
-
 def spin_clean_wind(row, col, room, spin_array):
-    after_room = [[0 for _ in range(col_size)] for _ in range(row+1)]
+    #after_room = [[0 for _ in range(col_size)] for _ in range(row+1)]
+    after_room = [[0 for _ in range(col_size)] for _ in range(row_size)]
     after_room[row][col] = -1
     next_r, next_c = row, col
     for move_idx in range(4):
@@ -59,3 +59,17 @@ def spread_dust(room, m_r, m_c):
                 after_room[r_idx][c_idx] = room[r_idx][c_idx] - move_val * count
     after_room[m_r][m_c] = -1
     after_room[m_r+1][m_c] = -1
+    return after_room
+
+result = 0
+for _ in range(time):
+    room = spread_dust(room, machine_up_row, machine_up_col)
+
+    room = spin_clean_wind(machine_up_row, machine_up_col, room, up_spin)
+    print(room)
+    room = spin_clean_wind(machine_down_row, machine_down_col, room, down_spin)
+for r in range(row_size):
+    for c in range(col_size):
+        if room[r][c] != -1:
+            result += room[r][c]
+print(result)
