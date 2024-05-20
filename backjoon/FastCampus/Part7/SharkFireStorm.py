@@ -2,6 +2,7 @@
 ## 난이도 : 골드 3
 
 import sys
+import copy
 input = sys.stdin.readline
 
 N, case_cnt = list(map(int, input().split()))
@@ -15,6 +16,13 @@ for _ in range(size):
 case = list(map(int, input().split()))
 move_col = [+1,0,-1,0]
 move_row = [0,+1,0,-1]
+
+
+def turn_real(area, start_row, end_row, start_col, end_col):
+    origin = copy.deepcopy(area)
+    ## 여기에 새로운 파이어스톰 구현 필요
+    
+
 
 def turn_area(area, start_row, end_row, start_col, end_col):
     while start_col < end_col:
@@ -59,20 +67,21 @@ def count_ice(area):
 for cs in case:
     if cs == 0:
         now_end_col, now_end_row = len(area), len(area)
+        #area = turn_area(area, 0, now_end_row-1, 0, now_end_col-1)
     else:
         jump = 2**cs
-        now_end_row, now_end_col = jump, jump
-        row_idx = 1
+        now_end_row, now_end_col = jump - 1, jump - 1
         while True:
-            col_idx = 1
             while True:
-                area = turn_area(area, now_end_row - jump, now_end_row, now_end_col - jump, now_end_col)
+                print(now_end_row - jump + 1, now_end_row, now_end_col - jump + 1, now_end_col)
+                area = turn_area(area, now_end_row - jump + 1, now_end_row, now_end_col - jump + 1, now_end_col)
                 if 0 <= now_end_col + jump < len(area):
                     now_end_col += jump
                 else:
                     break
             if 0 <= now_end_row + jump < len(area):
                 now_end_row += jump
+                now_end_col = jump - 1
             else:
                 break
     area = fire_storm(area)
