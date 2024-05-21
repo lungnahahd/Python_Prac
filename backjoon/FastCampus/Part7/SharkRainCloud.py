@@ -27,16 +27,17 @@ for _ in range(move_cnt):
     next_cloud = []
     for r, c in cloud:
         next_r, next_c = r, c
-        for _ in range(dist):
-            next_r, next_c = next_r + move_row[way], next_c + move_col[way]
-            if 0 > next_c:
-                next_c += area_size
-            elif next_c >= area_size:
-                next_c -= area_size
-            if 0 > next_r:
-                next_r += area_size
-            elif next_r >= area_size:
-                next_r -= area_size
+        next_r, next_c = (r + move_row[way]*dist)%area_size, (next_c + move_col[way]*dist)%area_size
+        # for _ in range(dist):
+        #     next_r, next_c = next_r + move_row[way], next_c + move_col[way]
+        #     if 0 > next_c:
+        #         next_c += area_size
+        #     elif next_c >= area_size:
+        #         next_c -= area_size
+        #     if 0 > next_r:
+        #         next_r += area_size
+        #     elif next_r >= area_size:
+        #         next_r -= area_size
         if 0 <= next_r < area_size and 0 <= next_c < area_size:
             area[next_r][next_c] += 1
             next_cloud.append((next_r, next_c))
