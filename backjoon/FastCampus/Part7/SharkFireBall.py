@@ -29,18 +29,21 @@ def fire_sperate(area):
                     new_area[r][c].append(area[r][c][0])
                 else:
                     fire_count = len(area[r][c])
+                    odd = 0
+                    even = 0
                     sum_weight, sum_speed, sum_dist = 0,0,0
                     for weight, speed, distance in area[r][c]:
-                        # if weight != 0:
                         sum_weight += weight
                         sum_speed += speed
+                        if distance % 2 == 0:
+                            even += 1
+                        else:
+                            odd += 1
                         sum_dist += distance
-                        # else:
-                        #     fire_count -= 1
                     new_weight = sum_weight // 5
                     new_speed = sum_speed // fire_count
                     if new_weight != 0:
-                        if sum_dist % 2 == 0:
+                        if ( even != 0 and odd == 0 ) or (even ==0 and odd != 0):
                             for new_dist in range(0,7,2):
                                 new_area[r][c].append([new_weight, new_speed, new_dist])
                         else:
