@@ -31,12 +31,12 @@ def fire_sperate(area):
                     fire_count = len(area[r][c])
                     sum_weight, sum_speed, sum_dist = 0,0,0
                     for weight, speed, distance in area[r][c]:
-                        if weight != 0:
-                            sum_weight += weight
-                            sum_speed += speed
-                            sum_dist += distance
-                        else:
-                            fire_count -= 1
+                        # if weight != 0:
+                        sum_weight += weight
+                        sum_speed += speed
+                        sum_dist += distance
+                        # else:
+                        #     fire_count -= 1
                     new_weight = sum_weight // 5
                     new_speed = sum_speed // fire_count
                     if new_weight != 0:
@@ -63,7 +63,7 @@ def fire_move(area):
 
 for _ in range(cnt_doing):
     area = fire_move(area)
-    area = fire_sperate(area)\
+    area = fire_sperate(area)
 
 result = 0
 for r in range(area_size):
