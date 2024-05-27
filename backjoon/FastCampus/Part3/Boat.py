@@ -14,7 +14,7 @@ crain_list.sort()
 box_cnt = int(input())
 box_list = list(map(int,input().split()))
 box_dict = dict()
-
+box_can_crain_cnt = [0 for _ in range(crain_cnt)]
 
 for box in box_list:
     if box in box_dict:
@@ -23,18 +23,20 @@ for box in box_list:
         box_dict[box] = 1
     for idx in range(len(crain_list)):
         if box <= crain_list[idx]:
-            heapq.heappush(crain_hq[idx], -box)
+            box_can_crain_cnt[idx] += 1
 
-count = 0
+print(box_can_crain_cnt)
+
 time = 0
-while count < box_cnt:
-    for idx in range(crain_cnt):
-        while crain_hq[idx]:
-            now_weight = heapq.heappop(crain_hq[idx])
-            now_weight = -now_weight
-            if box_dict[now_weight] != 0:
-                box_dict[now_weight] -= 1
-                count += 1
-                break
-    time += 1
+end_box = 0
+for idx in range(crain_cnt):
+    remain = crain_cnt - idx
+    now_box = box_can_crain_cnt[idx] - end_box
+    if remain == 1:
+        time += now_box
+        break
+    time += (now_box // remain)
+    end_box += (now_box// remain) * remain
+    if end_box >= box_cnt:
+        break
 print(time)
