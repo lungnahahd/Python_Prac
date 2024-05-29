@@ -48,16 +48,15 @@ for _ in range(case_cnt):
         print("EMPTY")
     else:
         answer_max, answer_min = 0,0
+
         while True:
             out_num = heapq.heappop(max_hq)
             if total_num_dict[str(-out_num)] > 0:
-                total_num_dict[str(-out_num)] -= 1
                 answer_max = -out_num
                 break
         while True:
             out_num = heapq.heappop(min_hq)
             if total_num_dict[str(out_num)] > 0:
-                total_num_dict[str(out_num)] -= 1
                 answer_min = out_num
                 break
         answer = str(answer_max) + ' ' + str(answer_min)
