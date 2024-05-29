@@ -1,34 +1,64 @@
 # 이중 우선 순위 큐 (7622)
-## 난이도 : 중상
+## 난이도 : 골드 4
 
 import sys
-from collections import deque
+import heapq
 
 input = sys.stdin.readline
 
-cnt_case = int(input())
-result = []
-
-for _ in range(cnt_case):
-    cnt_cmd = int(input())
-    queue = deque([])
-    for _ in range(cnt_cmd):
-        cmd, num = input().split()
-        if (cmd == 'I'):
-            queue.append(int(num))
-            queue = deque(sorted(queue))
+case_cnt = int(input())
+for _ in range(case_cnt):
+    method_cnt = int(input())
+    min_hq, max_hq = [], []
+    total_num_dict = dict()
+    total_cnt = 0
+    for _ in range(method_cnt):
+        temp = input()
+        now_method = temp.split()
+        #now_method = list(input())
+        if now_method[0] == "I":
+            heapq.heappush(min_hq, int(now_method[1]))
+            heapq.heappush(max_hq, -int(now_method[1]))
+            if now_method[1] in total_num_dict:
+                total_num_dict[now_method[1]] += 1
+            else:
+                total_num_dict[now_method[1]] = 1
+            total_cnt += 1
         else:
-            if (len(queue) == 0):
+            if total_cnt <= 0:
                 continue
-            elif (num == '-1'):
-                queue.popleft()
-            elif (num == '1'):
-                queue.pop()
-    if (len(queue) == 0):
-        result.append('EMPTY')
+            total_cnt -= 1
+            if now_method[1] == "-1":
+                while True:
+                    if len(min_hq) == 0:
+                        break
+                    out_num = heapq.heappop(min_hq)
+                    if total_num_dict[str(out_num)]  > 0:
+                        total_num_dict[str(out_num)] -= 1
+                        break
+            else:
+                while True:
+                    if len(max_hq) == 0:
+                        break
+                    out_num = heapq.heappop(max_hq)
+                    if total_num_dict[str(-out_num)] > 0:
+                        total_num_dict[str(-out_num)] -= 1
+                        break
+    if total_cnt == 0:
+        print("EMPTY")
     else:
-        result.append(str(queue[-1]) + ' ' + str(queue[0]))
-    
-
-for rst in result:
-    print(rst)
+        answer_max, answer_min = 0,0
+        while True:
+            out_num = heapq.heappop(max_hq)
+            if total_num_dict[str(-out_num)] > 0:
+                total_num_dict[str(-out_num)] -= 1
+                answer_max = -out_num
+                break
+        while True:
+            out_num = heapq.heappop(min_hq)
+            if total_num_dict[str(out_num)] > 0:
+                total_num_dict[str(out_num)] -= 1
+                answer_min = out_num
+                break
+        answer = str(answer_max) + ' ' + str(answer_min)
+        print(answer)
