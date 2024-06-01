@@ -27,18 +27,16 @@ for _ in range(cnt_bag):
 bag_save.sort()
 
 can_steal = [[] for _ in range(len(bag_save))]
+result = 0
+visited = set()
 while jewery_save:
     cost, weight = heapq.heappop(jewery_save)
     for bag_idx in range(len(bag_save)):
-        if bag_save[bag_idx] >= -weight:
-            can_steal[bag_idx].append((-cost, -weight))
-
-result = 0
-for now_steal in can_steal:
-    for steal in now_steal:
-        temp_key = str(steal[1]) + str(steal[0])
-        if jewery_dict[temp_key] > 0:
-            result += steal[0]
-            jewery_dict[temp_key] -= 1
+        if bag_idx not in visited and  bag_save[bag_idx] >= -weight:
+            result += (-cost)
+            visited.add(bag_idx)
             break
+    if len(visited) == cnt_bag:
+        break
+
 print(result)
