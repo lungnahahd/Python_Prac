@@ -22,12 +22,11 @@ while remain:
     if len(studying_room) == 0:
         if result == 0:
             result += 1
-        heapq.heappush(studying_room, (-start))
-        continue
-    
-    if abs(studying_room[0]) < now_start:
-        result += 1
-        heapq.heappush(studying_room, (-start))
     else:
-        heapq.heappop(studying_room)
+        if abs(studying_room[0]) < abs(now_end):
+            result += 1
+        else:
+            heapq.heappop(studying_room)
+    heapq.heappush(studying_room, (-now_start))
+
 print(result)
