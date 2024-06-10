@@ -3,6 +3,7 @@
 
 import sys
 import heapq
+import math
 input = sys.stdin.readline
 
 case_cnt = int(input())
@@ -10,7 +11,8 @@ case_cnt = int(input())
 for _ in range(case_cnt):
     num_cnt = int(input())
     num_list = []
-    for _ in range(num_cnt//10 + 1):
+
+    for _ in range(math.ceil(num_cnt/10)):
         temp = list(map(int, input().split()))
         for num in temp:
             num_list.append(num)
@@ -41,6 +43,7 @@ for _ in range(case_cnt):
                 temp = heapq.heappop(small_hq)
                 now_mid = -temp
             mid_nums.append(now_mid)
+    print(len(mid_nums))
     for idx in range(len(mid_nums)):
         print(mid_nums[idx], end = ' ')
         if (idx % 10 == 9 and idx != len(mid_nums)-1):
