@@ -1,38 +1,47 @@
 # 중앙값 구하기
-## 난이도 : 중
+## 난이도 : 골드 2
 
 import sys
 import heapq
-#input = sys.stdin.readline
+input = sys.stdin.readline
 
 case_cnt = int(input())
-result = [[] for _ in range(case_cnt)]
 
-for idx in range(case_cnt):
-    size = int(input())
-    small = []
-    big = []
-    now_case = list(map(int, input().split()))
+for _ in range(case_cnt):
+    num_cnt = int(input())
+    num_list = []
+    for _ in range(num_cnt//10 + 1):
+        temp = list(map(int, input().split()))
+        for num in temp:
+            num_list.append(num)
+    
+
+
+    big_hq, small_hq = [], []
     now_mid = 0
-    now_rst = result[idx]
-    for cs_idx in range(len(now_case)):
-        if (cs_idx == 0):
-            now_rst.append(str(now_case[cs_idx]))
-            now_mid = now_case[cs_idx]
+    mid_nums = []
+    for now_idx in range(len(num_list)):
+        if now_idx == 0:
+            now_mid = num_list[now_idx]
+            mid_nums.append(now_mid)
+            continue
+        now_num = num_list[now_idx]
+        if now_num >= now_mid:
+            heapq.heappush(big_hq, now_num)
         else:
-            if(now_case[cs_idx] < now_mid):
-                heapq.heappush(small, -(now_case[cs_idx]))
-            else:
-                heapq.heappush(big, now_case[cs_idx])
-            if(cs_idx % 2 == 0):
-                if (len(small) > len(big)):
-                    heapq.heappush(big, now_mid)
-                    now_mid = -heapq.heappop(small)
-                elif(len(small) < len(big)):
-                    heapq.heappush(small, -now_mid)
-                    now_mid = heapq.heappop(big)
-                now_rst.append(str(now_mid))
-
-for idx in range(case_cnt):
-    print(len(result[idx]))
-    print(' '.join(result[idx]))
+            heapq.heappush(small_hq, -now_num)
+        
+        if now_idx % 2 == 0:
+            if len(big_hq) > len(small_hq):
+                heapq.heappush(small_hq, -now_mid)
+                temp = heapq.heappop(big_hq)
+                now_mid = temp
+            elif len(big_hq) < len(small_hq):
+                heapq.heappush(big_hq, now_mid)
+                temp = heapq.heappop(small_hq)
+                now_mid = -temp
+            mid_nums.append(now_mid)
+    for idx in range(len(mid_nums)):
+        print(mid_nums[idx], end = ' ')
+        if (idx % 10 == 9 and idx != len(mid_nums)-1):
+            print()
