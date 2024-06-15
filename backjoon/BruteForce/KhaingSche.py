@@ -13,13 +13,11 @@ def find_max_year(a,b):
         if num % a == 0 and num % b == 0:
             return num
 
-
-
 for _ in range(case_cnt):
     max_M, max_N, x, y = list(map(int, input().split()))
     max_year = find_max_year(max_M, max_N)
-    set_x, set_y = set(), set()
     arr_x, arr_y = [], []
+    chk_num = [False for _ in range(max_year+1)]
     not_end_x, not_end_y = True, True
     idx = 0
     now_add = 0
@@ -29,19 +27,18 @@ for _ in range(case_cnt):
             if (now_add > max_year):
                 not_end_x = False
             else:
-                set_x.add(now_add)
                 arr_x.append(now_add)
         if not_end_y:
             now_add = y + max_N * idx
             if (now_add > max_year):
                 not_end_y = False
             else:
-                set_y.add(now_add)
                 arr_y.append(now_add)
+                chk_num[now_add] = True
         idx += 1
     mid_result = -1
     for num in arr_x:
-        if num in set_y:
+        if chk_num[num]:
             mid_result = num
             break
     print(mid_result)
