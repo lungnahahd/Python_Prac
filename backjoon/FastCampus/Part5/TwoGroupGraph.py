@@ -9,7 +9,6 @@ input = sys.stdin.readline
 
 def bfs(start_num, visited):
     result = True
-    
     save = deque([(start_num,-1)])
     visited[start_num] = -1
     next_val = 0
@@ -35,7 +34,11 @@ for _ in range(case_cnt):
         a, b = list(map(int, input().split()))
         graph[a].append(b)
         graph[b].append(a)
-    result = bfs(1, visited)
+    for node in range(1, node_cnt+1):
+        if (visited[node] == 0):
+            result = bfs(node, visited)
+            if result == False:
+                break
     if result:
         print("YES")
     else:
