@@ -9,7 +9,7 @@ decimal_nums = list(map(int, input().split()))
 check_decimal = set()
 check_decimal.add(1)
 
-for target in range(2, 28):
+for target in range(2, 2**31 + 1):
     for num in decimal_nums:
         if target % num == 0:
             if target // num in check_decimal:
