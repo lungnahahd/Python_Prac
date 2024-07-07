@@ -6,22 +6,17 @@ import heapq
 input = sys.stdin.readline
 
 count = int(input())
-q_noodles = []
+noodles, best_choice = [], []
 
 for _ in range(count):
-    deadline, cup_cost = list(map(int, input().split()))
-    heapq.heappush(q_noodles, (-deadline, -cup_cost))
+    deadline, cup_num = list(map(int, input().split()))
+    noodles.append((deadline, cup_num))
 
-time = -q_noodles[0][0]
-result = 0
-while q_noodles:
-    now_time, now_cost = heapq.heappop(q_noodles)
-    now_time, now_cost = -now_time, -now_cost
-    if time >= now_time:
-        #print(now_time, now_cost)
-        result += now_cost
-        time -= 1
-    time = min(time, now_time-1)
-    if time <= 0:
-        break
-print(result)
+noodles.sort() # 컵라면을 데드라인 기준으로 정렬
+
+for now in noodles:
+    heapq.heappush(best_choice, now[1]) # 일단 데드라인 기준으로 값들을 저장 
+    if len(best_choice) > now[0]:   # 큐의 크기가 데드라인 기준으로 생각 --> 즉, 2개의 값이 있으면 데드라인 2가 되었다고 생각
+        heapq.heappop(best_choice)  # 데드라인 기준으로 가장 작은 값은 내보내기 --> 내보내고 다른 값을 취하는 것이 이득이므로..
+
+print(sum(best_choice))
