@@ -9,13 +9,12 @@ num_list = list(map(int, input().split()))
 
 result = 0
 
-def check_target(sum_num, start):
+def check_target(sum_num, start, size):
     global result
-    if sum_num == target:
+    if sum_num == target and size != 0:
         result += 1
-    else:
-        for idx in range(start, len(num_list)):
-            check_target(sum_num+num_list[idx], idx+1)
+    for idx in range(start, len(num_list)):
+        check_target(sum_num+num_list[idx], idx+1, size+1)
 
-check_target(0,0)
+check_target(0,0,0)
 print(result)
