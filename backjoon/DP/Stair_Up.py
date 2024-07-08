@@ -1,4 +1,5 @@
-# 계단 오르기
+# 계단 오르기 (2579)
+## 난이도 : 실버 3
 
 size = int(input())
 
@@ -17,7 +18,7 @@ for step_size in stairs:
     mid_result[1] = step_size + temp_3
     mid_result[2] = step_size + temp_4
 
-print(max(mid_result[0], mid_result[1], mid_result[2]))
+print(max(mid_result[1], mid_result[2]))
 
 
 
