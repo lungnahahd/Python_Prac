@@ -2,7 +2,6 @@
 ## 난이도 : 실버 1
 
 import sys
-from collections import deque
 input = sys.stdin.readline
 
 operator = ["+", "-", "*", "/"]
@@ -40,10 +39,10 @@ def operate(already_use, mid_rst):
     else:
         for idx in range(len(operator_list)):
             if idx not in already_use:
-                already_use.append(idx)
+                already_use.add(idx)
                 operate(already_use, calculate(operator_list[idx], mid_rst, num_list[len(already_use)]))
-                already_use.pop()
-operate([], num_list[0])
+                already_use.remove(idx)
+operate(set(), num_list[0])
 
 print(big_num)
 print(small_num)
