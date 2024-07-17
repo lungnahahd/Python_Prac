@@ -1,7 +1,9 @@
 
 import sys
 import heapq
+import copy
 input = sys.stdin.readline
+
 
 
 row_size, col_size = list(map(int, input().split()))
@@ -47,9 +49,14 @@ def bfs(row, col):
     animal_move_list = []
     visited.append((row, col))
     heapq.heappush(animal_move_list, (0, row, col))
+    before_time = 0
+    water_location = water_move(water_location)
     while animal_move_list:
-        water_location = water_move(water_location)
+        
         now_time, now_r, now_c = heapq.heappop(animal_move_list)
+        if before_time < now_time:
+            water_location = water_move(water_location)
+            before_time += 1
         for m in range(4):
             next_r, next_c = move_r[m] + now_r, move_c[m] + now_c
             if 0 <= next_r < row_size and 0 <= next_c < col_size:
