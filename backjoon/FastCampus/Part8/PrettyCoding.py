@@ -21,12 +21,13 @@ for idx in range(1, count_line):
         temp_point = abs(different_value)
         finish = True
     elif different_value * (origin_line[idx] - line_format[idx]) > 0:
-        temp_point = max(temp_point, abs(origin_line[idx] - line_format[idx]))
+        different_value = origin_line[idx] - line_format[idx]
+        temp_point = max(temp_point, abs(different_value))
         finish = False
     else:
         if different_value == 0:
             different_value = origin_line[idx] - line_format[idx]
-            temp_point = different_value
+            temp_point = abs(different_value)
             finish = False
         else:
             result += temp_point
