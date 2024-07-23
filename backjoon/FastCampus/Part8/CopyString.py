@@ -19,6 +19,7 @@ while end_copy_idx < len(want_string):
         else:
             mid_end = max(end_copy_idx + move_idx - 1, mid_end)
             move_idx = 0
+    mid_end = max(end_copy_idx + move_idx - 1, mid_end)
     result += 1
     end_copy_idx = mid_end + 1
 print(result)
