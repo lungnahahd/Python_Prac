@@ -12,6 +12,9 @@ chain_list.sort(reverse = True)
 
 answer = 0
 while chain_list:
+    if len(chain_list) - 2 in chain_list:
+        answer += (len(chain_list) - 2)
+        break
     now_chain = chain_list.pop()
     step = len(chain_list) - 1
     if step == now_chain:
