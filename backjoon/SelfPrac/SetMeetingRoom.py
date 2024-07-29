@@ -20,7 +20,7 @@ before_start_time = sys.maxsize
 while time_table:
     now_end, now_start = heapq.heappop(time_table)
     now_end, now_start = -now_end, -now_start
-    if before_start_time > now_start:
+    if before_start_time >= now_start:
         if before_start_time >= now_end:
             result += 1
             before_start_time = now_start
