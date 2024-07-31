@@ -35,7 +35,7 @@ def bfs(row, col, now_visited, max_tall):
 
 
 
-result_safe_cnt = 0
+result_safe_cnt = 1
 
 while very_height > 0:
     visited = [[False for _ in range(size)] for _ in range(size)]
