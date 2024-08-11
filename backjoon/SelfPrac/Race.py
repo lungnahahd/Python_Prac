@@ -12,7 +12,7 @@ between_dist = []
 for idx in range(1, point_num):
     between_dist.append(points[idx] - points[idx-1])
 
-
+# 초기에 최대로 가능한 가장 넓은 간격을 활용해서 비교
 first_dist = distance // (people_num - 1)
 
 answer = [0]
@@ -26,7 +26,11 @@ while len(answer) < people_num:
             before_idx = idx
     first_dist -= 1
 
+end_count = 0 # 혹시나 간격이 더 넓은 경우 처리를 위한 변수 ... --> 여기서 확인 안 하면 반례 생김..
 for asr in answer:
+    end_count += 1
     answer_show[asr] = '1'
+    if end_count == people_num:
+        break
 
 print(''.join(answer_show))
