@@ -15,7 +15,7 @@ for _ in range(location_num):
     heapq.heappush(save, (where, num))
     people_num += num
 
-mid_num = people_num  // 2
+mid_num = (people_num + 1) // 2
 
 now_val = 0
 answer = 0
