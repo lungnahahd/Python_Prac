@@ -16,19 +16,32 @@ for _ in range(house_cnt):
     weight, cost = list(map(int, input().split()))
     heapq.heappush(house, (cost, weight))
 
+temp = 0
 while house:
     now_cost, now_weight = heapq.heappop(house)
     if now_cost == before_cost:
-        stack_weight -= before_cost
-    stack_weight += now_weight
-    heapq.heappush(stack_house, (stack_weight, now_cost))
+        if temp == 0:
+            temp = stack_weight - before_weight
+        else:
+            temp -= before_weight
+        temp += now_weight
+        heapq.heappush(stack_house, (now_cost, temp))
+        stack_weight += now_weight
+    else:
+        temp = 0
+        stack_weight += now_weight
+        heapq.heappush(stack_house, (now_cost, stack_weight))
     before_cost = now_cost
     before_weight = now_weight
 
-answer = 2147483648
+#print(stack_house)
+#answer = 2147483648
+answer = sys.maxsize
 before_weight, before_cost, stack_before_cost, stack_before_weight = 0, 0, 0, 0
 while stack_house:
-    now_weight, now_cost = heapq.heappop(stack_house)
+    now_cost, now_weight = heapq.heappop(stack_house)
+    if now_weight >= 2147483648:
+        continue
     if now_weight >= want_weight:
         answer = min(now_cost, answer)
     if now_cost == before_cost:
@@ -38,6 +51,8 @@ while stack_house:
         else:
             stack_before_weight += now_weight
             stack_before_cost += now_cost
+        if now_weight >= 2147483648:
+            continue 
         if stack_before_weight >= want_weight:
             answer = min(answer, stack_before_cost)
     else:
@@ -45,7 +60,7 @@ while stack_house:
     before_weight, before_cost = now_weight, now_cost
 
 
-if answer == 2147483648:
+if answer == sys.maxsize:
     print(-1)
 else:
     print(answer)
