@@ -15,9 +15,9 @@ for _ in range(day_num):
 
 
 for idx in range(1, day_num+1):
+    stack_money[idx] = max(stack_money[idx], stack_money[idx-1])
     if (time_table[idx] + idx -1) > day_num:
         continue
-    #stack_money[time_table[idx]+idx-1] = max(stack_money[time_table[idx]+idx-1], stack_money[idx-1] + money_table[idx])
-    stack_money[time_table[idx]+idx-1] = max(max(stack_money[:idx]) + money_table[idx], max(stack_money[:time_table[idx]+idx]))
-#print(stack_money)
+    stack_money[time_table[idx]+idx-1] = max(stack_money[idx-1] + money_table[idx], stack_money[time_table[idx]+idx-1])
+    
 print(max(stack_money))
