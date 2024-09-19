@@ -2,6 +2,7 @@
 ## 난이도 : 골드 3
 
 import sys
+from collections import deque
 input = sys.stdin.readline
 
 zombie_cnt = int(input())
@@ -23,11 +24,16 @@ if gun_dist < zombie_cnt:
         zombies[idx] -= (gun_dist * gun_power)
 
 alive_cnt = 0
+bomb_kill = deque([])
 for idx in range(zombie_cnt):
+    if len(bomb_kill) > 0 and bomb_kill[0] + gun_dist < idx:
+        bomb_kill.popleft()
+        alive_cnt -= 1
     if zombies[idx] + (alive_cnt * gun_power) > 0:
         if bomb_cnt > 0:
             bomb_cnt -= 1
             alive_cnt += 1
+            bomb_kill.append(idx)
         else:
             die = True
             break
