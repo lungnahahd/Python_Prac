@@ -14,18 +14,24 @@ for idx in range(zombie_cnt):
 
 die = False
 
-for target in range(zombie_cnt):
-    if zombies[target] - gun_power > 0:
+for idx in range(gun_dist):
+    if idx < zombie_cnt:
+        zombies[idx] -= gun_power * (idx+1)
+        
+if gun_dist < zombie_cnt:
+    for idx in range(gun_dist, zombie_cnt):
+        zombies[idx] -= (gun_dist * gun_power)
+
+alive_cnt = 0
+for idx in range(zombie_cnt):
+    if zombies[idx] + (alive_cnt * gun_power) > 0:
         if bomb_cnt > 0:
             bomb_cnt -= 1
-            continue
+            alive_cnt += 1
         else:
             die = True
             break
-    for idx in range(gun_dist):
-        if target + idx >= zombie_cnt:
-            break
-        zombies[target + idx] -= gun_power
+
 
 if die:
     print("NO")
