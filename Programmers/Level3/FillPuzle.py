@@ -20,18 +20,19 @@ def table_bfs(row, col, graph):
     nodes = [(0,0)]
     while temp:
         r,c  = temp.popleft()
-    for m_idx in range(4):
-        now_r, now_c = r + move_row[m_idx], c + move_col[m_idx]
-        if 0 <= now_r < len(graph) and 0 <= now_c < len(graph):
-            if graph[now_r][now_c] == 1:
-                graph[now_r][now_c] = 0
-                temp.append((now_r, now_c))
-                nodes.append((now_r - r, now_c - c))
+        for m_idx in range(4):
+            now_r, now_c = r + move_row[m_idx], c + move_col[m_idx]
+            if 0 <= now_r < len(graph) and 0 <= now_c < len(graph):
+                if graph[now_r][now_c] == 1:
+                    graph[now_r][now_c] = 0
+                    temp.append((now_r, now_c))
+                    nodes.append((now_r - row, now_c - col))
     
     return nodes
 
 def make_count_board(graph):
     cnt_dict = {}
+    
     visited_board = [[False for _ in range(len(graph))] for _ in range(len(graph))]
     for row in range(len(graph)):
         for col in range(len(graph)):
@@ -39,6 +40,7 @@ def make_count_board(graph):
                 visited_board[row][col] = True
                 temp = deque([(row, col)])
                 count = 1
+                node = set()
                 while temp:
                     r, c = temp.popleft()
                     for idx in range(4):
@@ -47,8 +49,11 @@ def make_count_board(graph):
                             if graph[next_row][next_col] == 0 and not visited_board[next_row][next_col]: 
                                 visited_board[next_row][next_col] = True
                                 count += 1
+                                node.add((next_row, next_col))
                                 temp.append((next_row, next_col))
                 cnt_dict[(row,col)] = count
+                for r, c in node:
+                    cnt_dict[(r,c)] = count
     return cnt_dict
 
 def board_bfs(nodes, row, col, graph, cnt_graph):
@@ -63,16 +68,19 @@ def board_bfs(nodes, row, col, graph, cnt_graph):
                 if graph[now_row][now_col] != 0:
                     isEnd = False
                     break
+            else:
+                isEnd = False
+                break
         if isEnd:
-            for idx in range(1, len(nodes)):
+            for idx in range(0, len(nodes)):
                 now_row, now_col = row + nodes[idx][0], col + nodes[idx][1]
                 if 0 <= now_row < len(graph) and 0 <= now_col < len(graph):
                     graph[now_row][now_col]  = 1
-        point = cnt_graph[(row,col)]
+            point = cnt_graph[(row,col)]
     return point
 
 def solution(game_board, table):
-    answer = -1
+    answer = 0
     visited_table = [[False for _ in range(len(table))] for _ in range(len(table))]
     visited_board = [[False for _ in range(len(table))] for _ in range(len(table))]
     
@@ -82,6 +90,7 @@ def solution(game_board, table):
         for table_col in range(len(table)):
             if table[table_row][table_col] == 1:
                 now_nodes = table_bfs(table_row, table_col, table)
+                isEnd = False
                 for board_row in range(len(game_board)):
                     for board_col in range(len(game_board)):
                         if (board_row, board_col) in board_cnt and game_board[board_row][board_col] == 0:
@@ -91,8 +100,15 @@ def solution(game_board, table):
                                     break
                                 elif temp_end != 0:
                                     answer += temp_end
+                                    isEnd = True
+                                    break
                                 else:
-                                    rotate(now_nodes)
+                                    now_nodes = rotate(now_nodes)
+                        if isEnd:
+                            break
+                    if isEnd:
+                        break
+                
                             
     
     
