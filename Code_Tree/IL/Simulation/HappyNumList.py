@@ -1,4 +1,15 @@
 # 행복한 수열의 개수
+
+
+import sys
+input = sys.stdin.readline
+
+size, check = list(map(int, input().split()))
+
+place = []
+for _ in range(size):
+    temp = list(map(int, input().split()))
+    place.append(temp)
 import sys
 input = sys.stdin.readline
 
@@ -10,6 +21,10 @@ for _ in range(size):
     place.append(temp)
 
 answer = 0
+
+if size == 1 and check == 1:
+    answer = 2
+
 
 # 동일 행 내부 판단
 for r in range(size):
