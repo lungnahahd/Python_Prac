@@ -5,39 +5,42 @@
 ##### dfs를 이용해서 해당 문제를 해결
 
 
-areaSize = int(input())
-area = []
-visited = [[False for _ in range(areaSize)] for _ in range(areaSize)]
-blockSize, resultCount, resultBlock = 1, 0, 0
+import sys
+input = sys.stdin.readline
 
-for _ in range(areaSize):
-    areaRow = list(map(int, input().split()))
-    area.append(areaRow)
+map_size = int(input())
+r_move=[1,0,-1,0]
+c_move=[0,1,0,-1]
+visited = [[False for _ in range(map_size)] for _ in range(map_size)]
+place = []
+num = set()
 
-ax = [-1, 0, +1, 0]
-ay = [0, +1, 0, -1]
+for r_idx in range(map_size):
+    temp = list(map(int, input().split()))
+    place.append(temp)
 
-def dfs(x,y,nowNum):
-    global blockSize
+    for c_idx in range(map_size):
+        num.add(temp[c_idx])
+answer = 0
+block = 0
+def dfs(num, row, col, cnt):
+    global visited, tempSize
+
     for idx in range(4):
-        x_now, y_now = x + ax[idx], y + ay[idx]
-        if(-1 < x_now < areaSize and -1 < y_now < areaSize and not visited[x_now][y_now]):
-            if (area[x_now][y_now] == nowNum):
-                visited[x_now][y_now] = True
-                blockSize += 1
-                dfs(x_now,y_now,nowNum)
+        next_row, next_col = row + r_move[idx], col + c_move[idx]
+        if 0 <= next_row < map_size and 0 <= next_col < map_size:
+            if not visited[next_row][next_col] and place[next_row][next_col] == num:
+                visited[next_row][next_col] = True
+                dfs(num, next_row, next_col, cnt + 1)
+                tempSize += 1
 
-
-for y in range(areaSize):
-    for x in range(areaSize):
-        if (not visited[x][y]):
-            visited[x][y] = True
-            dfs(x,y,area[x][y])
-            if (blockSize >= 4):
-                resultCount += 1 
-            resultBlock = max(resultBlock, blockSize)
-            blockSize = 1
-
-print(resultCount, resultBlock)
-
-  
+for r_idx in range(map_size):
+    for c_idx in range(map_size):
+        if not visited[r_idx][c_idx]:
+            visited[r_idx][c_idx] = True
+            tempSize = 1
+            dfs(place[r_idx][c_idx], r_idx, c_idx, 1)
+            answer = max(answer, tempSize)
+            if tempSize >= 4:
+                block += 1
+print(block, answer)
