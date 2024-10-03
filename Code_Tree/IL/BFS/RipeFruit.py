@@ -38,7 +38,10 @@ while ripe:
 for r_idx in range(map_size):
     for c_idx in range(map_size):
         if answer[r_idx][c_idx] == INT_MAX:
-            print(-1, end= ' ')
+            if place[r_idx][c_idx] == 0:
+                print(-1, end= ' ')
+            else:
+                print(-2, end= ' ')
         else:
             print(answer[r_idx][c_idx], end= ' ')
     print()
