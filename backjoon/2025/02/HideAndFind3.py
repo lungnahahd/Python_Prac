@@ -5,8 +5,11 @@ import sys
 input = sys.stdin.readline
 
 
-start, end = list(map(int, input().split()))
+a, b = list(map(int, input().split()))
+start = min(a,b)
+end = max(a,b)
 result = sys.maxsize
+
 
 def back_track(start, end, cnt):
     global result
@@ -14,14 +17,14 @@ def back_track(start, end, cnt):
     if start == end:
         result = min(cnt, result)
         return
-    if start > end or end > 100000:
+    if end > 100000 or end < start:
         return
 
     if end % 2 == 0:
         back_track(start, end / 2, cnt)
-    else:
-        back_track(start, end+1, cnt + 1)
-        back_track(start, end-1, cnt + 1)
+    
+    back_track(start, end+1, cnt + 1)
+    back_track(start, end-1, cnt + 1)
 
 back_track(start, end, 0)
 print(result)
