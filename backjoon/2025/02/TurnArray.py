@@ -8,7 +8,7 @@ input = sys.stdin.readline
 row_cnt, col_cnt, turn_cnt = list(map(int, input().split()))
 location = []
 
-for _ in range(col_cnt):
+for _ in range(row_cnt):
     location.append(list(map(int, input().split())))
 
 def rotate_dq(start_r, start_c, end_r, end_c):
@@ -25,7 +25,7 @@ def rotate_dq(start_r, start_c, end_r, end_c):
     for c in range(end_c-1, start_c -1, -1):
         now_target.append(location[end_r][c])
     # 좌 라인의 값을 넣는 로직
-    for r in range(end_c-1, start_c, -1):
+    for r in range(end_r-1, start_r, -1):
         now_target.append(location[r][start_c])
     now_target.rotate(-turn_cnt)
 
@@ -35,7 +35,7 @@ def rotate_dq(start_r, start_c, end_r, end_c):
         location[r][end_c] = now_target.popleft()
     for c in range(end_c-1,start_c-1, -1):
         location[end_r][c] = now_target.popleft()
-    for r in range(end_c-1, start_c, -1):
+    for r in range(end_r-1, start_r, -1):
         location[r][start_c] = now_target.popleft()
 
 s_row, s_col, e_row, e_col = 0, 0, row_cnt-1, col_cnt-1
