@@ -16,30 +16,26 @@ for _ in range(city_cnt):
 
 for go in range(city_cnt):
     for end in range(city_cnt):
-        if go != end:
-            heapq.heappush(loc_map[go], (location[go][end],end))
+        if go != end and location[go][end] != 0:
+            loc_map[go].append((end, location[go][end]))
 
-def dfs(start_node):
-    visited = set()
-    path = deque([start_node])
-    result = 0
-    temp_loc_map = copy.deepcopy(loc_map)
-    while path:
-        now_node = path.popleft()
-        visited.add(now_node)
-        if len(visited) == city_cnt:
-            result += location[now_node][start_node]
-            return result
-        while temp_loc_map[now_node]:
-            temp_val, temp_node = heapq.heappop(temp_loc_map[now_node])
-            if temp_node not in visited:
-                result += temp_val
-                visited.add(temp_node)
-                path.append(temp_node)
-                break
+def dfs(start_node, now_node, visited, value):
+    global temp
+    if len(visited) == city_cnt-1 :
+            if location[now_node][start_node] != 0:
+                temp = min(temp, value + location[now_node][start_node])
+    else:
+        for next_node, next_val in loc_map[now_node]:
+            if next_node not in visited and next_node != start_node:
+                visited.add(next_node)
+                dfs(start_node, next_node, visited, value + next_val)
+                visited.remove(next_node)
+
 
 answer = INT_MAX
 for idx in range(city_cnt):
-    answer = min(answer, dfs(idx))
+    temp = INT_MAX
+    dfs(idx, idx, set(), 0)
+    answer = min(answer, temp)
 print(answer)
 
