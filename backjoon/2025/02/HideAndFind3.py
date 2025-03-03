@@ -17,19 +17,21 @@ def backTracking(now, time):
         now_go, now_time = next_go.popleft()
         if now_go == sibling:
             answer = min(answer, now_time)
-        
-        if now_go * 2 < 100001 and visited[now_go * 2] >= now_time:
-            visited[now_go * 2] = now_time
-            next_go.append((now_go * 2, now_time))
-            
-        if now_go - 1 >= 0 and visited[now_go - 1] > now_time:
-            next_go.append((now_go - 1, now_time + 1))
-            visited[now_go - 1] = now_time
+        else:
+            if now_go * 2 < 100001 and visited[now_go * 2] > now_time:
+                visited[now_go * 2] = now_time
+                next_go.append((now_go * 2, now_time))
+
+            if now_go + 1 < 100001 and visited[now_go + 1] > now_time:
+                next_go.append((now_go + 1, now_time + 1))
+                visited[now_go + 1] = now_time + 1
+
+            if now_go - 1 >= 0 and visited[now_go - 1] > now_time:
+                next_go.append((now_go - 1, now_time + 1))
+                visited[now_go - 1] = now_time + 1
 
 
-        if now_go + 1 < 100001 and visited[now_go + 1] > now_time:
-            next_go.append((now_go + 1, now_time + 1))
-            visited[now_go + 1] = now_time
+
 
         
 
