@@ -7,8 +7,8 @@ input = sys.stdin.readline
 
 col_cnt, row_cnt = list(map(int, input().split()))
 maze = []
-move_r = [1,0]
-move_c = [0,1]
+move_r = [1,0,-1,0]
+move_c = [0,1,0,-1]
 answer = sys.maxsize
 for idx in range(row_cnt):
     temp = list(input())
@@ -25,7 +25,7 @@ def bfs():
         if now_row == row_cnt -1 and now_col == col_cnt -1:
             answer = min(answer, now_val)
         
-        for move_idx in range(2):
+        for move_idx in range(4):
             next_row, next_col = now_row + move_r[move_idx], now_col + move_c[move_idx]
             if 0 <= next_row < row_cnt and 0 <= next_col < col_cnt:
                 if maze[next_row][next_col] == '0':
